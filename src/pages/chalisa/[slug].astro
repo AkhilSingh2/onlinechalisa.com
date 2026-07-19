@@ -1,0 +1,547 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ReaderControls from '../../components/ReaderControls.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { transliterate } from '../../lib/transliterate';
+
+export async function getStaticPaths() {
+  const entries = await getCollection('chalisas');
+  return entries.map((entry) => ({
+    params: { slug: entry.data.slug },
+    props: { entry },
+  }));
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+
+const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
+const idx = all.findIndex((e) => e.data.slug === data.slug);
+const prev = idx > 0 ? all[idx - 1] : null;
+const next = idx < all.length - 1 ? all[idx + 1] : null;
+
+// Pre-render every script variant at build time so switching is
+// instant and no client transliterator has to ship.
+const scripts = [
+  { code: 'hi', klass: 'script-hi', text: (hi: string) => hi },
+  { code: 'te', klass: 'script-te', text: (hi: string) => transliterate(hi, 'telugu') },
+  { code: 'ta', klass: 'script-ta', text: (hi: string) => transliterate(hi, 'tamil') },
+  { code: 'kn', klass: 'script-kn', text: (hi: string) => transliterate(hi, 'kannada') },
+  { code: 'bn', klass: 'script-bn', text: (hi: string) => transliterate(hi, 'bengali') },
+] as const;
+
+// ────────── Per-Chalisa SEO ──────────
+const siteUrl = 'https://onlinechalisa.com';
+const url = `${siteUrl}/chalisa/${data.slug}`;
+const isHanuman = data.slug === 'hanuman';
+
+const seoTitle = isHanuman
+  ? 'Hanuman Chalisa — Lyrics in Hindi, English, Telugu, Kannada & Tamil | Online Chalisa'
+  : `${data.title} — Lyrics in Hindi, English, Telugu, Kannada & Tamil | Online Chalisa`;
+
+const seoDescription = isHanuman
+  ? 'Read the Shri Hanuman Chalisa lyrics — 40 verses by Tulsidas — in Hindi (Devanagari), English transliteration, Telugu, Kannada and Tamil. Free ad-free reader with synced audio, auto-scroll paath and Sankalp tracker.'
+  : `${data.description} Read the ${data.title} in Hindi, English, Telugu, Kannada and Tamil — free, ad-free, with audio and auto-scroll.`;
+
+const seoKeywords = isHanuman
+  ? [
+      'Hanuman Chalisa',
+      'hanuman chalisa lyrics',
+      'hanuman chalisa in english',
+      'hanuman chalisa in hindi',
+      'hanuman chalisa telugu',
+      'hanuman chalisa in kannada',
+      'hanuman chalisa in tamil',
+      'hanuman chalisa lyrics in english',
+      'hanuman chalisa lyrics in hindi',
+      'shri hanuman chalisa',
+      'shree hanuman chalisa',
+      'hariharan shree hanuman chalisa',
+      'hariharan shree hanuman chalisa lyrics',
+      'hanuman chalisa paath',
+      'hanuman chalisa english',
+      'hanuman chalisa hindi',
+    ].join(', ')
+  : `${data.title}, ${data.title} lyrics, ${data.title} in hindi, ${data.title} in english, ${data.title} in telugu, ${data.title} in kannada, ${data.title} in tamil, ${data.deity} chalisa, chalisa paath`;
+
+const alternateNames = isHanuman
+  ? [
+      'Shri Hanuman Chalisa',
+      'Shree Hanuman Chalisa',
+      'Hanuman Chalisa Lyrics',
+      'हनुमान चालीसा',
+      'హనుమాన్ చాలీసా',
+      'ಹನುಮಾನ್ ಚಾಲೀಸ',
+      'ஹனுமான் சாலிசா',
+    ]
+  : [data.title];
+
+// ────────── FAQ content ──────────
+// Every chalisa gets its own FAQ block. Questions target the long-tail
+// devotional/how-to queries users search for in Hindi + English
+// (e.g. "kisne likhi hai", "kab padhna chahiye", "kitni baar padhna
+// chahiye", "kya benefits hain"). The Hanuman set is the deepest
+// because it drives the most search traffic.
+type Faq = { q: string; a: string };
+
+const hanumanFaqs: Faq[] = [
+  {
+    q: 'Who wrote the Hanuman Chalisa?',
+    a: 'The Hanuman Chalisa was written by Goswami Tulsidas (गोस्वामी तुलसीदास), the 16th-century saint-poet who also composed the Ramcharitmanas. He is the same author referenced by the Hindi phrases "Hanuman Chalisa kisne likhi", "kisne likha tha" and "kisne likhi hai" — the answer to all of them is Tulsidas.',
+  },
+  {
+    q: 'When was the Hanuman Chalisa written?',
+    a: 'Tulsidas composed the Hanuman Chalisa in the late 16th century, around 1575–1600 CE, during the reign of the Mughal emperor Akbar. Traditional accounts place its composition while Tulsidas was living in Varanasi (Kashi).',
+  },
+  {
+    q: 'What is the Hanuman Chalisa?',
+    a: 'The Hanuman Chalisa is a devotional hymn (stotra) of 40 chaupais (four-line verses) framed by two dohas at the start and one doha at the end, praising Lord Hanuman — the devoted servant of Lord Rama. It is one of the most widely recited prayers in Hinduism and is chanted for courage, protection, health and inner strength.',
+  },
+  {
+    q: 'In which language is the Hanuman Chalisa written?',
+    a: 'The Hanuman Chalisa is written in Awadhi, a language closely related to Hindi and spoken in the Awadh region of northern India. It is written in the Devanagari script and is easily understood by Hindi speakers, which is why it is commonly referred to as "Hanuman Chalisa in Hindi".',
+  },
+  {
+    q: 'What are the benefits of reading the Hanuman Chalisa? (Hanuman Chalisa padhne se kya hota hai?)',
+    a: 'Devotees believe that regular recitation of the Hanuman Chalisa removes fear, obstacles and negative influences, strengthens the mind, and brings courage, focus and inner peace. The Chalisa itself declares — "Bhoot pishaach nikat nahi aavai, Mahaabeer jab naam sunaavai" and "Naasai rog harai sab peeraa, japat nirantar Hanumat beeraa" — meaning constant remembrance of Hanuman destroys illness, pain and evil influences.',
+  },
+  {
+    q: 'How many times should you read the Hanuman Chalisa? (Kitni baar padhna chahiye?)',
+    a: 'There is no fixed rule — even a single sincere reading is meritorious. Traditionally, devotees recite it 1, 7, 11, 21, 27 or 108 times a day depending on their sankalp (spiritual resolve). A common practice is 11 daily readings on Tuesdays and Saturdays, or 108 recitations completed over a 40-day (Mandala) vrat.',
+  },
+  {
+    q: 'When is the best time to read the Hanuman Chalisa? (Kab padhna chahiye?)',
+    a: 'The Hanuman Chalisa can be read at any time, but the most auspicious moments are the Brahma Muhurta (roughly 4–6 AM before sunrise) and sunset (sandhya). Tuesdays and Saturdays are considered especially dedicated to Lord Hanuman. Reading it before sleep is also traditional, believed to keep bad dreams and fear away.',
+  },
+  {
+    q: 'Can women read the Hanuman Chalisa during periods (menstruation)?',
+    a: 'Scripturally, the Hanuman Chalisa itself places no such restriction — it is a hymn of remembrance, not a ritual requiring physical purity. Many spiritual teachers, including contemporary saints, affirm that women can recite the Hanuman Chalisa mentally or aloud during menstruation. The traditional restrictions relate to formal temple rituals and pooja involving idols and offerings, not to reading or reciting devotional hymns.',
+  },
+  {
+    q: 'How many verses does the Hanuman Chalisa contain?',
+    a: 'The Hanuman Chalisa contains 40 chaupais (the word "Chalisa" comes from "chalis", meaning forty), preceded by 2 introductory dohas and followed by 1 concluding doha — a total of 43 verses.',
+  },
+  {
+    q: 'What does the word "Chalisa" mean?',
+    a: 'The word "Chalisa" comes from the Hindi/Awadhi word "chalis" (चालीस), meaning forty. A Chalisa is therefore a devotional composition of forty verses in praise of a deity — such as the Hanuman Chalisa, Durga Chalisa, Shiv Chalisa or Ganesh Chalisa.',
+  },
+];
+
+const shivFaqs: Faq[] = [
+  {
+    q: 'What is the Shiv Chalisa?',
+    a: 'The Shiv Chalisa is a devotional Hindi hymn of forty verses (chaupais) glorifying Lord Shiva — Mahadev, the auspicious one, the ascetic lord of Kailash. It was composed by the 19th-century poet Ayodhya Prasad ("Ayodhyadaas") and is recited especially on Mondays, during the month of Shraavan, and on Maha Shivaratri.',
+  },
+  {
+    q: 'Who wrote the Shiv Chalisa? (Shiv Chalisa kisne likhi?)',
+    a: 'The Shiv Chalisa was written by the devotional poet Ayodhya Prasad, who signs himself as "Ayodhyadaas" inside the opening doha of the hymn — "Kahat Ayodhyaadaas tum, deu abhay varadaan". It is a 19th-century composition in the tradition of Tulsidas\' Hanuman Chalisa.',
+  },
+  {
+    q: 'When should the Shiv Chalisa be recited? (Shiv Chalisa kab padhna chahiye?)',
+    a: 'Monday (Somvar) is the day traditionally dedicated to Lord Shiva. The Shiv Chalisa is also recited during Pradosham (the 13th lunar day), throughout the month of Shraavan (July–August), on Maha Shivaratri, and during any Shiva vrat. Brahma Muhurta and evening pradosha kaal are the most auspicious daily windows.',
+  },
+  {
+    q: 'What are the benefits of reading the Shiv Chalisa?',
+    a: 'Regular recitation is traditionally believed to bring peace of mind, remove fear and obstacles, cure long-standing illnesses, restore harmony in relationships, and grant progeny to devotees performing the trayodashi vrat mentioned in the hymn itself. Above all, it is meant to draw the mind toward the auspicious presence of Mahadev.',
+  },
+  {
+    q: 'What is the correct way to perform Shiv Chalisa paath?',
+    a: 'Bathe, sit facing north or east on a clean asana, light a lamp with mustard oil or ghee, offer bel patra (bilva leaves), white flowers and dhatura if available, and recite the Chalisa with focus. It is customary to precede the paath with "Om Namah Shivaya" and conclude with the aarti and pushpanjali.',
+  },
+];
+
+const ganeshFaqs: Faq[] = [
+  {
+    q: 'What is the Ganesh Chalisa?',
+    a: 'The Ganesh Chalisa is a devotional hymn of forty verses (chaupais) praising Lord Ganesha — Vighnaharta, the remover of obstacles, and the deity invoked at the start of every auspicious undertaking. It narrates his birth, the story of how he received his elephant head, his prathama-pujya status, and the boons he grants to sincere devotees.',
+  },
+  {
+    q: 'When should the Ganesh Chalisa be recited?',
+    a: 'Wednesday is traditionally dedicated to Lord Ganesha, and the Chalisa is also recited on Ganesh Chaturthi (both monthly Sankashti Chaturthi and the annual Vinayaka Chaturthi in Bhadrapada), before beginning any new venture — a business, exam, journey or wedding — and each morning as an obstacle-removing prayer.',
+  },
+  {
+    q: 'What are the benefits of reading the Ganesh Chalisa?',
+    a: 'Devotees believe the Ganesh Chalisa removes obstacles from ongoing work, grants intelligence and clarity of thought, brings success in new beginnings, and blesses the household with prosperity and harmony. Ganesha is the giver of buddhi (wisdom) and siddhi (spiritual accomplishment) — both of which the hymn explicitly invokes.',
+  },
+  {
+    q: 'Why is Ganesha called Prathama Pujya?',
+    a: 'The Chalisa itself tells the story: when Shiva tested his two sons by asking them to circle the universe, Kartikeya set off on his peacock while Ganesha simply circled his parents seven times, declaring "my parents are my universe". Delighted, Shiva declared that Ganesha would forever be worshipped first — Prathama Pujya — before any other deity.',
+  },
+  {
+    q: 'What offerings please Lord Ganesha?',
+    a: 'Modak (Ganesha\'s favourite sweet), durva grass, red hibiscus flowers, coconut and jaggery are the traditional offerings. During the paath a small lamp of ghee is lit, and the hymn is often preceded by "Om Gan Ganapataye Namah" recited 11, 21 or 108 times.',
+  },
+];
+
+const durgaFaqs: Faq[] = [
+  {
+    q: 'What is the Durga Chalisa?',
+    a: 'The Durga Chalisa is a devotional hymn of forty verses to Ma Durga — the fierce protector goddess, slayer of Mahishasura, and universal mother (Jagat Janani). It is one of the core recitations of the Devi tradition and is especially chanted during Navratri.',
+  },
+  {
+    q: 'When should the Durga Chalisa be recited?',
+    a: 'Fridays and Tuesdays are traditionally dedicated to the Devi. The Chalisa is chanted daily during both Chaitra Navratri (March–April) and Sharad Navratri (September–October), on Ashtami and Navami, and during any Devi vrat. Many devotees also recite it before beginning a difficult undertaking, seeking Ma\'s protection.',
+  },
+  {
+    q: 'What are the benefits of reading the Durga Chalisa?',
+    a: 'Regular paath is traditionally believed to grant fearlessness, protection from enemies and negative influences, victory in disputes, physical and mental strength, and the removal of obstacles blocking a devotee\'s progress. The hymn explicitly declares that where Ma\'s glory is sung, "dukh daaridra nikat nahi aave" — sorrow and poverty cannot come near.',
+  },
+  {
+    q: 'How to perform Durga paath at home?',
+    a: 'Bathe and wear clean clothes, ideally red or yellow. Sit facing east on a clean asana, light a ghee lamp before an image or yantra of the Devi, offer red flowers and kumkum, and recite the Chalisa with focus. During Navratri many devotees also observe a fast (vrat) and light an akhand jyot for all nine days.',
+  },
+  {
+    q: 'What forms of Devi are praised in the Durga Chalisa?',
+    a: 'The Chalisa invokes multiple forms of the Divine Mother — Ambe, Bhavani, Annapoorna, Saraswati, Narasimhi, Lakshmi, Kali, Bhairavi, Tara, Matangi, Dhumavati, Bhuvaneshwari and Bagalamukhi — teaching that all the goddesses are one Shakti wearing different names for different needs.',
+  },
+];
+
+const shaniFaqs: Faq[] = [
+  {
+    q: 'What is the Shani Chalisa?',
+    a: 'The Shani Chalisa is a devotional hymn of forty verses to Lord Shani — the son of Surya, dispenser of karmic justice, and the graha (planet) that rewards and punishes based on each soul\'s actions. Reciting it is believed to soften the effects of Shani\'s difficult transits (Sade Sati and Dhaiya).',
+  },
+  {
+    q: 'When should the Shani Chalisa be recited?',
+    a: 'Saturday (Shanivar) is Shani Dev\'s day. The Chalisa is recited daily during Sade Sati and Shani Dhaiya, and every Saturday it is customary to also offer sesame oil to Shani, light a mustard-oil lamp beneath a peepal tree, and give black-cloth or urad-dal daan. Amavasya Saturdays are particularly important.',
+  },
+  {
+    q: 'What are the benefits of reading the Shani Chalisa?',
+    a: 'The Chalisa itself contains the promise: "Jo yah Shani charitra nit gaavai, kabahu na dashaa nikrisht sataavai" — one who sings Shani\'s deeds daily is never oppressed by his adverse dasha. Devotees recite it to reduce hardship during Sade Sati, restore financial stability, resolve stuck legal / karmic matters, and cultivate the patience and discipline that Shani represents.',
+  },
+  {
+    q: 'Who is Shani Dev? (Shani kaun hai?)',
+    a: 'Shani is the son of Surya (the sun-god) and Chhaya, and the brother of Yama, the lord of death. He is Karma-Phaladata — the giver of the fruits of one\'s own actions. He is not "bad"; he is simply strict, giving each being exactly what they have earned. The Chalisa emphasises that sincere devotion softens his stern gaze.',
+  },
+  {
+    q: 'What are the remedies (upay) for Shani dosha?',
+    a: 'Alongside daily Chalisa paath, traditional remedies include: reciting the Shani mantra "Om Sham Shanaischaraya Namah" 108 times on Saturdays, offering black sesame + mustard oil to a peepal tree, feeding crows, donating black cloth, urad dal or iron, and helping the poor and elderly — since serving the underprivileged is said to be the surest way to please Shani Dev.',
+  },
+];
+
+const laxmiFaqs: Faq[] = [
+  {
+    q: 'What is the Laxmi Chalisa?',
+    a: 'The Laxmi Chalisa is a devotional hymn of forty verses to Mahalakshmi — the goddess of wealth, prosperity, beauty and grace, and the eternal consort of Lord Vishnu. It is one of the core recitations for Diwali night, when Ma Lakshmi is invited into every home.',
+  },
+  {
+    q: 'When should the Laxmi Chalisa be recited?',
+    a: 'Fridays are traditionally dedicated to Ma Lakshmi. The Chalisa is chanted daily during the eight-day Vaibhava Lakshmi vrat, on Kojagari Purnima, throughout the month of Kartika, and — most importantly — during Diwali Lakshmi puja, when it is recited alongside the Shri Suktam and Kanakadhara Stotram.',
+  },
+  {
+    q: 'What are the benefits of reading the Laxmi Chalisa?',
+    a: 'Devotees recite it to invoke Ashta Lakshmi — the eight forms of the goddess granting wealth, food, courage, progeny, victory, knowledge, offspring and success. Beyond material prosperity, the Chalisa is understood to bring the deeper wealth of contentment, generosity and a peaceful mind — the abundance that does not depart.',
+  },
+  {
+    q: 'How to perform Laxmi puja at home?',
+    a: 'Clean the house thoroughly (Ma Lakshmi does not enter untidy spaces), light a ghee lamp and diyas at the entrance, place fresh lotus or red flowers before an image of the goddess with Vishnu, offer kheer, batasha and fruits, and recite the Chalisa followed by the Lakshmi Aarti. Many families keep a silver coin in the puja thali as a symbol of blessing.',
+  },
+  {
+    q: 'Why is Ma Lakshmi shown with Lord Vishnu?',
+    a: 'Lakshmi and Vishnu are inseparable — dharma (Vishnu) and shakti/wealth (Lakshmi) sustain the universe together. The Chalisa recalls how, whenever Vishnu takes an avatar, Lakshmi follows: as Sita with Rama, as Rukmini with Krishna. True prosperity, the hymn teaches, always accompanies righteousness.',
+  },
+];
+
+const saraswatiFaqs: Faq[] = [
+  {
+    q: 'What is the Saraswati Chalisa?',
+    a: 'The Saraswati Chalisa is a devotional hymn of forty verses to Ma Saraswati — the goddess of learning, music, speech and the fine arts. Depicted holding a veena and a book while seated on a white swan, she is the giver of wisdom (vidya-daayini) and the muse of every poet and student.',
+  },
+  {
+    q: 'When should the Saraswati Chalisa be recited?',
+    a: 'Basant Panchami (in late January or early February) is the most auspicious day — the day Ma Saraswati was born and children are traditionally introduced to their first letters (Vidyarambham / Akshara-abhyasam). The Chalisa is also chanted daily by students before exams, during Navratri (especially on Saraswati Puja day in Sharad Navratri), and by artists before performances.',
+  },
+  {
+    q: 'What are the benefits of reading the Saraswati Chalisa?',
+    a: 'Regular paath is traditionally believed to sharpen intellect and memory, improve concentration, grant clarity in speech and writing, remove obstacles to learning, and bestow success in exams and creative pursuits. The Chalisa itself declares: even the mute become eloquent, and the dull-witted become wise, by the goddess\'s grace.',
+  },
+  {
+    q: 'What offerings please Ma Saraswati?',
+    a: 'White is the colour of Saraswati — white flowers (especially white lotus and jasmine), white sandalwood paste, white sweets like kheer or coconut ladoo, and yellow items such as basant-yellow flowers and turmeric on Basant Panchami. Books, pens and musical instruments are placed at her feet for blessing and are not used during the puja itself.',
+  },
+  {
+    q: 'Can students recite Saraswati Chalisa before exams?',
+    a: 'Yes — this is one of the most traditional uses of the hymn. Students recite it daily during exam season, especially in the morning after a bath, and often keep a copy of their textbooks in the puja space overnight. The Chalisa is understood not as a shortcut but as a way of steadying the mind so that hard-earned knowledge can flow freely under pressure.',
+  },
+];
+
+const faqsBySlug: Record<string, Faq[]> = {
+  hanuman: hanumanFaqs,
+  shiv: shivFaqs,
+  ganesh: ganeshFaqs,
+  durga: durgaFaqs,
+  shani: shaniFaqs,
+  laxmi: laxmiFaqs,
+  saraswati: saraswatiFaqs,
+};
+
+const chalisaFaqs = faqsBySlug[data.slug] ?? [];
+const faqHeading = `About the ${data.title}`;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Chalisas', item: siteUrl + '/#chalisas' },
+      { '@type': 'ListItem', position: 3, name: data.title, item: url },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: data.title,
+    alternateName: alternateNames,
+    headline: data.title,
+    description: seoDescription,
+    inLanguage: ['hi', 'en', 'te', 'kn', 'ta', 'bn'],
+    url,
+    about: {
+      '@type': 'Thing',
+      name: data.deity,
+    },
+    ...(isHanuman
+      ? {
+          author: { '@type': 'Person', name: 'Goswami Tulsidas' },
+          dateCreated: '1600',
+          genre: ['Devotional hymn', 'Bhakti poetry', 'Awadhi literature'],
+          keywords: seoKeywords,
+        }
+      : {
+          keywords: seoKeywords,
+        }),
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Online Chalisa',
+      url: siteUrl + '/',
+    },
+    ...(data.audioUrl
+      ? {
+          audio: {
+            '@type': 'AudioObject',
+            contentUrl: data.audioUrl,
+            name: `${data.title} — audio recitation`,
+          },
+        }
+      : {}),
+  },
+];
+
+if (isHanuman) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: hanumanFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `<p>${f.a}</p>`,
+      },
+    })),
+  });
+} else if (chalisaFaqs.length > 0) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: chalisaFaqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: `<p>${f.a}</p>`,
+      },
+    })),
+  });
+}
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDescription}
+  keywords={seoKeywords}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <Header />
+
+  <main id="main" class="pb-40">
+    <ReaderControls slug={data.slug} audioUrl={data.audioUrl} />
+
+    <article class="reader mx-auto max-w-2xl px-4 pt-8 sm:px-6 sm:pt-14">
+      <header class="mb-10 text-center">
+        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+          {data.tradition ?? data.deity}
+        </p>
+        <h1
+          class="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight text-(--ink) sm:text-5xl"
+        >
+          {data.title}
+        </h1>
+        <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
+          {data.tagline}
+        </p>
+        <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
+      </header>
+
+      <ol class="space-y-9 text-center" role="list">
+        {
+          data.verses.map((v, i) => (
+            <li
+              class="verse group relative"
+              id={`v-${i}`}
+              data-type={v.type}
+              aria-label={`Verse ${i + 1}`}
+            >
+              <div class="flex flex-col items-center gap-1.5">
+                {scripts.map((s) => (
+                  <p
+                    class:list={['verse-line', s.klass]}
+                    data-script={s.code}
+                    lang={s.code === 'hi' ? 'hi' : s.code === 'te' ? 'te' : s.code === 'ta' ? 'ta' : s.code === 'bn' ? 'bn' : 'kn'}
+                  >
+                    {s.text(v.hi)}
+                  </p>
+                ))}
+                <p class="verse-line script-en" data-script="en" lang="en">
+                  {v.en}
+                </p>
+              </div>
+              {v.type !== 'doha' && v.n > 0 && (
+                <span
+                  class="absolute -left-8 top-2 hidden font-mono text-[10px] text-(--mute) sm:block"
+                  aria-hidden="true"
+                >
+                  {String(v.n).padStart(2, '0')}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+
+      <footer class="mt-16 border-t border-(--hairline) pt-8 text-center">
+        <p class="font-serif text-xl text-(--ink)">॥ इति श्री {data.title} ॥</p>
+        <p class="mt-2 text-sm text-(--body)">May your reading bring you peace.</p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {
+            prev ? (
+              <a
+                href={`/chalisa/${prev.data.slug}`}
+                class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+              >
+                <Icon name="arrow" size={14} class="rotate-180" />
+                {prev.data.title}
+              </a>
+            ) : (
+              <a
+                href="/"
+                class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+              >
+                <Icon name="arrow" size={14} class="rotate-180" />
+                Home
+              </a>
+            )
+          }
+          {
+            next && (
+              <a
+                href={`/chalisa/${next.data.slug}`}
+                class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
+              >
+                {next.data.title}
+                <Icon name="arrow" size={14} />
+              </a>
+            )
+          }
+        </div>
+      </footer>
+    </article>
+
+    {
+      chalisaFaqs.length > 0 && (
+        <section
+          class="mx-auto mt-16 max-w-2xl px-4 sm:px-6"
+          aria-labelledby="faq-heading"
+        >
+          <div class="border-t border-(--hairline) pt-12">
+            <p class="text-center font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+              Frequently Asked
+            </p>
+            <h2
+              id="faq-heading"
+              class="mt-3 text-center font-serif text-2xl font-medium leading-tight tracking-tight text-(--ink) sm:text-3xl"
+            >
+              {faqHeading}
+            </h2>
+            <p class="mx-auto mt-3 max-w-md text-center text-[15px] leading-relaxed text-(--body)">
+              Answers to the most common questions about this Chalisa — its origin, meaning and daily practice.
+            </p>
+            <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true" />
+
+            <div class="mt-10 space-y-3">
+              {chalisaFaqs.map((f, i) => (
+                <details
+                  class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)"
+                  open={i === 0}
+                >
+                  <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+                    <span>{f.q}</span>
+                    <span
+                      class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition"
+                      aria-hidden="true"
+                    />
+                  </summary>
+                  <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+                    <p>{f.a}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+  </main>
+
+  <AudioPlayer
+    title={data.title}
+    audioUrl={data.audioUrl}
+    audioAttribution={data.audioAttribution}
+  />
+
+  <Footer />
+</Layout>
+
+<script is:inline>
+  // Auto-mark today's Sankalp when a reader finishes 80% of a chalisa page.
+  (function () {
+    const KEY = 'oc-sankalp-v1';
+    let notified = false;
+    function onScroll() {
+      if (notified) return;
+      const total = document.body.scrollHeight - window.innerHeight;
+      if (total <= 0) return;
+      const pct = window.scrollY / total;
+      if (pct >= 0.8) {
+        notified = true;
+        try {
+          const raw = localStorage.getItem(KEY);
+          const s = raw ? JSON.parse(raw) : { length: 11, days: {} };
+          const t = new Date().toISOString().slice(0, 10);
+          if (!s.days[t]) {
+            s.days[t] = true;
+            localStorage.setItem(KEY, JSON.stringify(s));
+          }
+        } catch (e) {}
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>

@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+---
+
+<Layout
+  title="About · Online Chalisa"
+  description="Why Online Chalisa exists — a distraction-free, ad-free, privacy-respecting home for sacred Hindu hymns."
+>
+  <Header />
+
+  <main id="main" class="pb-24">
+    <article class="mx-auto max-w-2xl px-5 pt-16 sm:px-6 sm:pt-24">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">About</p>
+      <h1 class="mt-3 font-serif text-4xl font-medium leading-tight tracking-tight text-(--ink) sm:text-5xl">
+        A sanctuary, not a website.
+      </h1>
+
+      <div class="reader mt-8 space-y-6 text-(--body)">
+        <p>
+          Online Chalisa was built for one reason: the sacred texts most people love — Hanuman
+          Chalisa, Shiv Chalisa, Ganesh, Durga, Shani — are trapped on the modern web behind
+          banner ads, autoplay video, popup subscriptions, and menus for cricket scores.
+        </p>
+        <p>
+          None of that belongs anywhere near a hymn.
+        </p>
+        <p>
+          So we built the opposite. A quiet page. Warm typography. A sepia mode for warm morning
+          reading and a true dark mode for night. A single button to hide every scrap of interface.
+          A hands-free teleprompter for older devotees who prefer to read seated with folded hands.
+          Optional audio at the bottom, ready to fade away when you enter <em>Zen mode</em>.
+        </p>
+
+        <h2 class="pt-4 font-serif text-2xl font-medium text-(--ink)">What we don't do</h2>
+        <ul class="space-y-2 pl-5">
+          <li class="list-disc">No advertisements, ever.</li>
+          <li class="list-disc">No third-party trackers or analytics of your reading.</li>
+          <li class="list-disc">No account, sign-up, or email required.</li>
+          <li class="list-disc">No push notifications or nagging reminders.</li>
+        </ul>
+
+        <h2 class="pt-4 font-serif text-2xl font-medium text-(--ink)">Sankalp is yours</h2>
+        <p>
+          The streak tracker lives entirely in your browser's local storage. It never leaves your
+          device. If you clear browser data, it will reset — that is the price of privacy, and
+          we think it's a fair one.
+        </p>
+
+        <h2 class="pt-4 font-serif text-2xl font-medium text-(--ink)">On the text</h2>
+        <p>
+          The Devanagari verses and Roman transliterations are drawn from long-standing devotional
+          traditions and cross-referenced against multiple published editions. If you spot an
+          error, please let us know — accuracy in scripture is a matter of care.
+        </p>
+
+        <p class="pt-4 text-center font-serif text-lg text-(--ink)">
+          ॥ शुभम् अस्तु ॥
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <Footer />
+</Layout>

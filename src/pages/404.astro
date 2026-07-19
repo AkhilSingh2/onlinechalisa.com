@@ -1,0 +1,64 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Page not found · Online Chalisa"
+  description="This page has wandered off the path. Return to the Chalisa library and continue your reading."
+  noindex={true}
+>
+  <Header />
+
+  <main id="main" class="pb-24">
+    <section class="relative overflow-hidden">
+      <div class="halo pointer-events-none absolute inset-0 -z-10 opacity-70" aria-hidden="true"></div>
+
+      <div class="mx-auto max-w-2xl px-5 pb-16 pt-20 text-center sm:px-6 sm:pt-28">
+        <div class="mb-8 flex justify-center" aria-hidden="true">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-(--accent-soft) text-(--accent) shadow-[0_0_0_1px_var(--hairline)_inset]">
+            <img src="/diya.svg" alt="" width="30" height="30" class="opacity-90" />
+          </span>
+        </div>
+
+        <p class="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+          404 · Page not found
+        </p>
+
+        <h1 class="font-serif text-4xl font-medium leading-[1.1] tracking-tight text-(--ink) sm:text-6xl">
+          The path here is<br class="hidden sm:inline" />
+          <em class="text-(--accent) not-italic">not yet paved.</em>
+        </h1>
+
+        <p class="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-(--body) sm:text-[17px]">
+          The page you were looking for does not exist — or has moved. No matter. The Chalisa
+          library is only a step away, and the words are waiting for you.
+        </p>
+
+        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+          <a
+            href="/"
+            class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full bg-(--ink) px-6 py-3 text-sm font-medium text-(--canvas) transition hover:opacity-90 sm:w-auto"
+          >
+            Return home
+            <Icon name="arrow" size={14} />
+          </a>
+          <a
+            href="/#chalisas"
+            class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-6 py-3 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong) sm:w-auto"
+          >
+            Browse the library
+          </a>
+        </div>
+
+        <p class="mx-auto mt-12 max-w-md font-serif text-lg italic text-(--body)">
+          “Even the wandering breath returns to its source.”
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>

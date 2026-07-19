@@ -1,11 +1,499 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import ChalisaCard from '../components/ChalisaCard.astro';
+import StreakTracker from '../components/StreakTracker.astro';
+import Icon from '../components/Icon.astro';
+import { getCollection } from 'astro:content';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const entries = (await getCollection('chalisas')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+
+const siteUrl = 'https://onlinechalisa.com';
+
+const seoTitle =
+  'Hanuman Chalisa Lyrics in Hindi, English, Telugu, Kannada & Tamil · Online Chalisa';
+const seoDescription =
+  'Read the Shri Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil in a free, ad-free reader. Sync audio, auto-scroll paath and track your 11 / 21 / 40-day sankalp — plus Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisa.';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Online Chalisa',
+    alternateName: ['Hanuman Chalisa Online', 'Shri Hanuman Chalisa Reader'],
+    url: siteUrl + '/',
+    description: seoDescription,
+    inLanguage: ['en', 'hi', 'te', 'kn', 'ta', 'bn'],
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: {
+        '@type': 'EntryPoint',
+        urlTemplate: siteUrl + '/?q={search_term_string}',
+      },
+      'query-input': 'required name=search_term_string',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Online Chalisa',
+      url: siteUrl + '/',
+      logo: {
+        '@type': 'ImageObject',
+        url: siteUrl + '/apple-touch-icon.png',
+        width: 512,
+        height: 512,
+      },
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Chalisa library',
+    itemListOrder: 'https://schema.org/ItemListOrderAscending',
+    numberOfItems: entries.length,
+    itemListElement: entries.map((e, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      url: `${siteUrl}/chalisa/${e.data.slug}`,
+      name: e.data.title,
+    })),
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: [
+      {
+        '@type': 'Question',
+        name: 'What is a Chalisa?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A Chalisa is a devotional Hindu hymn of forty verses ("chalis" means forty in Hindi) composed in praise of a deity. The most well-known is the Hanuman Chalisa by Goswami Tulsidas; other widely recited Chalisas honour Shiva, Ganesha, Durga, Shani, Lakshmi and Saraswati.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the Hanuman Chalisa?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The Hanuman Chalisa is a 40-verse devotional hymn composed by Goswami Tulsidas in the 16th century in the Awadhi language, praising Lord Hanuman — the immortal devotee of Shri Ram — for his strength, wisdom and boundless bhakti.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How do I use this site?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Pick any Chalisa from the library. Inside the reader, use the toolbar to switch between Hindi, Telugu, Tamil, Kannada, Bengali and English scripts; toggle the "Show English" pill to see Latin transliteration beneath the primary script; tap Auto-scroll for a hands-free teleprompter mode; or tap Zen to hide all chrome. Your preferences (theme, script, font size) are remembered on this device.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Can I read the Chalisas in Telugu, Kannada, Tamil or Bengali?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes. Every verse on Online Chalisa is available in Hindi (Devanagari), Telugu, Kannada, Tamil, Bengali and English transliteration. A single tap in the reader switches script; another tap layers the English lyrics beneath your primary script.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'Is Online Chalisa free? Are there ads?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Yes, completely free. No ads, no account, no newsletter, no tracking. Your Sankalp streak lives in your browser and is never sent to any server. The site works offline once loaded.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'How many times should I recite the Hanuman Chalisa daily?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'Traditional Hanuman Chalisa paath is one recitation each morning, most auspiciously on Tuesdays and Saturdays. Devotees observing a sankalp typically vow 11, 21 or 40 consecutive days — the tracker on this site helps you count.',
+        },
+      },
+      {
+        '@type': 'Question',
+        name: 'What is the Sankalp streak tracker?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'A Sankalp is a spiritual resolve — traditionally a commitment to recite a chalisa for 11, 21 or 40 consecutive days. The tracker on this site automatically marks a day complete when you read 80% of any Chalisa page. It lives entirely in your browser; clearing site data clears the record.',
+        },
+      },
+    ],
+  },
+];
 ---
 
-<Layout>
-	<Welcome />
+<Layout title={seoTitle} description={seoDescription} jsonLd={jsonLd}>
+  <Header />
+
+  <main id="main">
+    {/* ───────── Hero ───────── */}
+    <section class="relative overflow-hidden">
+      <div class="halo pointer-events-none absolute inset-0 -z-10 opacity-80" aria-hidden="true"></div>
+
+      <div class="mx-auto max-w-3xl px-4 pb-16 pt-14 text-center sm:px-6 sm:pb-20 sm:pt-24">
+        {/* Diya glyph — the single decorative gesture at the top of the page. */}
+        <div class="mb-8 flex justify-center" aria-hidden="true">
+          <span class="inline-flex h-14 w-14 items-center justify-center rounded-full bg-(--accent-soft) text-(--accent) shadow-[0_0_0_1px_var(--hairline)_inset]">
+            <img src="/diya.svg" alt="" width="30" height="30" class="opacity-90" />
+          </span>
+        </div>
+
+        {/* Sanskrit invocation — sets a devotional register instead of a landing-page tone. */}
+        <p
+          class="mb-4 font-[var(--font-deva)] text-base leading-relaxed text-(--accent) sm:text-lg"
+          lang="sa"
+        >
+          ॐ श्री गणेशाय नमः
+        </p>
+
+        <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-tight text-(--ink) sm:text-6xl md:text-7xl">
+          A quiet place<br class="hidden sm:inline" /> for your daily <em class="text-(--accent) not-italic">Chalisa</em>.
+        </h1>
+
+        <p class="mx-auto mt-6 max-w-xl text-[16px] leading-relaxed text-(--body) sm:text-[17px]">
+          Read the <strong class="font-medium text-(--ink)">Hanuman Chalisa</strong> and six more of the most-loved
+          Chalisas in Hindi, Telugu, Tamil, Kannada, Bengali or English — in a distraction-free reader
+          designed for daily paath, not for clicks.
+        </p>
+
+        <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
+          <a
+            href="/chalisa/hanuman"
+            class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full bg-(--ink) px-6 py-3 text-sm font-medium text-(--canvas) transition hover:opacity-90 sm:w-auto"
+          >
+            Begin with Hanuman Chalisa
+            <Icon name="arrow" size={14} />
+          </a>
+          <a
+            href="#chalisas"
+            class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-6 py-3 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong) sm:w-auto"
+          >
+            Browse the library
+          </a>
+        </div>
+
+        {/* Script chips — subtle proof that regional scripts are first-class. */}
+        <div class="mx-auto mt-10 flex max-w-md flex-wrap items-center justify-center gap-2">
+          <span class="font-mono text-[10px] uppercase tracking-[0.2em] text-(--mute)">Available in</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">हिन्दी</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">తెలుగు</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">தமிழ்</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">ಕನ್ನಡ</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">বাংলা</span>
+          <span class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-2.5 py-1 text-xs text-(--body)">English</span>
+        </div>
+      </div>
+    </section>
+
+    {/* ───────── Chalisa grid ───────── */}
+    <section id="chalisas" class="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24">
+      <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+        <div>
+          <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Library</p>
+          <h2 class="mt-2 font-serif text-3xl font-medium tracking-tight text-(--ink) sm:text-4xl">
+            The seven Chalisas.
+          </h2>
+        </div>
+        <p class="max-w-sm text-sm leading-relaxed text-(--body)">
+          Verified Devanagari text, transliterated into Telugu, Tamil, Kannada and English for
+          every verse. Pick one and start reading — the controls stay out of your way.
+        </p>
+      </div>
+
+      <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          entries.map((e) => (
+            <ChalisaCard
+              slug={e.data.slug}
+              title={e.data.title}
+              deity={e.data.deity}
+              tagline={e.data.tagline}
+              tradition={e.data.tradition}
+              color={e.data.color}
+              order={e.data.order}
+              verseCount={e.data.verses.length}
+            />
+          ))
+        }
+      </div>
+    </section>
+
+    {/* ───────── Feature strip ───────── */}
+    <section class="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+      <div class="grid gap-4 md:grid-cols-3">
+        <article class="surface-card p-6">
+          <div class="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-md bg-(--accent-soft) text-(--accent)">
+            <Icon name="zen" size={16} />
+          </div>
+          <h3 class="font-serif text-xl font-medium text-(--ink)">Zen Reader</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-(--body)">
+            One tap collapses the entire interface. Just the words, breathing on the page.
+          </p>
+        </article>
+        <article class="surface-card p-6">
+          <div class="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-md bg-(--accent-soft) text-(--accent)">
+            <Icon name="scroll" size={16} />
+          </div>
+          <h3 class="font-serif text-xl font-medium text-(--ink)">Teleprompter mode</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-(--body)">
+            Hands-free auto-scroll with a five-step speed dial. Read seated, folded, or standing.
+          </p>
+        </article>
+        <article class="surface-card p-6">
+          <div class="mb-4 inline-flex h-8 w-8 items-center justify-center rounded-md bg-(--accent-soft) text-(--accent)">
+            <Icon name="sparkle" size={16} />
+          </div>
+          <h3 class="font-serif text-xl font-medium text-(--ink)">Sankalp streak</h3>
+          <p class="mt-1.5 text-sm leading-relaxed text-(--body)">
+            11, 21, or 40 days. Tick each day. Progress lives on your device — nowhere else.
+          </p>
+        </article>
+      </div>
+    </section>
+
+    {/* ───────── Sankalp CTA ───────── */}
+    <section class="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
+      <StreakTracker />
+    </section>
+
+    {/* ───────── Philosophy ───────── */}
+    <section class="mx-auto max-w-3xl px-4 pt-24 text-center sm:px-6">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Our promise</p>
+      <p class="mx-auto mt-4 font-serif text-2xl leading-[1.4] tracking-tight text-(--ink) sm:text-3xl">
+        No banners. No newsletters. No cricket scores. No donations you didn't ask about.
+        <span class="text-(--accent)"> Only the hymn.</span>
+      </p>
+    </section>
+
+    {/* ───────── Global FAQ ─────────
+        Short, orientation-focused answers to the questions first-time
+        visitors ask ("what is a chalisa", "how do I use this site").
+        Per-deity FAQs live on each chalisa page. */}
+    <section
+      id="faq"
+      class="mx-auto mt-24 max-w-2xl px-4 sm:px-6"
+      aria-labelledby="faq-home-heading"
+    >
+      <div class="border-t border-(--hairline) pt-16 text-center">
+        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Frequently Asked</p>
+        <h2
+          id="faq-home-heading"
+          class="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight text-(--ink) sm:text-4xl"
+        >
+          Quick answers.
+        </h2>
+        <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
+          The basics of what a Chalisa is, and how this reader is designed to be used.
+        </p>
+        <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
+      </div>
+
+      <div class="mt-10 space-y-3 text-left">
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)" open>
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>What is a Chalisa?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              A Chalisa is a devotional Hindu hymn of forty verses (<em>chalis</em> means forty in Hindi)
+              composed in praise of a deity. The most famous is the Hanuman Chalisa by Goswami Tulsidas.
+              This library also includes Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisas.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>How do I use this site?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              Pick any Chalisa from the library. Inside the reader, use the toolbar to switch
+              between Hindi, Telugu, Tamil, Kannada, Bengali and English scripts; toggle
+              <em> Show English</em> to see Latin transliteration beneath the primary script; tap
+              <em> Auto-scroll</em> for a hands-free teleprompter, or <em>Zen</em> to hide all chrome.
+              Your preferences (theme, script, font size) are remembered on this device.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>Which languages and scripts are supported?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              Every verse of every Chalisa is rendered in six scripts: Hindi (Devanagari), Telugu,
+              Tamil, Kannada, Bengali and English (Latin transliteration). The regional scripts
+              are transliterated character-by-character from the canonical Devanagari, so the
+              pronunciation stays identical across all readings.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>Is this reader free? Are there ads?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              Completely free. No ads, no account, no newsletter, no tracking. Your
+              Sankalp streak lives in your browser and is never sent to any server. The site
+              works offline once loaded.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>What is Sankalp, and how does the streak tracker work?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              A <em>Sankalp</em> is a spiritual resolve — traditionally a commitment to recite a
+              Chalisa for 11, 21 or 40 consecutive days. The tracker automatically marks a day
+              complete when you read 80% of any Chalisa page. It lives entirely in your browser;
+              clearing your site data clears the record.
+            </p>
+          </div>
+        </details>
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)">
+          <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+            <span>Who writes and verifies these texts?</span>
+            <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+          </summary>
+          <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+            <p>
+              The Devanagari verses follow widely-accepted traditional editions of each Chalisa.
+              Regional script versions are generated deterministically at build time from the
+              Devanagari source, so any correction to the master text propagates to every script.
+              Found a typo? Let us know via the <a class="underline decoration-(--hairline-strong) underline-offset-4 hover:text-(--ink)" href="/about">About page</a>.
+            </p>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    {/* ───────── SEO / long-form article ───────── */}
+    <section
+      id="about-online-chalisa"
+      class="mx-auto mt-24 max-w-3xl px-4 pb-8 sm:px-6"
+      aria-labelledby="about-heading"
+    >
+      <div class="mb-10 border-t border-(--hairline) pt-16 text-center">
+        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">About</p>
+        <h2
+          id="about-heading"
+          class="mt-2 font-serif text-3xl font-medium tracking-tight text-(--ink) sm:text-4xl"
+        >
+          The Hanuman Chalisa, quietly online.
+        </h2>
+      </div>
+
+      <div class="prose-oc space-y-5 text-[15.5px] leading-[1.75] text-(--body)">
+        <p>
+          The <strong class="text-(--ink)">Hanuman Chalisa</strong> is a forty-verse devotional hymn
+          composed by the poet-saint Goswami Tulsidas in the Awadhi language sometime in the
+          sixteenth century. Recited by tens of millions of devotees every dawn, it is a compact
+          spiritual biography of Lord Hanuman — the immortal servant of Shri Ram — and a promise
+          that his name, sincerely called, dissolves fear, disease and doubt. Online Chalisa is a
+          quiet, ad-free reader built to help you say those forty verses well, every day, in
+          whichever tongue speaks to your heart.
+        </p>
+
+        <h3 class="font-serif text-xl font-medium text-(--ink)">
+          Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil
+        </h3>
+        <p>
+          Whether you were raised in Varanasi, Vijayawada, Bengaluru, Chennai or a Silicon Valley
+          suburb, the words should read as easily as your first name. That is why every hymn on
+          this site — the Hanuman Chalisa first among them — is offered in five simultaneous
+          readings. You can read the <strong class="text-(--ink)">Hanuman Chalisa in Hindi</strong>
+          (the original Devanagari of Tulsidas), the
+          <strong class="text-(--ink)">Hanuman Chalisa in Telugu</strong>, the
+          <strong class="text-(--ink)">Hanuman Chalisa in Kannada</strong>, the Hanuman Chalisa
+          in Tamil, or the <strong class="text-(--ink)">Hanuman Chalisa in English</strong>
+          transliteration. A single tap in the reader switches scripts; a second tap layers the
+          Roman <strong class="text-(--ink)">Hanuman Chalisa lyrics in English</strong> beneath
+          your primary script so newcomers can follow along syllable by syllable.
+        </p>
+
+        <h3 class="font-serif text-xl font-medium text-(--ink)">
+          A reader designed for daily paath
+        </h3>
+        <p>
+          The reader was designed with practice, not scroll-depth, in mind. A “Zen” mode collapses
+          every button, header and footer so nothing stands between you and the verse. A
+          teleprompter-style auto-scroll advances the page at your pace — useful when your palms
+          are folded during the morning <strong class="text-(--ink)">Hanuman Chalisa paath</strong>.
+          Font size, theme (light, sepia, or true black), and script preference are remembered on
+          your device between sessions. Nothing is sent to a server; there is no login, no
+          newsletter, no cookie banner, no cricket scores, no donation modal.
+        </p>
+
+        <p>
+          For those beginning a formal vow, the Sankalp Streak Tracker lets you commit to an 11-,
+          21-, or 40-day recitation and marks each day automatically when you complete 80% of the
+          reading. The counter lives in your browser and travels nowhere. If you clear the site
+          data, you clear the record; if you return, it is still there.
+        </p>
+
+        <h3 class="font-serif text-xl font-medium text-(--ink)">
+          Seven Chalisas, one calm reader
+        </h3>
+        <p>
+          The library extends beyond the <strong class="text-(--ink)">Shri Hanuman Chalisa</strong>.
+          Alongside it you will find the Shiv Chalisa, Ganesh Chalisa, Durga Chalisa, Shani Chalisa,
+          Laxmi Chalisa and Saraswati Chalisa — seven of the most-loved hymns in the Hindu
+          tradition, each verified against widely accepted Devanagari sources and hand-transliterated
+          into Telugu, Tamil, Kannada and English. The Hanuman Chalisa on this site follows the
+          canonical text with the traditional two opening dohas, forty chaupais and closing doha
+          intact.
+        </p>
+
+        <h3 class="font-serif text-xl font-medium text-(--ink)">
+          Sing along, or read in silence
+        </h3>
+        <p>
+          Many listeners come to the hymn through the voice of a beloved singer — the
+          <strong class="text-(--ink)">Hariharan Shree Hanuman Chalisa</strong> rendition, the
+          Amitabh Bachchan chorus, or the M. S. Rama Rao Sundara Kanda tradition. The synced audio
+          player here is optional; enable it to hear the verses recited while you read, or leave
+          it silent and let the words carry themselves. Either way, the
+          <strong class="text-(--ink)">Hanuman Chalisa lyrics in Hindi</strong> and their English
+          transliteration stay perfectly aligned on the page.
+        </p>
+
+        <p>
+          If you are searching for the <strong class="text-(--ink)">Hanuman Chalisa in English</strong>,
+          the <strong class="text-(--ink)">Hanuman Chalisa Telugu</strong> text, the Hanuman
+          Chalisa Kannada script, or simply the cleanest way to read the
+          <strong class="text-(--ink)">Shri Hanuman Chalisa</strong> every morning, you are in the
+          right place. Bookmark this page, add it to your home screen, and let the son of the wind
+          visit you at the same hour every day. <span lang="hi">जय श्री राम।</span>
+        </p>
+
+        <div class="pt-6 text-center">
+          <a
+            href="/chalisa/hanuman"
+            class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-6 py-3 text-sm font-medium text-(--canvas) transition hover:opacity-90"
+          >
+            Read the Hanuman Chalisa now
+            <Icon name="arrow" size={14} />
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <Footer />
 </Layout>

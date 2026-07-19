@@ -1,0 +1,426 @@
+@import "tailwindcss";
+
+/* ─────────────────────────────────────────────────────────────
+   Online Chalisa — design tokens
+   Zen sanctuary: minimal ink/canvas system with warm saffron
+   accents and three seamless surface modes (light / sepia / dark).
+   ───────────────────────────────────────────────────────────── */
+
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant sepia (&:where([data-theme="sepia"], [data-theme="sepia"] *));
+
+@theme {
+  /* Type — geometric sans for chrome, humanist serif for reading,
+     dedicated Devanagari face for Hindi text, mono for labels. */
+  --font-sans: "Inter", "Geist", ui-sans-serif, system-ui, -apple-system, "Segoe UI",
+    Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-serif: "Cormorant Garamond", "Iowan Old Style", "Georgia", ui-serif, serif;
+  --font-deva: "Noto Serif Devanagari", "Tiro Devanagari Hindi", "Mangal", serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Warm spiritual accent — the single decorative gesture. */
+  --color-saffron-50: #fff7ec;
+  --color-saffron-100: #ffead0;
+  --color-saffron-200: #ffd39c;
+  --color-saffron-300: #ffb75e;
+  --color-saffron-400: #ff9a3c;
+  --color-saffron-500: #ed8936;
+  --color-saffron-600: #c96a1a;
+  --color-saffron-700: #9c5013;
+
+  /* Motion */
+  --ease-zen: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* Radii */
+  --radius-xs: 4px;
+  --radius-sm: 6px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-xl: 16px;
+  --radius-pill: 100px;
+}
+
+/* ── Themed surface + text tokens ─────────────────────────────
+   Consumed via arbitrary utilities like `bg-(--surface)`.
+
+   Light: warm ivory / temple-paper — inspired by the parchment
+   feel of aarti books, not a Notion document. Sepia: deep,
+   restful vasant-panchami tones. Dark: warm charcoal + amber
+   ink, evocative of diya-light on stone. */
+
+:root,
+[data-theme="light"] {
+  color-scheme: light;
+  --canvas: #faf5ea;
+  --surface: #fffdf6;
+  --surface-soft: #f4ecd9;
+  --hairline: #eadfc4;
+  --hairline-strong: #d4c19a;
+  --ink: #2a1e11;
+  --body: #5c4327;
+  --mute: #96825f;
+  --accent: #b8541a;
+  --accent-soft: #fceedd;
+  --focus: #b8541a;
+  --shadow-card: 0 0 0 1px rgb(90 55 20 / 0.06) inset, 0 1px 1px rgb(90 55 20 / 0.03),
+    0 2px 6px -2px rgb(90 55 20 / 0.08);
+  --shadow-float: 0 0 0 1px rgb(90 55 20 / 0.08) inset, 0 2px 4px rgb(90 55 20 / 0.05),
+    0 12px 24px -8px rgb(90 55 20 / 0.12);
+}
+
+[data-theme="sepia"] {
+  color-scheme: light;
+  --canvas: #f0e6cf;
+  --surface: #f7ecd3;
+  --surface-soft: #e6d9b8;
+  --hairline: #d8c69a;
+  --hairline-strong: #b89c68;
+  --ink: #3d2b1f;
+  --body: #6b4e35;
+  --mute: #8a7355;
+  --accent: #9c5013;
+  --accent-soft: #f0dcb0;
+  --focus: #9c5013;
+  --shadow-card: 0 0 0 1px rgb(61 43 31 / 0.08) inset, 0 1px 2px rgb(61 43 31 / 0.04),
+    0 2px 6px -2px rgb(61 43 31 / 0.08);
+  --shadow-float: 0 0 0 1px rgb(61 43 31 / 0.08) inset, 0 2px 4px rgb(61 43 31 / 0.06),
+    0 12px 24px -8px rgb(61 43 31 / 0.1);
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
+  --canvas: #0d0a07;
+  --surface: #16110c;
+  --surface-soft: #1e1812;
+  --hairline: #2c2418;
+  --hairline-strong: #453a26;
+  --ink: #f5ecd7;
+  --body: #c4b393;
+  --mute: #8a7a5c;
+  --accent: #f0a860;
+  --accent-soft: #2a1d10;
+  --focus: #f0a860;
+  --shadow-card: 0 0 0 1px rgb(240 168 96 / 0.06) inset, 0 1px 2px rgb(0 0 0 / 0.45),
+    0 8px 20px -4px rgb(0 0 0 / 0.45);
+  --shadow-float: 0 0 0 1px rgb(240 168 96 / 0.08) inset, 0 2px 4px rgb(0 0 0 / 0.4),
+    0 16px 32px -8px rgb(0 0 0 / 0.55);
+}
+
+/* ── Base ──────────────────────────────────────────────────── */
+
+html {
+  background: var(--canvas);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  scroll-behavior: smooth;
+  /* Reader font-size multiplier lives on <html> so the buttons in
+     `ReaderControls` can reach it. `.reader` reads it via inheritance —
+     do NOT re-declare `--reader-scale` inside `.reader` (that would
+     shadow the writable one on <html> and break font-size buttons). */
+  --reader-scale: 1;
+  /* Note: do NOT set overflow-x: hidden here — it silently breaks
+     `position: sticky` on descendants (Safari + mobile Chrome). We
+     rely on the body's overflow-x: clip below to suppress horizontal
+     scroll without creating a scroll container. */
+}
+
+body {
+  min-height: 100dvh;
+  /* `clip` (unlike `hidden`) suppresses horizontal overflow WITHOUT
+     forming a new scroll-container, so `position: sticky` on the
+     reader toolbar keeps working on mobile. */
+  overflow-x: clip;
+  transition: background-color 400ms var(--ease-zen), color 400ms var(--ease-zen);
+}
+
+::selection {
+  background: var(--accent);
+  color: #fff;
+}
+
+:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Preserve smooth scroll unless reduced-motion is requested */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  * {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Reader typography ─────────────────────────────────────── */
+
+.reader {
+  font-size: calc(1.125rem * var(--reader-scale, 1));
+  line-height: 1.85;
+  color: var(--ink);
+  /* Reserve breathing room on the sides so long Devanagari words never
+     kiss the viewport edge on mobile. */
+  hanging-punctuation: first last;
+}
+
+/* Every verse-line variant shares vertical rhythm; only the font family
+   and colour differ. Only the currently-selected script paints. */
+.reader .verse-line {
+  white-space: pre-line;
+  line-height: 1.85;
+  color: var(--ink);
+  font-weight: 500;
+  letter-spacing: 0;
+}
+
+.reader .script-hi {
+  font-family: var(--font-deva);
+}
+.reader .script-te {
+  font-family: "Noto Serif Telugu", var(--font-deva), serif;
+}
+.reader .script-ta {
+  font-family: "Noto Serif Tamil", var(--font-deva), serif;
+}
+.reader .script-kn {
+  font-family: "Noto Serif Kannada", var(--font-deva), serif;
+}
+.reader .script-bn {
+  font-family: "Noto Serif Bengali", var(--font-deva), serif;
+}
+
+.reader .script-en {
+  font-family: var(--font-serif);
+  font-style: italic;
+  color: var(--body);
+  font-size: 0.94em;
+  line-height: 1.7;
+  font-weight: 400;
+}
+
+/* Script selector: only the active script paints. */
+.reader [data-script] { display: none; }
+[data-script="hi"] .reader [data-script="hi"] { display: block; }
+[data-script="bn"] .reader [data-script="bn"] { display: block; }
+[data-script="te"] .reader [data-script="te"] { display: block; }
+[data-script="ta"] .reader [data-script="ta"] { display: block; }
+[data-script="kn"] .reader [data-script="kn"] { display: block; }
+[data-script="en"] .reader [data-script="en"] { display: block; }
+
+/* When transliteration is on AND the primary script is not English,
+   also reveal the Latin line beneath every verse. */
+[data-translit="on"] .reader [data-script="en"] { display: block; }
+[data-script="en"] .reader [data-script="en"] { font-style: normal; font-size: 1em; color: var(--ink); font-weight: 500; }
+
+.reader .verse {
+  scroll-margin-top: 120px;
+}
+
+/* Word-highlight readiness — verses are wrapped so we can highlight a
+   currently-read word by adding `.is-active` from any timing source
+   (audio cue-points, karaoke-style timings, or scroll position). */
+.reader .word {
+  transition: color 200ms var(--ease-zen), background-color 200ms var(--ease-zen);
+  border-radius: 3px;
+  padding: 0 1px;
+}
+.reader .word.is-active {
+  color: var(--accent);
+  background: var(--accent-soft);
+}
+
+/* Zen Mode — hide non-essential chrome, widen reader */
+[data-zen="on"] .zen-hide {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-8px);
+  transition: opacity 300ms var(--ease-zen), transform 300ms var(--ease-zen);
+}
+
+[data-zen="on"] .zen-reveal {
+  opacity: 0;
+  transition: opacity 250ms var(--ease-zen);
+}
+
+[data-zen="on"] .zen-reveal:hover,
+[data-zen="on"] .zen-reveal:focus-within {
+  opacity: 1;
+}
+
+/* Auto-scroll indicator */
+.autoscroll-active {
+  box-shadow: inset 0 0 0 1px var(--accent);
+  color: var(--accent);
+}
+
+/* ── Utility: subtle hairline surface ─────────────────────── */
+
+.surface-card {
+  background: var(--surface);
+  border: 1px solid var(--hairline);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 300ms var(--ease-zen), transform 300ms var(--ease-zen),
+    border-color 300ms var(--ease-zen);
+}
+
+.surface-card:hover {
+  box-shadow: var(--shadow-float);
+  border-color: var(--hairline-strong);
+}
+
+/* Warm hero halo — the single decorative gesture, hero scale only */
+.halo {
+  background:
+    radial-gradient(60% 60% at 30% 20%, color-mix(in oklab, var(--color-saffron-300) 30%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 50% at 80% 30%, color-mix(in oklab, var(--color-saffron-500) 22%, transparent) 0%, transparent 65%),
+    radial-gradient(70% 70% at 60% 90%, color-mix(in oklab, var(--color-saffron-200) 24%, transparent) 0%, transparent 70%);
+  filter: blur(20px) saturate(1.1);
+}
+
+[data-theme="dark"] .halo {
+  background:
+    radial-gradient(60% 60% at 30% 20%, color-mix(in oklab, var(--color-saffron-500) 22%, transparent) 0%, transparent 60%),
+    radial-gradient(50% 50% at 80% 30%, color-mix(in oklab, var(--color-saffron-600) 20%, transparent) 0%, transparent 65%),
+    radial-gradient(70% 70% at 60% 90%, color-mix(in oklab, var(--color-saffron-700) 26%, transparent) 0%, transparent 70%);
+}
+
+/* Streak grid cell */
+.streak-cell {
+  aspect-ratio: 1 / 1;
+  border-radius: 6px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  transition: background-color 250ms var(--ease-zen), border-color 250ms var(--ease-zen),
+    transform 200ms var(--ease-zen);
+}
+
+.streak-cell[data-state="done"] {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+
+.streak-cell[data-state="today"] {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px color-mix(in oklab, var(--accent) 25%, transparent);
+}
+
+/* Sticky audio player entrance */
+.audio-dock {
+  transform: translateY(0);
+  transition: transform 400ms var(--ease-zen), opacity 300ms var(--ease-zen);
+}
+
+[data-zen="on"] .audio-dock {
+  transform: translateY(calc(100% - 8px));
+  opacity: 0.4;
+}
+
+[data-zen="on"] .audio-dock:hover,
+[data-zen="on"] .audio-dock:focus-within {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* ── Reader toolbar pill utility ───────────────────────────────
+   All chips / buttons / labels inside the reader toolbar share one
+   pill shape (h-8) and are laid out with `inline-flex items-center
+   justify-center` so their contents (icon, label, checkbox) are
+   vertically centred regardless of icon size or font. Consolidating
+   the vertical rhythm here avoids the "some pills are 30 px, some
+   are 32 px" jitter that shows up on mobile. */
+.oc-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 2rem; /* 32 px — matches h-8 */
+  line-height: 1;
+  gap: 0.375rem; /* 6 px */
+  padding-inline: 0.625rem; /* 10 px */
+  border-radius: 9999px;
+  border: 1px solid var(--hairline);
+  background: var(--surface);
+  color: var(--body);
+  font-size: 12px;
+  font-weight: 500;
+  transition: color 200ms var(--ease-zen), border-color 200ms var(--ease-zen),
+    background-color 200ms var(--ease-zen);
+}
+.oc-pill:hover {
+  color: var(--ink);
+}
+.oc-pill--icon {
+  padding-inline: 0;
+  width: 2rem; /* 32 px */
+}
+.oc-pill--tight {
+  padding-inline: 0.5rem;
+}
+
+/* Reader-toolbar layout: on wide viewports the two clusters sit at
+   opposite ends; on narrow viewports we drop to two centred rows so
+   the pills use the full width instead of hugging the left edge. */
+.oc-toolbar-row {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 0.5rem;
+}
+.oc-toolbar-row > .oc-cluster {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.375rem;
+}
+@media (min-width: 640px) {
+  .oc-toolbar-row {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem;
+  }
+  .oc-toolbar-row > .oc-cluster {
+    justify-content: flex-start;
+    gap: 0.375rem;
+  }
+}
+
+/* FAQ chevron: a hairline circle with a plus that rotates to an ✕
+   when open. Uses the shared `.faq-toggle` hook + a details[open]
+   selector so the animation is fully declarative. */
+.faq-toggle::before,
+.faq-toggle::after {
+  content: "";
+  display: block;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  border-radius: 1px;
+  position: absolute;
+  transition: transform 220ms var(--ease-zen);
+}
+.faq-toggle {
+  position: relative;
+}
+.faq-toggle::after {
+  transform: rotate(90deg);
+}
+details[open] > summary .faq-toggle::after {
+  transform: rotate(0deg);
+}
+
+/* prose-oc: minimal typographic scaffolding for long-form prose
+   pages (about / terms / privacy / SEO article on the homepage). */
+.prose-oc h3 {
+  margin-top: 2rem;
+}
+.prose-oc p + p {
+  margin-top: 0.75rem;
+}

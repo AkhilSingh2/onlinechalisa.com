@@ -1,0 +1,34 @@
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="zen-hide mt-24 border-t border-(--hairline)">
+  <div
+    class="mx-auto grid max-w-6xl gap-8 px-4 py-12 text-sm text-(--body) sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]"
+  >
+    <p class="max-w-md leading-relaxed">
+      Online Chalisa is a devotional reader — no ads, no tracking, no account. Read in peace, and
+      may your practice be steady.
+    </p>
+
+    <nav aria-label="Site" class="flex flex-col gap-2.5">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Site</p>
+      <a class="w-fit hover:text-(--ink)" href="/">Home</a>
+      <a class="w-fit hover:text-(--ink)" href="/#chalisas">Chalisas</a>
+      <a class="w-fit hover:text-(--ink)" href="/sankalp">Sankalp</a>
+      <a class="w-fit hover:text-(--ink)" href="/about">About us</a>
+    </nav>
+
+    <nav aria-label="Legal" class="flex flex-col gap-2.5">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Legal</p>
+      <a class="w-fit hover:text-(--ink)" href="/privacy">Privacy policy</a>
+      <a class="w-fit hover:text-(--ink)" href="/terms">Terms &amp; conditions</a>
+    </nav>
+  </div>
+  <div
+    class="mx-auto flex max-w-6xl flex-col gap-2 border-t border-(--hairline) px-4 py-6 font-mono text-xs uppercase tracking-wider text-(--mute) sm:flex-row sm:items-center sm:justify-between sm:px-6"
+  >
+    <span>ॐ &nbsp; Made with quiet devotion</span>
+    <span>© {year} &nbsp; · &nbsp; onlinechalisa.com</span>
+  </div>
+</footer>

@@ -1,0 +1,217 @@
+---
+interface Props {
+  compact?: boolean;
+}
+const { compact = false } = Astro.props;
+---
+
+<section
+  id="sankalp"
+  class:list={[
+    compact
+      ? 'surface-card p-6'
+      : 'mx-auto max-w-3xl surface-card p-6 sm:p-8',
+  ]}
+  data-sankalp
+>
+  <div class="flex flex-wrap items-start justify-between gap-4">
+    <div>
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Sankalp · संकल्प</p>
+      <h2 class="mt-2 font-serif text-2xl font-medium tracking-tight text-(--ink) sm:text-3xl">
+        A quiet commitment
+      </h2>
+      <p class="mt-2 max-w-md text-sm leading-relaxed text-(--body)">
+        Pick a length and tick each day as you read. Progress lives on this device — no account,
+        no cloud, no reminders you didn't ask for.
+      </p>
+    </div>
+    <div
+      class="inline-flex rounded-full border border-(--hairline) bg-(--surface) p-1"
+      role="group"
+      aria-label="Sankalp length"
+    >
+      <button type="button" data-days="11" class="rounded-full px-3 py-1 text-xs font-medium">11 days</button>
+      <button type="button" data-days="21" class="rounded-full px-3 py-1 text-xs font-medium">21 days</button>
+      <button type="button" data-days="40" class="rounded-full px-3 py-1 text-xs font-medium">40 days</button>
+    </div>
+  </div>
+
+  <div class="mt-6 flex items-baseline gap-4">
+    <div>
+      <span id="streak-count" class="font-serif text-5xl font-medium tracking-tight text-(--ink)">0</span>
+      <span class="ml-1 text-sm text-(--body)">of <span id="streak-total">11</span> days</span>
+    </div>
+    <div class="ml-auto text-right">
+      <p class="text-[11px] font-mono uppercase tracking-wider text-(--mute)">Current streak</p>
+      <p id="streak-current" class="mt-0.5 text-sm font-medium text-(--ink)">0 days</p>
+    </div>
+  </div>
+
+  <div class="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-(--hairline)">
+    <div id="streak-bar" class="h-full rounded-full bg-(--accent) transition-all duration-500" style="width: 0%"></div>
+  </div>
+
+  <div
+    id="streak-grid"
+    class="mt-6 grid gap-1.5"
+    style="grid-template-columns: repeat(11, minmax(0, 1fr));"
+    role="grid"
+    aria-label="Daily progress"
+  ></div>
+
+  <div class="mt-6 flex flex-wrap items-center gap-2">
+    <button
+      type="button"
+      id="streak-toggle-today"
+      class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
+    >
+      Mark today complete
+    </button>
+    <button
+      type="button"
+      id="streak-reset"
+      class="rounded-full border border-(--hairline) px-3 py-1.5 text-xs font-medium text-(--body) transition hover:text-(--ink)"
+    >
+      Reset sankalp
+    </button>
+  </div>
+</section>
+
+<script is:inline>
+  (function () {
+    const KEY = 'oc-sankalp-v1';
+    const root = document.querySelector('[data-sankalp]');
+    if (!root) return;
+    const grid = root.querySelector('#streak-grid');
+    const countEl = root.querySelector('#streak-count');
+    const totalEl = root.querySelector('#streak-total');
+    const currentEl = root.querySelector('#streak-current');
+    const bar = root.querySelector('#streak-bar');
+    const toggleBtn = root.querySelector('#streak-toggle-today');
+    const resetBtn = root.querySelector('#streak-reset');
+    const lengthBtns = root.querySelectorAll('[data-days]');
+
+    function today() {
+      const d = new Date();
+      return d.toISOString().slice(0, 10);
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { length: 11, days: {} };
+    }
+    function save(s) {
+      try {
+        localStorage.setItem(KEY, JSON.stringify(s));
+      } catch (e) {}
+    }
+
+    function currentStreak(days) {
+      let n = 0;
+      let d = new Date();
+      while (true) {
+        const key = d.toISOString().slice(0, 10);
+        if (days[key]) {
+          n++;
+          d.setDate(d.getDate() - 1);
+        } else {
+          if (n === 0 && key === today()) {
+            d.setDate(d.getDate() - 1);
+            continue;
+          }
+          break;
+        }
+      }
+      return n;
+    }
+
+    function render() {
+      const s = load();
+      const len = s.length;
+      totalEl.textContent = String(len);
+      const cols = len === 40 ? 8 : len === 21 ? 7 : 11;
+      grid.style.gridTemplateColumns = `repeat(${cols}, minmax(0, 1fr))`;
+
+      // Order days starting from "start" — inferred as earliest done date, else today - len + 1.
+      const doneKeys = Object.keys(s.days).sort();
+      let start;
+      if (doneKeys.length) {
+        start = new Date(doneKeys[0]);
+      } else {
+        start = new Date();
+      }
+      grid.innerHTML = '';
+      let done = 0;
+      const t = today();
+      for (let i = 0; i < len; i++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        const key = d.toISOString().slice(0, 10);
+        const isDone = !!s.days[key];
+        if (isDone) done++;
+        const cell = document.createElement('button');
+        cell.type = 'button';
+        cell.className = 'streak-cell';
+        cell.setAttribute(
+          'aria-label',
+          `Day ${i + 1} — ${d.toDateString()}${isDone ? ' — completed' : ''}`,
+        );
+        if (isDone) cell.setAttribute('data-state', 'done');
+        else if (key === t) cell.setAttribute('data-state', 'today');
+        cell.addEventListener('click', () => {
+          const st = load();
+          if (st.days[key]) delete st.days[key];
+          else st.days[key] = true;
+          save(st);
+          render();
+        });
+        grid.appendChild(cell);
+      }
+      countEl.textContent = String(done);
+      bar.style.width = Math.min(100, (done / len) * 100) + '%';
+      const streak = currentStreak(s.days);
+      currentEl.textContent = streak + (streak === 1 ? ' day' : ' days');
+
+      lengthBtns.forEach((b) => {
+        const active = Number(b.getAttribute('data-days')) === len;
+        b.setAttribute('aria-pressed', String(active));
+        b.classList.toggle('bg-(--ink)', active);
+        b.classList.toggle('text-(--canvas)', active);
+        b.classList.toggle('text-(--body)', !active);
+      });
+
+      const todayDone = !!s.days[today()];
+      toggleBtn.textContent = todayDone ? '✓ Today marked · undo' : 'Mark today complete';
+      toggleBtn.classList.toggle('bg-(--ink)', !todayDone);
+      toggleBtn.classList.toggle('bg-(--accent)', todayDone);
+    }
+
+    lengthBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        const s = load();
+        s.length = Number(b.getAttribute('data-days'));
+        save(s);
+        render();
+      }),
+    );
+
+    toggleBtn.addEventListener('click', () => {
+      const s = load();
+      const t = today();
+      if (s.days[t]) delete s.days[t];
+      else s.days[t] = true;
+      save(s);
+      render();
+    });
+
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Reset your sankalp? This clears all tick marks on this device.')) return;
+      save({ length: load().length, days: {} });
+      render();
+    });
+
+    render();
+  })();
+</script>

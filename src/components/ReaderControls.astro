@@ -1,0 +1,341 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  slug: string;
+  audioUrl?: string;
+}
+const { slug, audioUrl } = Astro.props;
+
+const scripts = [
+  { code: 'hi', label: 'हिन्दी', title: 'Devanagari (Hindi)' },
+  { code: 'te', label: 'తెలుగు', title: 'Telugu' },
+  { code: 'ta', label: 'தமிழ்', title: 'Tamil' },
+  { code: 'kn', label: 'ಕನ್ನಡ', title: 'Kannada' },
+  { code: 'bn', label: 'বাংলা', title: 'Bengali' },
+  { code: 'en', label: 'English', title: 'English (transliteration)' },
+] as const;
+---
+
+<div
+  id="reader-controls"
+  class="zen-hide sticky top-16 z-30 border-b border-(--hairline) bg-[color-mix(in_oklab,var(--canvas)_88%,transparent)] backdrop-blur-md sm:top-[68px]"
+  data-controls
+>
+  <div class="mx-auto max-w-3xl px-3 py-2 sm:px-6 sm:py-2.5">
+    <div class="oc-toolbar-row">
+      {/* ── Script picker (segmented) ─────────────────────────── */}
+      <div
+        class="inline-flex flex-wrap items-center justify-center gap-0.5 self-center rounded-full border border-(--hairline) bg-(--surface) p-0.5 sm:self-auto"
+        role="radiogroup"
+        aria-label="Script"
+      >
+        {scripts.map((s) => (
+          <button
+            type="button"
+            data-script-btn={s.code}
+            class="inline-flex h-7 items-center justify-center rounded-full px-2.5 text-[11px] font-medium leading-none text-(--body) transition hover:text-(--ink) sm:px-3 sm:text-xs"
+            role="radio"
+            aria-checked="false"
+            title={s.title}
+          >
+            {s.label}
+          </button>
+        ))}
+      </div>
+
+      {/* ── Right-hand controls ─────────────────────────────── */}
+      <div class="oc-cluster">
+        {/* Show-English transliteration checkbox */}
+        <label
+          id="chk-translit-label"
+          class="oc-pill cursor-pointer"
+          title="Show English transliteration beneath each verse"
+        >
+          <input
+            type="checkbox"
+            id="chk-translit"
+            class="peer h-3.5 w-3.5 shrink-0 cursor-pointer accent-(--accent)"
+          />
+          <span class="peer-checked:text-(--ink)">
+            <span class="hidden sm:inline">Show English</span>
+            <span class="sm:hidden">EN</span>
+          </span>
+        </label>
+
+        <span aria-hidden="true" class="mx-0.5 hidden h-5 w-px bg-(--hairline) sm:inline-block"></span>
+
+        {/* Font-size cluster — the A±  buttons are grouped tight so
+            they read as a single "font size" control rather than two
+            separate pills. */}
+        <div class="inline-flex items-center gap-1 rounded-full border border-(--hairline) bg-(--surface) p-0.5">
+          <button
+            type="button"
+            id="btn-font-down"
+            class="inline-flex h-7 w-7 items-center justify-center rounded-full text-(--body) transition hover:bg-(--surface-soft) hover:text-(--ink)"
+            aria-label="Decrease text size"
+            title="Smaller text"
+          >
+            <Icon name="aminus" size={16} />
+          </button>
+          <button
+            type="button"
+            id="btn-font-up"
+            class="inline-flex h-7 w-7 items-center justify-center rounded-full text-(--body) transition hover:bg-(--surface-soft) hover:text-(--ink)"
+            aria-label="Increase text size"
+            title="Larger text"
+          >
+            <Icon name="aplus" size={16} />
+          </button>
+        </div>
+
+        <span aria-hidden="true" class="mx-0.5 hidden h-5 w-px bg-(--hairline) sm:inline-block"></span>
+
+        <button
+          type="button"
+          id="btn-autoscroll"
+          class="oc-pill"
+          aria-pressed="false"
+          title="Teleprompter — auto-scroll"
+        >
+          <Icon name="scroll" size={14} />
+          <span class="hidden sm:inline">Auto-scroll</span>
+        </button>
+        <button
+          type="button"
+          id="btn-zen"
+          class="oc-pill"
+          aria-pressed="false"
+          title="Zen mode — hide everything"
+        >
+          <Icon name="zen" size={14} />
+          <span class="hidden sm:inline">Zen</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div
+    id="autoscroll-panel"
+    class="mx-auto hidden max-w-3xl items-center gap-3 border-t border-(--hairline) px-4 py-2 text-xs text-(--body) sm:px-6"
+    role="group"
+    aria-label="Auto-scroll speed"
+  >
+    <span class="font-mono text-[11px] uppercase tracking-wider text-(--mute)">Speed</span>
+    <input
+      id="scroll-speed"
+      type="range"
+      min="1"
+      max="10"
+      value="3"
+      step="1"
+      class="h-1 flex-1 max-w-[240px] accent-(--accent)"
+      aria-label="Scroll speed"
+    />
+    <span id="scroll-speed-label" class="font-mono text-[11px] text-(--mute)">3 · slow</span>
+    <button
+      type="button"
+      id="btn-scroll-stop"
+      class="ml-auto rounded-full border border-(--hairline) px-2 py-0.5 font-medium text-(--body) hover:text-(--ink)"
+    >
+      Stop
+    </button>
+  </div>
+</div>
+
+{/* Floating "exit Zen" affordance — only visible while Zen is active.
+    Sits above zen-hide chrome so it stays clickable on mobile. */}
+<button
+  type="button"
+  id="btn-zen-exit"
+  class="fixed right-4 top-4 z-50 hidden items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-3 py-1.5 text-xs font-medium text-(--body) shadow-md transition hover:text-(--ink) sm:right-6 sm:top-6"
+  aria-label="Exit Zen mode"
+  data-zen-exit
+>
+  <span aria-hidden="true">✕</span>
+  <span class="hidden sm:inline">Exit Zen</span>
+</button>
+
+<script is:inline define:vars={{ slug }}>
+  (function () {
+    const html = document.documentElement;
+
+    // ─── Font size ────────────────────────────────────────
+    // Reader supports a wide zoom range — some users read on 5" phones,
+    // some on 15" laptops, some need large print. `2.6×` is roughly
+    // the top before individual verses stop fitting the viewport.
+    const scaleMin = 0.85;
+    const scaleMax = 2.6;
+    const step = 0.1;
+
+    function readScale() {
+      const raw = html.style.getPropertyValue('--reader-scale') || '1';
+      return parseFloat(raw) || 1;
+    }
+    function writeScale(v) {
+      const clamped = Math.max(scaleMin, Math.min(scaleMax, Number(v.toFixed(3))));
+      html.style.setProperty('--reader-scale', String(clamped));
+      try { localStorage.setItem('oc-scale', String(clamped)); } catch (e) {}
+    }
+    document
+      .getElementById('btn-font-up')
+      ?.addEventListener('click', () => writeScale(readScale() + step));
+    document
+      .getElementById('btn-font-down')
+      ?.addEventListener('click', () => writeScale(readScale() - step));
+
+    // ─── Script selector ─────────────────────────────────
+    const scriptBtns = document.querySelectorAll('[data-script-btn]');
+    function paintScriptBtns(active) {
+      scriptBtns.forEach((b) => {
+        const isActive = b.getAttribute('data-script-btn') === active;
+        b.setAttribute('aria-checked', String(isActive));
+        b.classList.toggle('bg-(--ink)', isActive);
+        b.classList.toggle('text-(--canvas)', isActive);
+        b.classList.toggle('text-(--body)', !isActive);
+      });
+    }
+    function applyScript(code) {
+      html.setAttribute('data-script', code);
+      try { localStorage.setItem('oc-script', code); } catch (e) {}
+      paintScriptBtns(code);
+      // If the primary script IS English, the transliteration checkbox
+      // is meaningless — grey out its dedicated wrapper (do NOT walk to
+      // parentElement, which now lands on the toolbar cluster).
+      const label = document.getElementById('chk-translit-label');
+      if (label) {
+        label.style.opacity = code === 'en' ? '0.4' : '';
+        label.style.pointerEvents = code === 'en' ? 'none' : '';
+      }
+    }
+    scriptBtns.forEach((b) =>
+      b.addEventListener('click', () => applyScript(b.getAttribute('data-script-btn'))),
+    );
+
+    // ─── English transliteration checkbox ────────────────
+    const chk = document.getElementById('chk-translit');
+    function applyTranslit(on) {
+      html.setAttribute('data-translit', on ? 'on' : 'off');
+      try { localStorage.setItem('oc-translit', on ? '1' : '0'); } catch (e) {}
+      if (chk) chk.checked = on;
+    }
+    chk?.addEventListener('change', () => applyTranslit(chk.checked));
+
+    // Initialise from storage
+    const initState = () => {
+      applyScript(localStorage.getItem('oc-script') || 'hi');
+      applyTranslit(localStorage.getItem('oc-translit') === '1');
+    };
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initState, { once: true });
+    } else {
+      initState();
+    }
+
+    // ─── Zen mode ────────────────────────────────────────
+    const zenBtn = document.getElementById('btn-zen');
+    const zenExit = document.getElementById('btn-zen-exit');
+    function setZen(on) {
+      document.body.setAttribute('data-zen', on ? 'on' : 'off');
+      zenBtn?.setAttribute('aria-pressed', String(on));
+      zenBtn?.classList.toggle('autoscroll-active', on);
+      if (zenExit) {
+        zenExit.classList.toggle('hidden', !on);
+        zenExit.classList.toggle('inline-flex', on);
+      }
+    }
+    zenBtn?.addEventListener('click', () => {
+      setZen(document.body.getAttribute('data-zen') !== 'on');
+    });
+    zenExit?.addEventListener('click', () => setZen(false));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setZen(false);
+      if (e.key.toLowerCase() === 'z' && !e.metaKey && !e.ctrlKey && !e.altKey) {
+        const tag = (document.activeElement?.tagName || '').toLowerCase();
+        if (tag !== 'input' && tag !== 'textarea') {
+          setZen(document.body.getAttribute('data-zen') !== 'on');
+        }
+      }
+    });
+
+    // ─── Auto-scroll (teleprompter) ─────────────────────
+    // Accumulates sub-pixel deltas so speeds 1–3 (fractional px/frame)
+    // still advance the scroll position instead of getting rounded to 0.
+    const scrollBtn = document.getElementById('btn-autoscroll');
+    const panel = document.getElementById('autoscroll-panel');
+    const speedInput = document.getElementById('scroll-speed');
+    const speedLabel = document.getElementById('scroll-speed-label');
+    const stopBtn = document.getElementById('btn-scroll-stop');
+    let raf = 0;
+    let running = false;
+    let lastTs = 0;
+    let pending = 0;
+
+    function speedWord(v) {
+      if (v <= 2) return 'gentle';
+      if (v <= 4) return 'slow';
+      if (v <= 6) return 'steady';
+      if (v <= 8) return 'brisk';
+      return 'swift';
+    }
+    function pxPerSec(v) {
+      // v = 1..10 → 20..200 px/s. Sub-pixel accumulation keeps
+      // low speeds (v=1 → 0.33 px/frame) advancing smoothly.
+      return 20 + v * 18;
+    }
+    function updateLabel() {
+      const v = Number(speedInput.value);
+      speedLabel.textContent = v + ' · ' + speedWord(v);
+    }
+    speedInput?.addEventListener('input', updateLabel);
+    updateLabel();
+
+    function frame(ts) {
+      if (!running) return;
+      if (!lastTs) lastTs = ts;
+      const dt = ts - lastTs;
+      lastTs = ts;
+      const v = Number(speedInput.value);
+      pending += (pxPerSec(v) * dt) / 1000;
+      const whole = Math.floor(pending);
+      if (whole >= 1) {
+        pending -= whole;
+        window.scrollBy(0, whole);
+      }
+      const atBottom =
+        window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
+      if (atBottom) {
+        stopScroll();
+        return;
+      }
+      raf = requestAnimationFrame(frame);
+    }
+    function startScroll() {
+      if (running) return;
+      running = true;
+      lastTs = 0;
+      pending = 0;
+      panel.classList.remove('hidden');
+      panel.classList.add('flex');
+      scrollBtn?.setAttribute('aria-pressed', 'true');
+      scrollBtn?.classList.add('autoscroll-active');
+      raf = requestAnimationFrame(frame);
+    }
+    function stopScroll() {
+      running = false;
+      cancelAnimationFrame(raf);
+      scrollBtn?.setAttribute('aria-pressed', 'false');
+      scrollBtn?.classList.remove('autoscroll-active');
+    }
+    scrollBtn?.addEventListener('click', () => (running ? stopScroll() : startScroll()));
+    stopBtn?.addEventListener('click', () => {
+      stopScroll();
+      panel.classList.add('hidden');
+      panel.classList.remove('flex');
+    });
+    // Pause when the user grabs the wheel or touches the screen —
+    // touchmove would otherwise fight the auto-scroll on iOS.
+    window.addEventListener('wheel', () => running && stopScroll(), { passive: true });
+    window.addEventListener('touchmove', () => running && stopScroll(), { passive: true });
+  })();
+</script>

@@ -1,0 +1,65 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import StreakTracker from '../components/StreakTracker.astro';
+import Icon from '../components/Icon.astro';
+---
+
+<Layout
+  title="Sankalp · Online Chalisa"
+  description="Commit to an 11, 21, or 40-day Chalisa reading practice. Track your streak — privately, on this device."
+>
+  <Header />
+
+  <main id="main" class="pb-24">
+    <section class="relative overflow-hidden">
+      <div class="halo pointer-events-none absolute inset-0 -z-10 opacity-60" aria-hidden="true"></div>
+      <div class="mx-auto max-w-3xl px-4 pb-10 pt-16 text-center sm:px-6 sm:pt-24">
+        <p class="mb-6 inline-flex items-center gap-2 rounded-full border border-(--hairline) bg-(--surface) px-3 py-1 font-mono text-[11px] uppercase tracking-[0.18em] text-(--body)">
+          <Icon name="sparkle" size={12} />
+          Sankalp · संकल्प
+        </p>
+        <h1 class="font-serif text-4xl font-medium leading-tight tracking-tight text-(--ink) sm:text-6xl">
+          A promise to&nbsp;yourself.
+        </h1>
+        <p class="mx-auto mt-5 max-w-xl text-[16px] leading-relaxed text-(--body)">
+          Sankalp is the ancient act of quiet resolve — you name the practice, you name the length,
+          and you show up. Nothing more.
+        </p>
+      </div>
+    </section>
+
+    <section class="mx-auto max-w-3xl px-4 sm:px-6">
+      <StreakTracker />
+    </section>
+
+    <section class="mx-auto mt-16 max-w-3xl px-4 sm:px-6">
+      <div class="grid gap-4 sm:grid-cols-3">
+        <div class="surface-card p-5">
+          <p class="font-serif text-2xl font-medium text-(--ink)">11</p>
+          <p class="mt-1 text-sm text-(--body)">A short, generous vow — enough to notice a change.</p>
+        </div>
+        <div class="surface-card p-5">
+          <p class="font-serif text-2xl font-medium text-(--ink)">21</p>
+          <p class="mt-1 text-sm text-(--body)">The classic <em>ekadash</em> doubled — a genuine rhythm forms.</p>
+        </div>
+        <div class="surface-card p-5">
+          <p class="font-serif text-2xl font-medium text-(--ink)">40</p>
+          <p class="mt-1 text-sm text-(--body)">The <em>mandala</em> — a full cycle. Deep, quiet, transformative.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="mx-auto mt-16 max-w-2xl px-4 text-center sm:px-6">
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">A gentle note</p>
+      <p class="mx-auto mt-3 text-[15px] leading-relaxed text-(--body)">
+        Your streak is stored only in this browser. Nothing is uploaded, nothing is shared, and
+        clearing site data will reset it. That's on purpose — sankalp is between you and the
+        divine, not you and a server.
+      </p>
+    </section>
+  </main>
+
+  <Footer />
+</Layout>
