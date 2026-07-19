@@ -4,5 +4,14 @@
 	"compatibility_date": "2026-07-19",
 	"compatibility_flags": [
 		"nodejs_compat"
+	],
+	// Astro's Cloudflare adapter enables sessions backed by KV. Bind the
+	// existing namespace by id so deploys reuse it instead of trying to
+	// re-create it (which fails with "namespace already exists").
+	"kv_namespaces": [
+		{
+			"binding": "SESSION",
+			"id": "8190c9797b704b1b821dbdad6aeec223"
+		}
 	]
 }
