@@ -14,6 +14,15 @@ const contentDir = join(root, 'src/content/chalisas');
 const outDir = join(root, 'public/og');
 mkdirSync(outDir, { recursive: true });
 
+// The real diya illustration (glow + flame + terracotta vessel). We strip
+// its outer <svg> wrapper so it can be embedded as a nested <svg> inside
+// each card, rendered big and warm like the original share icon.
+const diyaRaw = readFileSync(join(root, 'public/diya.svg'), 'utf8');
+const diyaInner = diyaRaw
+  .replace(/^[\s\S]*?<svg[^>]*>/, '')
+  .replace(/<\/svg>\s*$/, '')
+  .trim();
+
 const CANVAS = '#faf5ea';
 const INK = '#2a2018';
 const BODY = '#6b5d4f';
@@ -35,11 +44,14 @@ function rgba(hex, a) {
 function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }) {
   const W = 1200;
   const H = 630;
+  const DIYA = 260; // big, hero-sized lamp like the original share icon
+  const diyaX = (W - DIYA) / 2;
+  const diyaY = 60;
   return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
   <defs>
-    <radialGradient id="halo" cx="50%" cy="8%" r="75%">
-      <stop offset="0%" stop-color="${rgba(color, 0.28)}"/>
-      <stop offset="55%" stop-color="${rgba(color, 0.08)}"/>
+    <radialGradient id="halo" cx="50%" cy="26%" r="60%">
+      <stop offset="0%" stop-color="${rgba(color, 0.32)}"/>
+      <stop offset="55%" stop-color="${rgba(color, 0.09)}"/>
       <stop offset="100%" stop-color="${rgba(color, 0)}"/>
     </radialGradient>
     <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
@@ -54,31 +66,26 @@ function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }
   <rect x="28" y="28" width="${W - 56}" height="${H - 56}" rx="28"
         fill="none" stroke="${rgba(color, 0.35)}" stroke-width="2"/>
 
-  <!-- Diya badge -->
-  <g transform="translate(${W / 2}, 150)">
-    <circle r="52" fill="${rgba(color, 0.14)}" stroke="${rgba(color, 0.4)}" stroke-width="2"/>
-    <circle r="7" cx="0" cy="8" fill="${color}"/>
-    <path d="M -22 14 Q 0 30 22 14 Q 0 40 -22 14 Z" fill="${rgba(color, 0.85)}"/>
-    <path d="M 0 -2 C -6 -16 6 -20 0 -34 C 10 -22 6 -8 0 -2 Z" fill="${color}"/>
-  </g>
+  <!-- Hero diya (real illustration) -->
+  <svg x="${diyaX}" y="${diyaY}" width="${DIYA}" height="${DIYA}" viewBox="0 0 128 128">${diyaInner}</svg>
 
-  <text x="${W / 2}" y="330" text-anchor="middle"
-        font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="600"
+  <text x="${W / 2}" y="410" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="600"
         fill="${INK}">${esc(title)}</text>
 
-  <line x1="${W / 2 - 160}" y1="372" x2="${W / 2 + 160}" y2="372"
+  <line x1="${W / 2 - 160}" y1="450" x2="${W / 2 + 160}" y2="450"
         stroke="url(#rule)" stroke-width="3"/>
 
-  <text x="${W / 2}" y="432" text-anchor="middle"
-        font-family="'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="500"
+  <text x="${W / 2}" y="506" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="500"
         fill="${BODY}">${esc(subtitle)}</text>
 
-  <text x="${W / 2}" y="478" text-anchor="middle"
-        font-family="'Helvetica Neue', Arial, sans-serif" font-size="22"
+  <text x="${W / 2}" y="548" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="21"
         fill="${MUTE}">${esc(tradition)}</text>
 
-  <text x="${W / 2}" y="566" text-anchor="middle"
-        font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600"
+  <text x="${W / 2}" y="596" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600"
         letter-spacing="6" fill="${rgba(color, 0.95)}">${esc(wordmark)}</text>
 </svg>`;
 }
