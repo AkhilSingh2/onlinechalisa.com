@@ -61,6 +61,13 @@ const t = useTranslations(lang);
           </p>
         )
       }
+      {
+        audioUrl && (
+          <p id="audio-missing-note" class="mt-1 hidden text-[11px] text-(--mute)">
+            {t('audio.comingSoon')}
+          </p>
+        )
+      }
     </div>
   </div>
 
@@ -76,7 +83,18 @@ const t = useTranslations(lang);
     const cur = document.getElementById('audio-current');
     const tot = document.getElementById('audio-total');
     if (!audio || !btn) return;
-    if (!audio.getAttribute('src')) btn.disabled = true;
+    const hasSrc = !!audio.getAttribute('src');
+    if (!hasSrc) btn.disabled = true;
+
+    // If a src is configured but the file can't be loaded (e.g. not yet
+    // uploaded to /public/audio, or a network failure), degrade gracefully:
+    // disable the control and show the "coming soon" note instead of a
+    // dead button that silently does nothing.
+    audio.addEventListener('error', () => {
+      btn.disabled = true;
+      const note = document.getElementById('audio-missing-note');
+      if (note) note.classList.remove('hidden');
+    });
 
     function fmt(s) {
       if (!isFinite(s)) return '0:00';

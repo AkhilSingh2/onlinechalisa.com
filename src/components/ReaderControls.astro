@@ -294,24 +294,33 @@ const scripts = [
     speedInput?.addEventListener('input', updateLabel);
     updateLabel();
 
+    // The document scroll container. On iOS Safari this is <html>; using
+    // `document.scrollingElement` keeps us correct across browsers.
+    const scrollEl = document.scrollingElement || document.documentElement;
+
     function frame(ts) {
       if (!running) return;
       if (!lastTs) lastTs = ts;
-      const dt = ts - lastTs;
+      let dt = ts - lastTs;
       lastTs = ts;
+      // Guard against huge jumps after a background/foreground switch on iOS
+      // (rAF can deliver a multi-second dt, which would teleport the page).
+      if (dt > 100) dt = 100;
       const v = Number(speedInput.value);
       pending += (pxPerSec(v) * dt) / 1000;
       const whole = Math.floor(pending);
       if (whole >= 1) {
         pending -= whole;
-        // `behavior: 'auto'` overrides the CSS `scroll-behavior: smooth`
-        // on <html>. Without it, iOS Safari queues a fresh smooth-scroll
-        // animation every frame; the animations cancel each other out and
-        // the page never actually moves (desktop tolerates it, iOS does not).
-        window.scrollBy({ top: whole, left: 0, behavior: 'auto' });
+        // Assigning `scrollTop` directly is the ONLY reliable way to advance
+        // the page on iOS Safari: per spec, `scroll-behavior: smooth` (set
+        // globally on <html>) affects scrollBy/scrollTo but NEVER a direct
+        // scrollTop write. `scrollBy({behavior:'auto'})` is supposed to
+        // override it too, but WebKit ignores that and queues fresh smooth
+        // animations every frame that cancel out — so the page never moves.
+        scrollEl.scrollTop += whole;
       }
       const atBottom =
-        window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
+        scrollEl.scrollTop + window.innerHeight >= scrollEl.scrollHeight - 4;
       if (atBottom) {
         stopScroll();
         return;

@@ -1,10 +1,14 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "chalisa",
+	"name": "read",
 	"compatibility_date": "2026-07-19",
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
+	// The live site is served via the custom domains only; keep the
+	// workers.dev subdomain and preview URLs disabled.
+	"workers_dev": false,
+	"preview_urls": false,
 	// Astro's Cloudflare adapter enables sessions backed by KV. Bind the
 	// existing namespace by id so deploys reuse it instead of trying to
 	// re-create it (which fails with "namespace already exists").

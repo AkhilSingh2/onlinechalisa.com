@@ -27,6 +27,14 @@ const lang = getLangFromUrl(Astro.url);
 const t = useTranslations(lang);
 const num = String(order).padStart(2, '0');
 
+// Localized card copy — falls back to the English content prop when a
+// locale has no override (`t()` returns the key unchanged if unknown).
+const taglineKey = `card.tagline.${slug}`;
+const traditionKey = `card.tradition.${slug}`;
+const localTagline = t(taglineKey) === taglineKey ? tagline : t(taglineKey);
+const traditionEn = tradition ?? deity;
+const localTradition = t(traditionKey) === traditionKey ? traditionEn : t(traditionKey);
+
 // Rough reading estimate: ~30s per verse read aloud at a devotional pace.
 const readMin = verseCount ? Math.max(3, Math.round((verseCount * 30) / 60)) : 7;
 const count = verseCount ?? 40;
@@ -41,7 +49,7 @@ const meta = `${count} ${t('card.verses')} · ~${mins} ${t('card.min')}`;
 >
   <div class="flex items-start justify-between">
     <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-(--mute)">
-      {num} · {tradition ?? deity}
+      {num} · {localTradition}
     </span>
     <span
       class="grid h-8 w-8 place-items-center rounded-full transition-transform duration-500 group-hover:rotate-6"
@@ -56,7 +64,7 @@ const meta = `${count} ${t('card.verses')} · ~${mins} ${t('card.min')}`;
     <h3 class="font-serif text-2xl font-medium tracking-tight text-(--ink)">
       {title}
     </h3>
-    <p class="text-[15px] leading-relaxed text-(--body)">{tagline}</p>
+    <p class="text-[15px] leading-relaxed text-(--body)">{localTagline}</p>
   </div>
 
   <div class="mt-auto flex items-center justify-between pt-2">

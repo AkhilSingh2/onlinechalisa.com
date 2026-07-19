@@ -24,7 +24,7 @@
     { "n": 13, "type": "chaupai", "hi": "अति प्रसन्न ह्वै तुम वर दीन्हा।\nमातु पुत्र हित जो तप कीन्हा॥", "en": "Ati prasann hvai tum var deenhaa.\nMaatu putra hit jo tap keenhaa." },
     { "n": 14, "type": "chaupai", "hi": "मिलहि पुत्र तुहि बुद्धि विशाला।\nबिना गर्भ धारण यहि काला॥", "en": "Milahi putra tuhi buddhi vishaalaa.\nBinaa garbh dhaaran yahi kaalaa." },
     { "n": 15, "type": "chaupai", "hi": "गणनायक गुण ज्ञान निधाना।\nपूजित प्रथम रूप भगवाना॥", "en": "Ganaanayak gun gyaan nidhaanaa.\nPoojit pratham roop bhagavaanaa." },
-    { "n": 16, "type": "chaupai", "hi": "अस कहि अन्तर्ध्यान रूप ह्वै।\nपलना पर बालक स्वरूप ह्वै॥", "en": "As kahi antardhyaan roop hvai.\nPalnaa par baalak swaroop hvai." },
+    { "n": 16, "type": "chaupai", "hi": "अस कहि अन्तर्धान रूप ह्वै।\nपलना पर बालक स्वरूप ह्वै॥", "en": "As kahi antardhaan roop hvai.\nPalnaa par baalak swaroop hvai." },
     { "n": 17, "type": "chaupai", "hi": "बनि शिशु रुदन जबहिं तुम ठाना।\nलखि मुख सुख नहिं गौरि समाना॥", "en": "Bani shishu rudan jabahi tum thaanaa.\nLakhi mukh sukh nahi Gauri samaanaa." },
     { "n": 18, "type": "chaupai", "hi": "सकल मगन सुखमंगल गावहिं।\nनभ ते सुरन सुमन वर्षावहिं॥", "en": "Sakal magan sukhamangal gaavahi.\nNabh te suran suman varshaavahi." },
     { "n": 19, "type": "chaupai", "hi": "शम्भु उमा बहु दान लुटावहिं।\nसुर मुनिजन सुत देखन आवहिं॥", "en": "Shambhu Umaa bahu daan lutaavahi.\nSur munijan sut dekhan aavahi." },
@@ -45,8 +45,9 @@
     { "n": 34, "type": "chaupai", "hi": "धनि गणेश कहि शिव हिय हरषे।\nनभ ते सुरन सुमन बहु बरसे॥", "en": "Dhani Ganesh kahi Shiv hiy harashe.\nNabh te suran suman bahu barse." },
     { "n": 35, "type": "chaupai", "hi": "तुम्हरी महिमा बुद्धि बड़ाई।\nशेष सहस मुख सके न गाई॥", "en": "Tumharee mahimaa buddhi badaaee.\nShesh sahas mukh sake na gaaee." },
     { "n": 36, "type": "chaupai", "hi": "मैं मति हीन मलीन दुखारी।\nकरहुँ कौन बिधि विनय तुम्हारी॥", "en": "Main mati heen maleen dukhaaree.\nKarahu kaun bidhi vinay tumhaaree." },
-    { "n": 37, "type": "chaupai", "hi": "भजत रामसुन्दर प्रभुदासा।\nजग प्रयास पूरण अभिलाषा॥", "en": "Bhajat Raamsundar Prabhudaasaa.\nJag prayaas pooran abhilaashaa." },
-    { "n": 38, "type": "doha", "hi": "श्री गणेश यह चालीसा, पाठ करै धर ध्यान।\nनित नव मंगल गृह बसै, लहे जगत सन्मान॥", "en": "Shri Ganesh yah Chaaleesaa, paath karai dhar dhyaan.\nNit nav mangal grih basai, lahe jagat sanmaan." },
-    { "n": 39, "type": "doha", "hi": "सम्वत् अपन सहस्र दश, ऋषि पंचमी दिनेश।\nपूरण चालीसा भयो, मंगल मूर्ति गणेश॥", "en": "Samvat apan sahasra dash, rishi panchamee dinesh.\nPooran chaaleesaa bhayo, mangal moorati Ganesh." }
+    { "n": 37, "type": "chaupai", "hi": "भजत रामसुन्दर प्रभुदासा।\nजग प्रयाग ककरा दुर्वासा॥", "en": "Bhajat Raamsundar Prabhudaasaa.\nJag Prayaag Kakraa Durvaasaa." },
+    { "n": 38, "type": "chaupai", "hi": "अब प्रभु दया दीन पर कीजै।\nअपनी शक्ति भक्ति कछु दीजै॥", "en": "Ab Prabhu dayaa deen par keejai.\nApnee shakti bhakti kachhu deejai." },
+    { "n": 39, "type": "doha", "hi": "श्री गणेश यह चालीसा, पाठ करै धर ध्यान।\nनित नव मंगल गृह बसै, लहे जगत सन्मान॥", "en": "Shri Ganesh yah Chaaleesaa, paath karai dhar dhyaan.\nNit nav mangal grih basai, lahe jagat sanmaan." },
+    { "n": 40, "type": "doha", "hi": "सम्वत् अपन सहस्र दश, ऋषि पंचमी दिनेश।\nपूरण चालीसा भयो, मंगल मूर्ति गणेश॥", "en": "Samvat apan sahasra dash, rishi panchamee dinesh.\nPooran chaaleesaa bhayo, mangal moorati Ganesh." }
   ]
 }
