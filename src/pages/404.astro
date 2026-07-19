@@ -3,6 +3,11 @@ import Layout from '../layouts/Layout.astro';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import Icon from '../components/Icon.astro';
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (p: string) => localizePath(p, lang);
 ---
 
 <Layout
@@ -24,32 +29,30 @@ import Icon from '../components/Icon.astro';
         </div>
 
         <p class="mb-4 font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
-          404 · Page not found
+          {t('notfound.code')}
         </p>
 
         <h1 class="font-serif text-4xl font-medium leading-[1.1] tracking-tight text-(--ink) sm:text-6xl">
-          The path here is<br class="hidden sm:inline" />
-          <em class="text-(--accent) not-italic">not yet paved.</em>
+          {t('notfound.heading')}
         </h1>
 
         <p class="mx-auto mt-6 max-w-lg text-[16px] leading-relaxed text-(--body) sm:text-[17px]">
-          The page you were looking for does not exist — or has moved. No matter. The Chalisa
-          library is only a step away, and the words are waiting for you.
+          {t('notfound.body')}
         </p>
 
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <a
-            href="/"
+            href={lp('/')}
             class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full bg-(--ink) px-6 py-3 text-sm font-medium text-(--canvas) transition hover:opacity-90 sm:w-auto"
           >
-            Return home
+            {t('notfound.cta')}
             <Icon name="arrow" size={14} />
           </a>
           <a
-            href="/#chalisas"
+            href={lp('/#chalisas')}
             class="inline-flex w-full max-w-xs items-center justify-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-6 py-3 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong) sm:w-auto"
           >
-            Browse the library
+            {t('notfound.browse')}
           </a>
         </div>
 

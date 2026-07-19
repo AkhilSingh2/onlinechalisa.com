@@ -1,12 +1,18 @@
 ---
 import Icon from './Icon.astro';
+import LanguageSwitcher from './LanguageSwitcher.astro';
+import { getLangFromUrl, localizePath, stripLocale, useTranslations } from '../i18n/utils';
 
 interface Props {
   minimal?: boolean;
 }
 
 const { minimal = false } = Astro.props;
-const path = Astro.url.pathname;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const canonicalPath = stripLocale(Astro.url.pathname);
+const lp = (p: string) => localizePath(p, lang);
+const onSankalp = canonicalPath.startsWith('/sankalp');
 const linkClass =
   'text-sm text-(--body) hover:text-(--ink) transition-colors duration-200 rounded-full px-3 py-1.5';
 ---
@@ -22,7 +28,7 @@ const linkClass =
     <a
       href="/"
       class="group flex min-w-0 items-center gap-2.5 rounded-md py-1"
-      aria-label="Online Chalisa — home"
+      aria-label={t('header.homeAria')}
     >
       <span
         class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-(--accent-soft) text-(--accent) transition-transform duration-300 group-hover:rotate-[-6deg]"
@@ -37,20 +43,22 @@ const linkClass =
     {
       !minimal && (
         <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
-          <a href="/#chalisas" class={linkClass}>Chalisas</a>
-          <a href="/sankalp" class={linkClass}>Sankalp</a>
-          <a href="/about" class={linkClass}>About</a>
+          <a href={lp('/') + '#chalisas'} class={linkClass}>{t('nav.chalisas')}</a>
+          <a href={lp('/sankalp')} class={linkClass}>{t('nav.sankalp')}</a>
+          <a href={lp('/about')} class={linkClass}>{t('nav.about')}</a>
         </nav>
       )
     }
 
     <div class="flex items-center gap-2">
+      <LanguageSwitcher />
+
       <button
         type="button"
         id="theme-toggle"
         class="flex h-9 w-9 items-center justify-center rounded-full border border-(--hairline) bg-(--surface) text-(--ink) transition hover:border-(--hairline-strong)"
-        aria-label="Cycle theme"
-        title="Cycle theme (light / sepia / dark)"
+        aria-label={t('header.themeCycle')}
+        title={t('header.themeCycleTitle')}
       >
         <span data-theme-icon="light"><Icon name="sun" size={16} /></span>
         <span data-theme-icon="sepia" class="hidden"><Icon name="sepia" size={16} /></span>
@@ -60,10 +68,10 @@ const linkClass =
       {
         !minimal && (
           <a
-            href={path.startsWith('/sankalp') ? '/#chalisas' : '/sankalp'}
+            href={onSankalp ? lp('/') + '#chalisas' : lp('/sankalp')}
             class="hidden sm:inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-1.5 text-[13px] font-medium text-(--canvas) transition hover:opacity-90"
           >
-            {path.startsWith('/sankalp') ? 'Start reading' : 'Begin Sankalp'}
+            {onSankalp ? t('header.startReading') : t('header.beginSankalp')}
             <Icon name="arrow" size={14} />
           </a>
         )

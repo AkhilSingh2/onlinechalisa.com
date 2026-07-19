@@ -1,5 +1,7 @@
 ---
 import '../styles/global.css';
+import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
+import { LOCALE_META, DEFAULT_LOCALE } from '../i18n/config';
 
 interface Props {
   title?: string;
@@ -27,11 +29,18 @@ const siteOrigin = (Astro.site ?? new URL('https://onlinechalisa.com')).toString
 const canonical = new URL(Astro.url.pathname, siteOrigin + '/').toString();
 const ogImage = new URL(image ?? '/apple-touch-icon.png', siteOrigin + '/').toString();
 
+const locale = getLangFromUrl(Astro.url);
+const localeMeta = LOCALE_META[locale];
+const alternates = getAlternateLinks(Astro.url.pathname, siteOrigin);
+const ogAltLocales = alternates
+  .filter((a) => a.hreflang !== 'x-default' && a.locale !== locale)
+  .map((a) => LOCALE_META[a.locale].ogLocale);
+
 const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 ---
 
 <!doctype html>
-<html lang="en" data-theme="light" data-script="hi">
+<html lang={localeMeta.htmlLang} dir={localeMeta.dir} data-theme="light" data-script={localeMeta.defaultScript}>
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
@@ -43,6 +52,12 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     <meta name="author" content="Online Chalisa" />
     <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large, max-snippet:-1'} />
     <link rel="canonical" href={canonical} />
+
+    {/* hreflang alternates — one per locale plus x-default (English). */}
+    {alternates.map((a) => (
+      <link rel="alternate" hreflang={a.hreflang} href={a.href} />
+    ))}
+
 
     <meta name="theme-color" content="#faf5ea" media="(prefers-color-scheme: light)" />
     <meta name="theme-color" content="#0d0a07" media="(prefers-color-scheme: dark)" />
@@ -60,11 +75,10 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Online Chalisa" />
-    <meta property="og:locale" content="en_IN" />
-    <meta property="og:locale:alternate" content="hi_IN" />
-    <meta property="og:locale:alternate" content="te_IN" />
-    <meta property="og:locale:alternate" content="kn_IN" />
-    <meta property="og:locale:alternate" content="ta_IN" />
+    <meta property="og:locale" content={localeMeta.ogLocale} />
+    {ogAltLocales.map((loc) => (
+      <meta property="og:locale:alternate" content={loc} />
+    ))}
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:secure_url" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
@@ -112,7 +126,7 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
           document.documentElement.setAttribute('data-theme', theme);
           var scale = localStorage.getItem('oc-scale');
           if (scale) document.documentElement.style.setProperty('--reader-scale', scale);
-          var script = localStorage.getItem('oc-script') || 'hi';
+          var script = localStorage.getItem('oc-script') || document.documentElement.getAttribute('data-script') || 'hi';
           document.documentElement.setAttribute('data-script', script);
           var translit = localStorage.getItem('oc-translit');
           if (translit === '1') document.documentElement.setAttribute('data-translit', 'on');

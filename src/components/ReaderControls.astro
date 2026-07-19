@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   slug: string;
@@ -7,13 +8,16 @@ interface Props {
 }
 const { slug, audioUrl } = Astro.props;
 
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
 const scripts = [
-  { code: 'hi', label: 'हिन्दी', title: 'Devanagari (Hindi)' },
-  { code: 'te', label: 'తెలుగు', title: 'Telugu' },
-  { code: 'ta', label: 'தமிழ்', title: 'Tamil' },
-  { code: 'kn', label: 'ಕನ್ನಡ', title: 'Kannada' },
-  { code: 'bn', label: 'বাংলা', title: 'Bengali' },
-  { code: 'en', label: 'English', title: 'English (transliteration)' },
+  { code: 'hi', label: 'हिन्दी', title: t('reader.script.hi') },
+  { code: 'te', label: 'తెలుగు', title: t('reader.script.te') },
+  { code: 'ta', label: 'தமிழ்', title: t('reader.script.ta') },
+  { code: 'kn', label: 'ಕನ್ನಡ', title: t('reader.script.kn') },
+  { code: 'bn', label: 'বাংলা', title: t('reader.script.bn') },
+  { code: 'en', label: 'English', title: t('reader.script.en') },
 ] as const;
 ---
 
@@ -28,7 +32,7 @@ const scripts = [
       <div
         class="inline-flex flex-wrap items-center justify-center gap-0.5 self-center rounded-full border border-(--hairline) bg-(--surface) p-0.5 sm:self-auto"
         role="radiogroup"
-        aria-label="Script"
+        aria-label={t('reader.script')}
       >
         {scripts.map((s) => (
           <button
@@ -50,7 +54,7 @@ const scripts = [
         <label
           id="chk-translit-label"
           class="oc-pill cursor-pointer"
-          title="Show English transliteration beneath each verse"
+          title={t('reader.showEnglishTitle')}
         >
           <input
             type="checkbox"
@@ -58,8 +62,8 @@ const scripts = [
             class="peer h-3.5 w-3.5 shrink-0 cursor-pointer accent-(--accent)"
           />
           <span class="peer-checked:text-(--ink)">
-            <span class="hidden sm:inline">Show English</span>
-            <span class="sm:hidden">EN</span>
+            <span class="hidden sm:inline">{t('reader.showEnglish')}</span>
+            <span class="sm:hidden">{t('reader.en')}</span>
           </span>
         </label>
 
@@ -73,8 +77,8 @@ const scripts = [
             type="button"
             id="btn-font-down"
             class="inline-flex h-7 w-7 items-center justify-center rounded-full text-(--body) transition hover:bg-(--surface-soft) hover:text-(--ink)"
-            aria-label="Decrease text size"
-            title="Smaller text"
+            aria-label={t('reader.decrease')}
+            title={t('reader.smaller')}
           >
             <Icon name="aminus" size={16} />
           </button>
@@ -82,8 +86,8 @@ const scripts = [
             type="button"
             id="btn-font-up"
             class="inline-flex h-7 w-7 items-center justify-center rounded-full text-(--body) transition hover:bg-(--surface-soft) hover:text-(--ink)"
-            aria-label="Increase text size"
-            title="Larger text"
+            aria-label={t('reader.increase')}
+            title={t('reader.larger')}
           >
             <Icon name="aplus" size={16} />
           </button>
@@ -96,20 +100,20 @@ const scripts = [
           id="btn-autoscroll"
           class="oc-pill"
           aria-pressed="false"
-          title="Teleprompter — auto-scroll"
+          title={t('reader.autoscrollTitle')}
         >
           <Icon name="scroll" size={14} />
-          <span class="hidden sm:inline">Auto-scroll</span>
+          <span class="hidden sm:inline">{t('reader.autoscroll')}</span>
         </button>
         <button
           type="button"
           id="btn-zen"
           class="oc-pill"
           aria-pressed="false"
-          title="Zen mode — hide everything"
+          title={t('reader.zenTitle')}
         >
           <Icon name="zen" size={14} />
-          <span class="hidden sm:inline">Zen</span>
+          <span class="hidden sm:inline">{t('reader.zen')}</span>
         </button>
       </div>
     </div>
@@ -121,7 +125,7 @@ const scripts = [
     role="group"
     aria-label="Auto-scroll speed"
   >
-    <span class="font-mono text-[11px] uppercase tracking-wider text-(--mute)">Speed</span>
+    <span class="font-mono text-[11px] uppercase tracking-wider text-(--mute)">{t('reader.speed')}</span>
     <input
       id="scroll-speed"
       type="range"
@@ -138,7 +142,7 @@ const scripts = [
       id="btn-scroll-stop"
       class="ml-auto rounded-full border border-(--hairline) px-2 py-0.5 font-medium text-(--body) hover:text-(--ink)"
     >
-      Stop
+      {t('reader.stop')}
     </button>
   </div>
 </div>
@@ -149,11 +153,11 @@ const scripts = [
   type="button"
   id="btn-zen-exit"
   class="fixed right-4 top-4 z-50 hidden items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-3 py-1.5 text-xs font-medium text-(--body) shadow-md transition hover:text-(--ink) sm:right-6 sm:top-6"
-  aria-label="Exit Zen mode"
+  aria-label={t('reader.exitZenAria')}
   data-zen-exit
 >
   <span aria-hidden="true">✕</span>
-  <span class="hidden sm:inline">Exit Zen</span>
+  <span class="hidden sm:inline">{t('reader.exitZen')}</span>
 </button>
 
 <script is:inline define:vars={{ slug }}>

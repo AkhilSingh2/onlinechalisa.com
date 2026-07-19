@@ -1,4 +1,9 @@
 ---
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (p: string) => localizePath(p, lang);
 const year = new Date().getFullYear();
 ---
 
@@ -7,28 +12,27 @@ const year = new Date().getFullYear();
     class="mx-auto grid max-w-6xl gap-8 px-4 py-12 text-sm text-(--body) sm:px-6 md:grid-cols-[1.2fr_1fr_1fr]"
   >
     <p class="max-w-md leading-relaxed">
-      Online Chalisa is a devotional reader — no ads, no tracking, no account. Read in peace, and
-      may your practice be steady.
+      {t('footer.blurb')}
     </p>
 
     <nav aria-label="Site" class="flex flex-col gap-2.5">
-      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Site</p>
-      <a class="w-fit hover:text-(--ink)" href="/">Home</a>
-      <a class="w-fit hover:text-(--ink)" href="/#chalisas">Chalisas</a>
-      <a class="w-fit hover:text-(--ink)" href="/sankalp">Sankalp</a>
-      <a class="w-fit hover:text-(--ink)" href="/about">About us</a>
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('footer.site')}</p>
+      <a class="w-fit hover:text-(--ink)" href={lp('/')}>{t('footer.home')}</a>
+      <a class="w-fit hover:text-(--ink)" href={lp('/') + '#chalisas'}>{t('footer.chalisas')}</a>
+      <a class="w-fit hover:text-(--ink)" href={lp('/sankalp')}>{t('footer.sankalp')}</a>
+      <a class="w-fit hover:text-(--ink)" href={lp('/about')}>{t('footer.aboutUs')}</a>
     </nav>
 
     <nav aria-label="Legal" class="flex flex-col gap-2.5">
-      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Legal</p>
-      <a class="w-fit hover:text-(--ink)" href="/privacy">Privacy policy</a>
-      <a class="w-fit hover:text-(--ink)" href="/terms">Terms &amp; conditions</a>
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('footer.legal')}</p>
+      <a class="w-fit hover:text-(--ink)" href={lp('/privacy')}>{t('footer.privacy')}</a>
+      <a class="w-fit hover:text-(--ink)" href={lp('/terms')}>{t('footer.terms')}</a>
     </nav>
   </div>
   <div
     class="mx-auto flex max-w-6xl flex-col gap-2 border-t border-(--hairline) px-4 py-6 font-mono text-xs uppercase tracking-wider text-(--mute) sm:flex-row sm:items-center sm:justify-between sm:px-6"
   >
-    <span>ॐ &nbsp; Made with quiet devotion</span>
+    <span>ॐ &nbsp; {t('footer.made')}</span>
     <span>© {year} &nbsp; · &nbsp; onlinechalisa.com</span>
   </div>
 </footer>

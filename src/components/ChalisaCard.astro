@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
 
 interface Props {
   slug: string;
@@ -22,19 +23,21 @@ const {
   order,
   verseCount,
 } = Astro.props;
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 const num = String(order).padStart(2, '0');
 
 // Rough reading estimate: ~30s per verse read aloud at a devotional pace.
 const readMin = verseCount ? Math.max(3, Math.round((verseCount * 30) / 60)) : 7;
-const meta = verseCount
-  ? `${verseCount} verses · ~${readMin} min`
-  : '40 verses · ~7 min';
+const count = verseCount ?? 40;
+const mins = verseCount ? readMin : 7;
+const meta = `${count} ${t('card.verses')} · ~${mins} ${t('card.min')}`;
 ---
 
 <a
-  href={`/chalisa/${slug}`}
+  href={localizePath(`/chalisa/${slug}`, lang)}
   class="surface-card group relative flex flex-col gap-5 p-6 focus:outline-none"
-  aria-label={`Read ${title}`}
+  aria-label={`${t('card.readPrefix')} ${title}`}
 >
   <div class="flex items-start justify-between">
     <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-(--mute)">
@@ -61,7 +64,7 @@ const meta = verseCount
     <span
       class="inline-flex items-center gap-1 text-sm font-medium text-(--ink) opacity-70 transition-opacity group-hover:opacity-100"
     >
-      Read
+      {t('card.read')}
       <Icon name="arrow" size={14} class="transition-transform group-hover:translate-x-1" />
     </span>
   </div>

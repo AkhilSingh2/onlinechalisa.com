@@ -7,6 +7,7 @@ import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
+import { getLangFromUrl, localizePath, useTranslations } from '../../i18n/utils';
 
 const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
 const entry = all.find((item) => item.data.slug === Astro.params.slug);
@@ -16,6 +17,10 @@ if (!entry) {
 }
 
 const { data } = entry;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+const lp = (p: string) => localizePath(p, lang);
 
 const idx = all.findIndex((e) => e.data.slug === data.slug);
 const prev = idx > 0 ? all[idx - 1] : null;
@@ -277,7 +282,7 @@ const faqsBySlug: Record<string, Faq[]> = {
 };
 
 const chalisaFaqs = faqsBySlug[data.slug] ?? [];
-const faqHeading = `About the ${data.title}`;
+const faqHeading = `${t('chalisa.aboutPrefix')} ${data.title}`;
 
 const jsonLd = [
   {
@@ -424,13 +429,13 @@ if (isHanuman) {
 
       <footer class="mt-16 border-t border-(--hairline) pt-8 text-center">
         <p class="font-serif text-xl text-(--ink)">॥ इति श्री {data.title} ॥</p>
-        <p class="mt-2 text-sm text-(--body)">May your reading bring you peace.</p>
+        <p class="mt-2 text-sm text-(--body)">{t('chalisa.blessing')}</p>
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           {
             prev ? (
               <a
-                href={`/chalisa/${prev.data.slug}`}
+                href={lp(`/chalisa/${prev.data.slug}`)}
                 class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
               >
                 <Icon name="arrow" size={14} class="rotate-180" />
@@ -438,18 +443,18 @@ if (isHanuman) {
               </a>
             ) : (
               <a
-                href="/"
+                href={lp('/')}
                 class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
               >
                 <Icon name="arrow" size={14} class="rotate-180" />
-                Home
+                {t('chalisa.home')}
               </a>
             )
           }
           {
             next && (
               <a
-                href={`/chalisa/${next.data.slug}`}
+                href={lp(`/chalisa/${next.data.slug}`)}
                 class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
               >
                 {next.data.title}
@@ -469,7 +474,7 @@ if (isHanuman) {
         >
           <div class="border-t border-(--hairline) pt-12">
             <p class="text-center font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
-              Frequently Asked
+              {t('chalisa.faqHeading')}
             </p>
             <h2
               id="faq-heading"
@@ -478,7 +483,7 @@ if (isHanuman) {
               {faqHeading}
             </h2>
             <p class="mx-auto mt-3 max-w-md text-center text-[15px] leading-relaxed text-(--body)">
-              Answers to the most common questions about this Chalisa — its origin, meaning and daily practice.
+              {t('chalisa.faqSubtitle')}
             </p>
             <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true" />
 

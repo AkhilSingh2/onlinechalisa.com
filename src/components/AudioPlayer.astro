@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
@@ -8,11 +9,14 @@ interface Props {
 }
 
 const { title, audioUrl, audioAttribution } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
 ---
 
 <div
   class="audio-dock zen-reveal fixed inset-x-0 bottom-0 z-40 border-t border-(--hairline) bg-[color-mix(in_oklab,var(--surface)_92%,transparent)] backdrop-blur-md"
-  aria-label="Audio player"
+  aria-label={t('audio.player')}
   style="padding-bottom: env(safe-area-inset-bottom);"
 >
   <div class="mx-auto flex max-w-3xl items-center gap-3 px-3 py-3 sm:px-6">
@@ -20,7 +24,7 @@ const { title, audioUrl, audioAttribution } = Astro.props;
       type="button"
       id="audio-play"
       class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-(--ink) text-(--canvas) transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
-      aria-label="Play or pause"
+      aria-label={t('audio.playPause')}
     >
       <span data-audio-icon="play"><Icon name="play" size={16} /></span>
       <span data-audio-icon="pause" class="hidden"><Icon name="pause" size={16} /></span>
@@ -37,7 +41,7 @@ const { title, audioUrl, audioAttribution } = Astro.props;
         id="audio-track"
         class="relative mt-1.5 h-1 cursor-pointer rounded-full bg-(--hairline)"
         role="slider"
-        aria-label="Seek"
+        aria-label={t('audio.seek')}
         aria-valuemin="0"
         aria-valuemax="100"
         aria-valuenow="0"
@@ -53,7 +57,7 @@ const { title, audioUrl, audioAttribution } = Astro.props;
       {
         !audioUrl && (
           <p class="mt-1 text-[11px] text-(--mute)">
-            Audio recitation coming soon — read along in silence for now.
+            {t('audio.comingSoon')}
           </p>
         )
       }

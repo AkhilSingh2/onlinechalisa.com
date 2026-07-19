@@ -1,8 +1,23 @@
 ---
+import { getLangFromUrl, useTranslations } from '../i18n/utils';
+
 interface Props {
   compact?: boolean;
 }
 const { compact = false } = Astro.props;
+
+const lang = getLangFromUrl(Astro.url);
+const t = useTranslations(lang);
+
+const streakLabels = {
+  markToday: t('streak.markToday'),
+  todayMarked: t('streak.todayMarked'),
+  resetConfirm: t('streak.resetConfirm'),
+  day: t('streak.day'),
+  days: t('streak.daysUnit'),
+  dayWord: t('streak.dayWord'),
+  completed: t('streak.completed'),
+};
 ---
 
 <section
@@ -16,34 +31,33 @@ const { compact = false } = Astro.props;
 >
   <div class="flex flex-wrap items-start justify-between gap-4">
     <div>
-      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">Sankalp · संकल्प</p>
+      <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('streak.kicker')}</p>
       <h2 class="mt-2 font-serif text-2xl font-medium tracking-tight text-(--ink) sm:text-3xl">
-        A quiet commitment
+        {t('streak.heading')}
       </h2>
       <p class="mt-2 max-w-md text-sm leading-relaxed text-(--body)">
-        Pick a length and tick each day as you read. Progress lives on this device — no account,
-        no cloud, no reminders you didn't ask for.
+        {t('streak.blurb')}
       </p>
     </div>
     <div
       class="inline-flex rounded-full border border-(--hairline) bg-(--surface) p-1"
       role="group"
-      aria-label="Sankalp length"
+      aria-label={t('streak.lengthAria')}
     >
-      <button type="button" data-days="11" class="rounded-full px-3 py-1 text-xs font-medium">11 days</button>
-      <button type="button" data-days="21" class="rounded-full px-3 py-1 text-xs font-medium">21 days</button>
-      <button type="button" data-days="40" class="rounded-full px-3 py-1 text-xs font-medium">40 days</button>
+      <button type="button" data-days="11" class="rounded-full px-3 py-1 text-xs font-medium">11 {t('streak.daysUnit')}</button>
+      <button type="button" data-days="21" class="rounded-full px-3 py-1 text-xs font-medium">21 {t('streak.daysUnit')}</button>
+      <button type="button" data-days="40" class="rounded-full px-3 py-1 text-xs font-medium">40 {t('streak.daysUnit')}</button>
     </div>
   </div>
 
   <div class="mt-6 flex items-baseline gap-4">
     <div>
       <span id="streak-count" class="font-serif text-5xl font-medium tracking-tight text-(--ink)">0</span>
-      <span class="ml-1 text-sm text-(--body)">of <span id="streak-total">11</span> days</span>
+      <span class="ml-1 text-sm text-(--body)">{t('streak.of')} <span id="streak-total">11</span> {t('streak.daysUnit')}</span>
     </div>
     <div class="ml-auto text-right">
-      <p class="text-[11px] font-mono uppercase tracking-wider text-(--mute)">Current streak</p>
-      <p id="streak-current" class="mt-0.5 text-sm font-medium text-(--ink)">0 days</p>
+      <p class="text-[11px] font-mono uppercase tracking-wider text-(--mute)">{t('streak.currentStreak')}</p>
+      <p id="streak-current" class="mt-0.5 text-sm font-medium text-(--ink)">0 {t('streak.daysUnit')}</p>
     </div>
   </div>
 
@@ -56,7 +70,7 @@ const { compact = false } = Astro.props;
     class="mt-6 grid gap-1.5"
     style="grid-template-columns: repeat(11, minmax(0, 1fr));"
     role="grid"
-    aria-label="Daily progress"
+    aria-label={t('streak.dailyProgress')}
   ></div>
 
   <div class="mt-6 flex flex-wrap items-center gap-2">
@@ -65,19 +79,19 @@ const { compact = false } = Astro.props;
       id="streak-toggle-today"
       class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
     >
-      Mark today complete
+      {t('streak.markToday')}
     </button>
     <button
       type="button"
       id="streak-reset"
       class="rounded-full border border-(--hairline) px-3 py-1.5 text-xs font-medium text-(--body) transition hover:text-(--ink)"
     >
-      Reset sankalp
+      {t('streak.reset')}
     </button>
   </div>
 </section>
 
-<script is:inline>
+<script is:inline define:vars={{ L: streakLabels }}>
   (function () {
     const KEY = 'oc-sankalp-v1';
     const root = document.querySelector('[data-sankalp]');
@@ -156,7 +170,7 @@ const { compact = false } = Astro.props;
         cell.className = 'streak-cell';
         cell.setAttribute(
           'aria-label',
-          `Day ${i + 1} — ${d.toDateString()}${isDone ? ' — completed' : ''}`,
+          `${L.dayWord} ${i + 1} — ${d.toDateString()}${isDone ? ' — ' + L.completed : ''}`,
         );
         if (isDone) cell.setAttribute('data-state', 'done');
         else if (key === t) cell.setAttribute('data-state', 'today');
@@ -172,7 +186,7 @@ const { compact = false } = Astro.props;
       countEl.textContent = String(done);
       bar.style.width = Math.min(100, (done / len) * 100) + '%';
       const streak = currentStreak(s.days);
-      currentEl.textContent = streak + (streak === 1 ? ' day' : ' days');
+      currentEl.textContent = streak + ' ' + (streak === 1 ? L.day : L.days);
 
       lengthBtns.forEach((b) => {
         const active = Number(b.getAttribute('data-days')) === len;
@@ -183,7 +197,7 @@ const { compact = false } = Astro.props;
       });
 
       const todayDone = !!s.days[today()];
-      toggleBtn.textContent = todayDone ? '✓ Today marked · undo' : 'Mark today complete';
+      toggleBtn.textContent = todayDone ? L.todayMarked : L.markToday;
       toggleBtn.classList.toggle('bg-(--ink)', !todayDone);
       toggleBtn.classList.toggle('bg-(--accent)', todayDone);
     }
@@ -207,7 +221,7 @@ const { compact = false } = Astro.props;
     });
 
     resetBtn.addEventListener('click', () => {
-      if (!confirm('Reset your sankalp? This clears all tick marks on this device.')) return;
+      if (!confirm(L.resetConfirm)) return;
       save({ length: load().length, days: {} });
       render();
     });
