@@ -27,7 +27,7 @@ const {
 
 const siteOrigin = (Astro.site ?? new URL('https://onlinechalisa.com')).toString().replace(/\/$/, '');
 const canonical = new URL(Astro.url.pathname, siteOrigin + '/').toString();
-const ogImage = new URL(image ?? '/apple-touch-icon.png', siteOrigin + '/').toString();
+const ogImage = new URL(image ?? '/og/default.png', siteOrigin + '/').toString();
 
 const locale = getLangFromUrl(Astro.url);
 const localeMeta = LOCALE_META[locale];
@@ -82,8 +82,8 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     <meta property="og:image" content={ogImage} />
     <meta property="og:image:secure_url" content={ogImage} />
     <meta property="og:image:type" content="image/png" />
-    <meta property="og:image:width" content="512" />
-    <meta property="og:image:height" content="512" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content="Online Chalisa — Hanuman Chalisa in Hindi, English, Telugu, Kannada & Tamil" />
 
     {/* Twitter */}

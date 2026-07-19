@@ -1,0 +1,111 @@
+// One-time OG image generator.
+// Rasterizes a branded 1200×630 card per chalisa (plus a default) into
+// public/og/<slug>.png using the deity's accent colour. Re-run whenever
+// the deity list, titles or colours change:
+//   node scripts/gen-og.mjs
+import { readFileSync, readdirSync, mkdirSync, writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { dirname, join } from 'node:path';
+import sharp from 'sharp';
+
+const __dirname = dirname(fileURLToPath(import.meta.url));
+const root = join(__dirname, '..');
+const contentDir = join(root, 'src/content/chalisas');
+const outDir = join(root, 'public/og');
+mkdirSync(outDir, { recursive: true });
+
+const CANVAS = '#faf5ea';
+const INK = '#2a2018';
+const BODY = '#6b5d4f';
+const MUTE = '#9a8b78';
+
+function esc(s) {
+  return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+// Convert #rrggbb → rgba() with the given alpha.
+function rgba(hex, a) {
+  const h = hex.replace('#', '');
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r},${g},${b},${a})`;
+}
+
+function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }) {
+  const W = 1200;
+  const H = 630;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="8%" r="75%">
+      <stop offset="0%" stop-color="${rgba(color, 0.28)}"/>
+      <stop offset="55%" stop-color="${rgba(color, 0.08)}"/>
+      <stop offset="100%" stop-color="${rgba(color, 0)}"/>
+    </radialGradient>
+    <linearGradient id="rule" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="${rgba(color, 0)}"/>
+      <stop offset="50%" stop-color="${rgba(color, 0.9)}"/>
+      <stop offset="100%" stop-color="${rgba(color, 0)}"/>
+    </linearGradient>
+  </defs>
+
+  <rect width="${W}" height="${H}" fill="${CANVAS}"/>
+  <rect width="${W}" height="${H}" fill="url(#halo)"/>
+  <rect x="28" y="28" width="${W - 56}" height="${H - 56}" rx="28"
+        fill="none" stroke="${rgba(color, 0.35)}" stroke-width="2"/>
+
+  <!-- Diya badge -->
+  <g transform="translate(${W / 2}, 150)">
+    <circle r="52" fill="${rgba(color, 0.14)}" stroke="${rgba(color, 0.4)}" stroke-width="2"/>
+    <circle r="7" cx="0" cy="8" fill="${color}"/>
+    <path d="M -22 14 Q 0 30 22 14 Q 0 40 -22 14 Z" fill="${rgba(color, 0.85)}"/>
+    <path d="M 0 -2 C -6 -16 6 -20 0 -34 C 10 -22 6 -8 0 -2 Z" fill="${color}"/>
+  </g>
+
+  <text x="${W / 2}" y="330" text-anchor="middle"
+        font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="600"
+        fill="${INK}">${esc(title)}</text>
+
+  <line x1="${W / 2 - 160}" y1="372" x2="${W / 2 + 160}" y2="372"
+        stroke="url(#rule)" stroke-width="3"/>
+
+  <text x="${W / 2}" y="432" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="30" font-weight="500"
+        fill="${BODY}">${esc(subtitle)}</text>
+
+  <text x="${W / 2}" y="478" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="22"
+        fill="${MUTE}">${esc(tradition)}</text>
+
+  <text x="${W / 2}" y="566" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="24" font-weight="600"
+        letter-spacing="6" fill="${rgba(color, 0.95)}">${esc(wordmark)}</text>
+</svg>`;
+}
+
+const SUBTITLE = 'Lyrics in Hindi · English · Telugu · Kannada · Tamil';
+
+const files = readdirSync(contentDir).filter((f) => f.endsWith('.json'));
+for (const file of files) {
+  const data = JSON.parse(readFileSync(join(contentDir, file), 'utf8'));
+  const svg = card({
+    title: data.title,
+    subtitle: SUBTITLE,
+    tradition: data.tradition || 'Devotional hymn · forty verses',
+    color: data.color || '#c96a1a',
+  });
+  const out = join(outDir, `${data.slug}.png`);
+  await sharp(Buffer.from(svg)).png().toFile(out);
+  console.log('wrote', out);
+}
+
+// Branded default (home / fallback)
+const def = card({
+  title: 'Online Chalisa',
+  subtitle: 'Read every Chalisa — ad-free, offline, in five scripts',
+  tradition: 'Hanuman · Shiv · Ganesh · Durga · Shani · Laxmi · Saraswati',
+  color: '#c96a1a',
+  wordmark: 'ONLINECHALISA.COM',
+});
+await sharp(Buffer.from(def)).png().toFile(join(outDir, 'default.png'));
+console.log('wrote', join(outDir, 'default.png'));

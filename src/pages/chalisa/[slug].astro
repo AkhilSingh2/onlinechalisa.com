@@ -300,6 +300,29 @@ const localizedFallbackFaqs: Faq[] = [
 const chalisaFaqs = lang === 'en' ? (faqsBySlug[data.slug] ?? []) : localizedFallbackFaqs;
 const faqHeading = `${t('chalisa.aboutPrefix')} ${localTitle}`;
 
+// Well-attested authorship for JSON-LD (E-E-A-T). Only the compositions
+// with a historically documented author are attributed; the rest are
+// traditional/anonymous and deliberately left without an `author`.
+const authorsBySlug: Record<
+  string,
+  { name: string; dateCreated?: string; genre?: string[] }
+> = {
+  hanuman: {
+    name: 'Goswami Tulsidas',
+    dateCreated: '1600',
+    genre: ['Devotional hymn', 'Bhakti poetry', 'Awadhi literature'],
+  },
+  shiv: {
+    name: 'Ayodhya Prasad',
+    dateCreated: '1850',
+    genre: ['Devotional hymn', 'Bhakti poetry'],
+  },
+};
+const authorInfo = authorsBySlug[data.slug];
+
+// Freshness signal — reflects the latest build/content update.
+const lastModified = new Date().toISOString();
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -319,20 +342,23 @@ const jsonLd = [
     description: seoDescription,
     inLanguage: ['hi', 'en', 'te', 'kn', 'ta', 'bn'],
     url,
+    dateModified: lastModified,
+    keywords: seoKeywords,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.reader h1', '.verse-line'],
+    },
     about: {
       '@type': 'Thing',
       name: data.deity,
     },
-    ...(isHanuman
+    ...(authorInfo
       ? {
-          author: { '@type': 'Person', name: 'Goswami Tulsidas' },
-          dateCreated: '1600',
-          genre: ['Devotional hymn', 'Bhakti poetry', 'Awadhi literature'],
-          keywords: seoKeywords,
+          author: { '@type': 'Person', name: authorInfo.name },
+          ...(authorInfo.dateCreated ? { dateCreated: authorInfo.dateCreated } : {}),
+          ...(authorInfo.genre ? { genre: authorInfo.genre } : {}),
         }
-      : {
-          keywords: seoKeywords,
-        }),
+      : {}),
     isPartOf: {
       '@type': 'WebSite',
       name: 'Online Chalisa',
@@ -383,6 +409,7 @@ if (isHanuman) {
   title={seoTitle}
   description={seoDescription}
   keywords={seoKeywords}
+  image={`/og/${data.slug}.png`}
   ogType="article"
   jsonLd={jsonLd}
 >

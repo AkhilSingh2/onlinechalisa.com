@@ -56,12 +56,15 @@ const jsonLd = [
     name: 'Chalisa library',
     itemListOrder: 'https://schema.org/ItemListOrderAscending',
     numberOfItems: entries.length,
-    itemListElement: entries.map((e, i) => ({
-      '@type': 'ListItem',
-      position: i + 1,
-      url: `${siteUrl}/chalisa/${e.data.slug}`,
-      name: e.data.title,
-    })),
+    itemListElement: entries.map((e, i) => {
+      const k = `chalisa.title.${e.data.slug}`;
+      return {
+        '@type': 'ListItem',
+        position: i + 1,
+        url: `${siteUrl}/chalisa/${e.data.slug}`,
+        name: t(k) === k ? e.data.title : t(k),
+      };
+    }),
   },
   {
     '@context': 'https://schema.org',
