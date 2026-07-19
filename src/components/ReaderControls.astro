@@ -273,7 +273,14 @@ const scripts = [
     let raf = 0;
     let running = false;
     let lastTs = 0;
-    let pending = 0;
+    // Absolute target position (float). We drive an explicit `scrollTo`
+    // to this value every frame instead of reading `scrollTop` back —
+    // iOS Safari reports a mid-animation value while `scroll-behavior:
+    // smooth` is active, which made the old `scrollTop += delta` scheme
+    // stall. We also record when the run started so the initiating tap's
+    // stray `touchmove` can't cancel it immediately.
+    let targetY = 0;
+    let startedAt = 0;
 
     function speedWord(v) {
       if (v <= 2) return 'gentle';
@@ -298,6 +305,10 @@ const scripts = [
     // `document.scrollingElement` keeps us correct across browsers.
     const scrollEl = document.scrollingElement || document.documentElement;
 
+    function maxScroll() {
+      return Math.max(0, scrollEl.scrollHeight - window.innerHeight);
+    }
+
     function frame(ts) {
       if (!running) return;
       if (!lastTs) lastTs = ts;
@@ -307,31 +318,33 @@ const scripts = [
       // (rAF can deliver a multi-second dt, which would teleport the page).
       if (dt > 100) dt = 100;
       const v = Number(speedInput.value);
-      pending += (pxPerSec(v) * dt) / 1000;
-      const whole = Math.floor(pending);
-      if (whole >= 1) {
-        pending -= whole;
-        // Assigning `scrollTop` directly is the ONLY reliable way to advance
-        // the page on iOS Safari: per spec, `scroll-behavior: smooth` (set
-        // globally on <html>) affects scrollBy/scrollTo but NEVER a direct
-        // scrollTop write. `scrollBy({behavior:'auto'})` is supposed to
-        // override it too, but WebKit ignores that and queues fresh smooth
-        // animations every frame that cancel out — so the page never moves.
-        scrollEl.scrollTop += whole;
-      }
-      const atBottom =
-        scrollEl.scrollTop + window.innerHeight >= scrollEl.scrollHeight - 4;
-      if (atBottom) {
+      targetY += (pxPerSec(v) * dt) / 1000;
+      const max = maxScroll();
+      if (targetY >= max) {
+        window.scrollTo(0, max);
         stopScroll();
         return;
       }
+      // Legacy two-arg `scrollTo(x, y)` is instant by spec (only the
+      // options-object form honours `behavior`). Combined with the inline
+      // `scroll-behavior: auto` we set in startScroll(), this defeats the
+      // global smooth-scroll that otherwise makes WebKit queue and cancel a
+      // fresh animation every frame — the root cause of the iOS stall.
+      window.scrollTo(0, targetY);
       raf = requestAnimationFrame(frame);
     }
     function startScroll() {
       if (running) return;
       running = true;
       lastTs = 0;
-      pending = 0;
+      startedAt = performance.now();
+      // Sync the accumulator to wherever the reader currently sits.
+      targetY = window.scrollY || scrollEl.scrollTop || 0;
+      // Override the global `html { scroll-behavior: smooth }` for the
+      // duration of the teleprompter. Inline style beats the stylesheet, so
+      // every per-frame scroll write lands instantly on iOS instead of
+      // starting a smooth animation that the next frame cancels.
+      html.style.scrollBehavior = 'auto';
       panel.classList.remove('hidden');
       panel.classList.add('flex');
       scrollBtn?.setAttribute('aria-pressed', 'true');
@@ -341,6 +354,8 @@ const scripts = [
     function stopScroll() {
       running = false;
       cancelAnimationFrame(raf);
+      // Restore the site-wide smooth scrolling.
+      html.style.scrollBehavior = '';
       scrollBtn?.setAttribute('aria-pressed', 'false');
       scrollBtn?.classList.remove('autoscroll-active');
     }
@@ -351,8 +366,16 @@ const scripts = [
       panel.classList.remove('flex');
     });
     // Pause when the user grabs the wheel or touches the screen —
-    // touchmove would otherwise fight the auto-scroll on iOS.
+    // touchmove would otherwise fight the auto-scroll on iOS. The 350 ms
+    // guard stops the initiating tap's own stray touchmove from cancelling
+    // the run before it visibly starts.
     window.addEventListener('wheel', () => running && stopScroll(), { passive: true });
-    window.addEventListener('touchmove', () => running && stopScroll(), { passive: true });
+    window.addEventListener(
+      'touchmove',
+      () => {
+        if (running && performance.now() - startedAt > 350) stopScroll();
+      },
+      { passive: true },
+    );
   })();
 </script>
