@@ -67,6 +67,13 @@ const en = {
   'card.tradition.laxmi': 'Devotional · Traditional',
   'card.tagline.saraswati': 'Forty verses seeking the goddess of wisdom, art and speech',
   'card.tradition.saraswati': 'Devotional · Traditional',
+  'chalisa.title.hanuman': 'Hanuman Chalisa',
+  'chalisa.title.shiv': 'Shiv Chalisa',
+  'chalisa.title.durga': 'Durga Chalisa',
+  'chalisa.title.ganesh': 'Ganesh Chalisa',
+  'chalisa.title.shani': 'Shani Chalisa',
+  'chalisa.title.laxmi': 'Laxmi Chalisa',
+  'chalisa.title.saraswati': 'Saraswati Chalisa',
 
   // Feature strip
   'features.zen.title': 'Zen Reader',
@@ -126,6 +133,43 @@ const en = {
   'article.p7':
     'If you are searching for the Hanuman Chalisa in English, the Hanuman Chalisa Telugu text, the Hanuman Chalisa Kannada script, or simply the cleanest way to read the Shri Hanuman Chalisa every morning, you are in the right place. Bookmark this page, add it to your home screen, and let the son of the wind visit you at the same hour every day. जय श्री राम।',
   'article.cta': 'Read the Hanuman Chalisa now',
+
+  'sankalp.metaTitle': 'Sankalp · Online Chalisa',
+  'sankalp.metaDescription':
+    'Commit to an 11, 21, or 40-day Chalisa reading practice. Track your streak — privately, on this device.',
+  'sankalp.kicker': 'Sankalp · संकल्प',
+  'sankalp.heading': 'A promise to yourself.',
+  'sankalp.subtitle':
+    'Sankalp is the ancient act of quiet resolve — you name the practice, you name the length, and you show up. Nothing more.',
+  'sankalp.plan11': 'A short, generous vow — enough to notice a change.',
+  'sankalp.plan21': 'The classic ekadash doubled — a genuine rhythm forms.',
+  'sankalp.plan40': 'The mandala — a full cycle. Deep, quiet, transformative.',
+  'sankalp.noteKicker': 'A gentle note',
+  'sankalp.noteBody':
+    'Your streak is stored only in this browser. Nothing is uploaded, nothing is shared, and clearing site data will reset it. That is on purpose — sankalp is between you and the divine, not you and a server.',
+
+  'about.metaTitle': 'About · Online Chalisa',
+  'about.metaDescription':
+    'Why Online Chalisa exists — a distraction-free, ad-free, privacy-respecting home for sacred Hindu hymns.',
+  'about.kicker': 'About',
+  'about.heading': 'A sanctuary, not a website.',
+  'about.p1':
+    'Online Chalisa was built for one reason: the sacred texts most people love — Hanuman Chalisa, Shiv Chalisa, Ganesh, Durga, Shani — are trapped on the modern web behind banner ads, autoplay video, popup subscriptions, and menus for cricket scores.',
+  'about.p2': 'None of that belongs anywhere near a hymn.',
+  'about.p3':
+    'So we built the opposite. A quiet page. Warm typography. A sepia mode for warm morning reading and a true dark mode for night. A single button to hide every scrap of interface. A hands-free teleprompter for older devotees who prefer to read seated with folded hands. Optional audio at the bottom, ready to fade away when you enter Zen mode.',
+  'about.noDo.heading': "What we don't do",
+  'about.noDo.1': 'No advertisements, ever.',
+  'about.noDo.2': 'No third-party trackers or analytics of your reading.',
+  'about.noDo.3': 'No account, sign-up, or email required.',
+  'about.noDo.4': 'No push notifications or nagging reminders.',
+  'about.sankalp.heading': 'Sankalp is yours',
+  'about.sankalp.body':
+    'The streak tracker lives entirely in your browser local storage. It never leaves your device. If you clear browser data, it will reset — that is the price of privacy, and we think it is a fair one.',
+  'about.text.heading': 'On the text',
+  'about.text.body':
+    'The Devanagari verses and Roman transliterations are drawn from long-standing devotional traditions and cross-referenced against multiple published editions. If you spot an error, please let us know — accuracy in scripture is a matter of care.',
+  'about.blessing': '॥ शुभम् अस्तु ॥',
 
   // Footer
   'footer.blurb':
@@ -273,6 +317,13 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'card.tradition.laxmi': 'भक्ति · पारंपरिक',
   'card.tagline.saraswati': 'ज्ञान, कला और वाणी की देवी को समर्पित चालीस श्लोक',
   'card.tradition.saraswati': 'भक्ति · पारंपरिक',
+  'chalisa.title.hanuman': 'हनुमान चालीसा',
+  'chalisa.title.shiv': 'शिव चालीसा',
+  'chalisa.title.durga': 'दुर्गा चालीसा',
+  'chalisa.title.ganesh': 'गणेश चालीसा',
+  'chalisa.title.shani': 'शनि चालीसा',
+  'chalisa.title.laxmi': 'लक्ष्मी चालीसा',
+  'chalisa.title.saraswati': 'सरस्वती चालीसा',
 
   'features.zen.title': 'ज़ेन रीडर',
   'features.zen.body': 'एक टैप में पूरा इंटरफ़ेस सिमट जाता है। बस शब्द, पृष्ठ पर साँस लेते हुए।',
@@ -328,6 +379,43 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'article.p7':
     'यदि आप हनुमान चालीसा अंग्रेज़ी में, हनुमान चालीसा तेलुगु पाठ, हनुमान चालीसा कन्नड़ लिपि, या केवल हर सुबह श्री हनुमान चालीसा पढ़ने का सबसे स्वच्छ तरीका खोज रहे हैं, तो आप सही जगह पर हैं। इस पृष्ठ को बुकमार्क करें, अपने होम स्क्रीन पर जोड़ें, और पवनपुत्र को हर दिन उसी समय अपने पास आने दें। जय श्री राम।',
   'article.cta': 'हनुमान चालीसा अभी पढ़ें',
+
+  'sankalp.metaTitle': 'संकल्प · ऑनलाइन चालीसा',
+  'sankalp.metaDescription':
+    '11, 21 या 40 दिनों के चालीसा-पाठ का संकल्प लें। अपनी श्रृंखला ट्रैक करें — निजी रूप से, इसी डिवाइस पर।',
+  'sankalp.kicker': 'संकल्प · संकल्प',
+  'sankalp.heading': 'अपने आप से एक वचन।',
+  'sankalp.subtitle':
+    'संकल्प शांत दृढ़ निश्चय की प्राचीन परंपरा है — साधना आप चुनते हैं, अवधि आप चुनते हैं, और आप प्रतिदिन उपस्थित रहते हैं। बस इतना ही।',
+  'sankalp.plan11': 'एक छोटा, उदार व्रत — बदलाव महसूस करने के लिए पर्याप्त।',
+  'sankalp.plan21': 'पारंपरिक एकादश का दुगुना — एक वास्तविक लय बनती है।',
+  'sankalp.plan40': 'मंडल — एक पूर्ण चक्र। गहरा, शांत, रूपांतरकारी।',
+  'sankalp.noteKicker': 'एक विनम्र सूचना',
+  'sankalp.noteBody':
+    'आपकी श्रृंखला केवल इसी ब्राउज़र में संग्रहीत होती है। कुछ भी अपलोड नहीं होता, कुछ भी साझा नहीं होता, और साइट डेटा साफ़ करने पर यह रीसेट हो जाएगी। यह जान-बूझकर है — संकल्प आपके और ईश्वर के बीच है, किसी सर्वर के साथ नहीं।',
+
+  'about.metaTitle': 'हमारे बारे में · ऑनलाइन चालीसा',
+  'about.metaDescription':
+    'ऑनलाइन चालीसा क्यों अस्तित्व में है — पवित्र हिन्दू स्तोत्रों के लिए ध्यान-भंग रहित, विज्ञापन-मुक्त और गोपनीयता-सम्मानित स्थान।',
+  'about.kicker': 'हमारे बारे में',
+  'about.heading': 'एक तीर्थ, केवल वेबसाइट नहीं।',
+  'about.p1':
+    'ऑनलाइन चालीसा एक कारण से बनाया गया: जिन पवित्र पाठों से लोग सबसे अधिक प्रेम करते हैं — हनुमान चालीसा, शिव चालीसा, गणेश, दुर्गा, शनि — वे आधुनिक वेब पर बैनर विज्ञापनों, ऑटोप्ले वीडियो, पॉपअप सदस्यताओं और क्रिकेट स्कोर मेन्यू के पीछे फँसे हुए हैं।',
+  'about.p2': 'स्तोत्र के पास यह सब नहीं होना चाहिए।',
+  'about.p3':
+    'इसलिए हमने इसका उल्टा बनाया। एक शांत पृष्ठ। सौम्य टाइपोग्राफी। सुबह के पाठ के लिए सेपिया मोड और रात्रि के लिए सच्चा डार्क मोड। इंटरफ़ेस को एक बटन में छिपाने की सुविधा। हाथ जोड़े बैठकर पढ़ने वाले वरिष्ठ भक्तों के लिए हैंड्स-फ्री टेलीप्रॉम्प्टर। नीचे वैकल्पिक ऑडियो, जो ज़ेन मोड में स्वयं ओझल हो जाता है।',
+  'about.noDo.heading': 'हम क्या नहीं करते',
+  'about.noDo.1': 'कभी भी विज्ञापन नहीं।',
+  'about.noDo.2': 'आपके पाठ का कोई थर्ड-पार्टी ट्रैकिंग या एनालिटिक्स नहीं।',
+  'about.noDo.3': 'कोई खाता, साइन-अप या ईमेल आवश्यक नहीं।',
+  'about.noDo.4': 'कोई पुश नोटिफिकेशन या परेशान करने वाले रिमाइंडर नहीं।',
+  'about.sankalp.heading': 'संकल्प आपका है',
+  'about.sankalp.body':
+    'श्रृंखला ट्रैकर पूरी तरह आपके ब्राउज़र के लोकल स्टोरेज में रहता है। यह आपके डिवाइस से बाहर नहीं जाता। यदि आप ब्राउज़र डेटा साफ़ करते हैं, यह रीसेट हो जाएगा — गोपनीयता की यही कीमत है, और हमें यह उचित लगती है।',
+  'about.text.heading': 'पाठ के बारे में',
+  'about.text.body':
+    'देवनागरी श्लोक और रोमन लिप्यंतरण दीर्घकालीन भक्ति परंपराओं से लिए गए हैं और अनेक प्रकाशित संस्करणों से मिलान किए गए हैं। यदि आपको कोई त्रुटि दिखे तो कृपया बताइए — शास्त्र की शुद्धता हमारी सावधानी का विषय है।',
+  'about.blessing': '॥ शुभम् अस्तु ॥',
 
   'footer.blurb':
     'ऑनलाइन चालीसा एक भक्ति रीडर है — कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई खाता नहीं। शांति से पढ़ें, और आपकी साधना अटल रहे।',
@@ -460,6 +548,13 @@ const bn: Partial<Record<UIStringKey, string>> = {
   'card.tradition.laxmi': 'ভক্তি · পারম্পরিক',
   'card.tagline.saraswati': 'জ্ঞান, শিল্প ও বাণীর দেবীর উদ্দেশ্যে চল্লিশটি শ্লোক',
   'card.tradition.saraswati': 'ভক্তি · পারম্পরিক',
+  'chalisa.title.hanuman': 'হনুমান চালিসা',
+  'chalisa.title.shiv': 'শিব চালিসা',
+  'chalisa.title.durga': 'দুর্গা চালিসা',
+  'chalisa.title.ganesh': 'গণেশ চালিসা',
+  'chalisa.title.shani': 'শনি চালিসা',
+  'chalisa.title.laxmi': 'লক্ষ্মী চালিসা',
+  'chalisa.title.saraswati': 'সরস্বতী চালিসা',
 
   'features.zen.title': 'জেন রিডার',
   'features.zen.body': 'একটি স্পর্শে পুরো ইন্টারফেস গুটিয়ে যায়। শুধু শব্দ, পৃষ্ঠায় নিঃশ্বাস নিচ্ছে।',
@@ -497,6 +592,43 @@ const bn: Partial<Record<UIStringKey, string>> = {
   'home.about.kicker': 'পরিচিতি',
   'home.about.heading': 'হনুমান চালিসা, শান্তিতে অনলাইনে।',
   'article.cta': 'এখনই হনুমান চালিসা পড়ুন',
+
+  'sankalp.metaTitle': 'সংকল্প · অনলাইন চালিসা',
+  'sankalp.metaDescription':
+    '১১, ২১ বা ৪০ দিনের চালিসা-পাঠের প্রতিশ্রুতি নিন। আপনার ধারাবাহিকতা ট্র্যাক করুন — গোপনে, এই ডিভাইসেই।',
+  'sankalp.kicker': 'সংকল্প · संकल्प',
+  'sankalp.heading': 'নিজের কাছে একটি প্রতিশ্রুতি।',
+  'sankalp.subtitle':
+    'সংকল্প হল নীরব অটলতার প্রাচীন অনুশীলন — সাধনা আপনি ঠিক করেন, সময়কালও আপনি ঠিক করেন, আর প্রতিদিন উপস্থিত থাকেন। এর বেশি কিছু নয়।',
+  'sankalp.plan11': 'একটি ছোট কিন্তু অর্থপূর্ণ ব্রত — পরিবর্তন টের পাওয়ার জন্য যথেষ্ট।',
+  'sankalp.plan21': 'একাদশের দ্বিগুণ — প্রকৃত ছন্দ তৈরি হয়।',
+  'sankalp.plan40': 'মণ্ডল — পূর্ণ এক চক্র। গভীর, শান্ত, রূপান্তরময়।',
+  'sankalp.noteKicker': 'একটি নম্র নোট',
+  'sankalp.noteBody':
+    'আপনার ধারাবাহিকতার তথ্য কেবল এই ব্রাউজারেই থাকে। কিছুই আপলোড হয় না, কিছুই শেয়ার হয় না, আর সাইটের ডেটা মুছে দিলে এটি রিসেট হবে। ইচ্ছাকৃতভাবেই এমন — সংকল্প আপনার ও ঈশ্বরের মধ্যে, আপনার ও সার্ভারের মধ্যে নয়।',
+
+  'about.metaTitle': 'আমাদের সম্পর্কে · অনলাইন চালিসা',
+  'about.metaDescription':
+    'কেন অনলাইন চালিসা তৈরি হয়েছে — পবিত্র হিন্দু স্তোত্রের জন্য বিজ্ঞাপনমুক্ত, মনোযোগ-ভঙ্গহীন, গোপনীয়তা-সম্মানিত একটি স্থান।',
+  'about.kicker': 'আমাদের সম্পর্কে',
+  'about.heading': 'ওয়েবসাইট নয়, এক আশ্রয়।',
+  'about.p1':
+    'অনলাইন চালিসা একটাই কারণে তৈরি: মানুষ যে পবিত্র পাঠগুলো সবচেয়ে ভালোবাসে — হনুমান চালিসা, শিব চালিসা, গণেশ, দুর্গা, শনি — সেগুলো আধুনিক ওয়েবে ব্যানার বিজ্ঞাপন, অটোপ্লে ভিডিও, পপআপ সাবস্ক্রিপশন এবং ক্রিকেট স্কোরের মেনুর আড়ালে আটকে আছে।',
+  'about.p2': 'স্তোত্রের কাছে এসবের কোনো স্থান নেই।',
+  'about.p3':
+    'তাই আমরা তার উল্টোটা বানিয়েছি। একটি শান্ত পাতা। উষ্ণ টাইপোগ্রাফি। সকালের পাঠের জন্য সেপিয়া মোড এবং রাতের জন্য খাঁটি ডার্ক মোড। ইন্টারফেসের সবকিছু লুকিয়ে দেওয়ার একটি মাত্র বোতাম। বয়স্ক ভক্তদের জন্য হ্যান্ডস-ফ্রি টেলিপ্রম্পটার, যারা হাত জোড় করে বসে পড়তে পছন্দ করেন। নিচে ঐচ্ছিক অডিও, যা জেন মোডে নিজে থেকেই মৃদু হয়ে যায়।',
+  'about.noDo.heading': 'আমরা যা করি না',
+  'about.noDo.1': 'কখনও বিজ্ঞাপন নয়।',
+  'about.noDo.2': 'আপনার পাঠের কোনো তৃতীয়-পক্ষ ট্র্যাকিং বা অ্যানালিটিক্স নয়।',
+  'about.noDo.3': 'কোনো অ্যাকাউন্ট, সাইন-আপ বা ইমেইল প্রয়োজন নেই।',
+  'about.noDo.4': 'কোনো পুশ নোটিফিকেশন বা বিরক্তিকর রিমাইন্ডার নয়।',
+  'about.sankalp.heading': 'সংকল্প আপনার',
+  'about.sankalp.body':
+    'স্ট্রিক ট্র্যাকার পুরোপুরি আপনার ব্রাউজারের লোকাল স্টোরেজে থাকে। এটি কখনও আপনার ডিভাইস ছাড়ে না। আপনি ব্রাউজার ডেটা মুছে দিলে এটি রিসেট হবে — এটাই গোপনীয়তার মূল্য, আর আমাদের মতে এটি ন্যায্য।',
+  'about.text.heading': 'পাঠ সম্পর্কে',
+  'about.text.body':
+    'দেবনাগরি শ্লোক এবং রোমান লিপ্যন্তর দীর্ঘদিনের ভক্তিমূলক ধারার ওপর ভিত্তি করে এবং একাধিক প্রকাশিত সংস্করণের সঙ্গে মিলিয়ে দেখা হয়েছে। কোনো ভুল চোখে পড়লে আমাদের জানাবেন — শাস্ত্রের নির্ভুলতা যত্নের বিষয়।',
+  'about.blessing': '॥ শুভম্ অস্তু ॥',
 
   'footer.blurb':
     'অনলাইন চালিসা একটি ভক্তিমূলক রিডার — কোনো বিজ্ঞাপন নেই, ট্র্যাকিং নেই, অ্যাকাউন্ট নেই। শান্তিতে পড়ুন, আপনার সাধনা অবিচল থাকুক।',
@@ -590,6 +722,27 @@ const te: Partial<Record<UIStringKey, string>> = {
   'card.readPrefix': 'చదవండి',
   'card.verses': 'శ్లోకాలు',
   'card.min': 'నిమి',
+  'card.tagline.hanuman': 'పవనపుత్రునికి అంకితమైన నలభై భక్తి శ్లోకాలు',
+  'card.tradition.hanuman': 'అవధీ · తులసీదాస్ · సుమారు 16వ శతాబ్దం',
+  'card.tagline.shiv': 'మహాదేవునికి అంకితమైన నలభై శ్లోకాలు',
+  'card.tradition.shiv': 'హిందీ భక్తి · 19వ శతాబ్దం',
+  'card.tagline.durga': 'అజేయ తల్లికి అంకితమైన నలభై శ్లోకాలు',
+  'card.tradition.durga': 'హిందీ భక్తి · దేవీ కవచ సంప్రదాయం',
+  'card.tagline.ganesh': 'విఘ్నాలను తొలగించే దేవునికి అంకితమైన నలభై శ్లోకాలు',
+  'card.tradition.ganesh': 'హిందీ భక్తి',
+  'card.tagline.shani': 'కర్మ, న్యాయాధిపతికి అంకితమైన నలభై శ్లోకాలు',
+  'card.tradition.shani': 'హిందీ భక్తి',
+  'card.tagline.laxmi': 'శ్రీ, కృపలను ఆహ్వానించే నలభై ప్రార్థనా శ్లోకాలు',
+  'card.tradition.laxmi': 'భక్తి · సాంప్రదాయిక',
+  'card.tagline.saraswati': 'జ్ఞానం, కళ, వాక్దేవికి అంకితమైన నలభై శ్లోకాలు',
+  'card.tradition.saraswati': 'భక్తి · సాంప్రదాయిక',
+  'chalisa.title.hanuman': 'హనుమాన్ చాలీసా',
+  'chalisa.title.shiv': 'శివ చాలీసా',
+  'chalisa.title.durga': 'దుర్గా చాలీసా',
+  'chalisa.title.ganesh': 'గణేశ చాలీసా',
+  'chalisa.title.shani': 'శని చాలీసా',
+  'chalisa.title.laxmi': 'లక్ష్మీ చాలీసా',
+  'chalisa.title.saraswati': 'సరస్వతీ చాలీసా',
 
   'features.zen.title': 'జెన్ రీడర్',
   'features.zen.body': 'ఒక్క తాకిడితో మొత్తం ఇంటర్‌ఫేస్ మడతపడుతుంది. కేవలం పదాలు, పేజీపై శ్వాసిస్తూ.',
@@ -627,6 +780,43 @@ const te: Partial<Record<UIStringKey, string>> = {
   'home.about.kicker': 'పరిచయం',
   'home.about.heading': 'హనుమాన్ చాలీసా, ప్రశాంతంగా ఆన్‌లైన్‌లో.',
   'article.cta': 'ఇప్పుడే హనుమాన్ చాలీసా చదవండి',
+
+  'sankalp.metaTitle': 'సంకల్పం · ఆన్‌లైన్ చాలీసా',
+  'sankalp.metaDescription':
+    '11, 21 లేదా 40 రోజుల చాలీసా పఠనానికి సంకల్పించండి. మీ క్రమాన్ని ట్రాక్ చేయండి — పూర్తిగా ఈ పరికరంలోనే.',
+  'sankalp.kicker': 'సంకల్పం · संकल्प',
+  'sankalp.heading': 'మీతో మీకే ఒక వాగ్దానం.',
+  'sankalp.subtitle':
+    'సంకల్పం అనేది నిశ్శబ్ద దృఢనిశ్చయపు ప్రాచీన సాధన — ఆచరణను మీరు నిర్ణయిస్తారు, కాలాన్ని మీరు నిర్ణయిస్తారు, ప్రతి రోజూ మీరు హాజరవుతారు. అంతే.',
+  'sankalp.plan11': 'చిన్నదైనా ఉదారమైన వ్రతం — మార్పు గమనించడానికి సరిపోతుంది.',
+  'sankalp.plan21': 'సాంప్రదాయ ఏకాదశం రెండింతలు — నిజమైన లయ ఏర్పడుతుంది.',
+  'sankalp.plan40': 'మండలము — సంపూర్ణ చక్రం. లోతైనది, ప్రశాంతం, రూపాంతరం కలిగించేది.',
+  'sankalp.noteKicker': 'ఒక స్నేహపూర్వక గమనిక',
+  'sankalp.noteBody':
+    'మీ క్రమం ఈ బ్రౌజర్‌లోనే నిల్వ ఉంటుంది. ఏదీ అప్‌లోడ్ చేయబడదు, ఏదీ పంచుకోబడదు, సైట్ డేటాను క్లియర్ చేస్తే ఇది రీసెట్ అవుతుంది. ఇదే ఉద్దేశ్యం — సంకల్పం మీకు, దైవానికి మధ్యది; మీకు, సర్వర్‌కు మధ్యది కాదు.',
+
+  'about.metaTitle': 'మా గురించి · ఆన్‌లైన్ చాలీసా',
+  'about.metaDescription':
+    'ఆన్‌లైన్ చాలీసా ఎందుకు ఉంది — పవిత్ర హిందూ స్తోత్రాల కోసం ప్రకటనలేని, దృష్టి చెదరని, గోప్యతను గౌరవించే స్థలం.',
+  'about.kicker': 'మా గురించి',
+  'about.heading': 'వెబ్‌సైట్ కాదు, ఒక ఆధ్యాత్మిక ఆశ్రయం.',
+  'about.p1':
+    'ఆన్‌లైన్ చాలీసా ఒక కారణంతో నిర్మించబడింది: ప్రజలు అత్యంత ప్రేమించే పవిత్ర పాఠాలు — హనుమాన్ చాలీసా, శివ చాలీసా, గణేశ, దుర్గా, శని — ఇవి ఆధునిక వెబ్‌లో బ్యానర్ ప్రకటనలు, ఆటోప్లే వీడియోలు, పాప్-అప్ సభ్యత్వాలు, క్రికెట్ స్కోర్ మెనూల వెనుక ఇరుక్కుపోయాయి.',
+  'about.p2': 'స్తోత్రానికి దగ్గరగా ఇవేవీ ఉండకూడదు.',
+  'about.p3':
+    'అందుకే మేము దానికి విరుద్ధాన్ని నిర్మించాము. ప్రశాంతమైన పేజీ. సౌమ్య టైపోగ్రఫీ. ఉదయపు పఠనానికి సేపియా మోడ్, రాత్రికి నిజమైన డార్క్ మోడ్. మొత్తం ఇంటర్‌ఫేస్‌ను దాచే ఒక్క బటన్. చేతులు ముడుచుకుని కూర్చొని చదవదలచిన వృద్ధ భక్తుల కోసం హ్యాండ్స్-ఫ్రీ టెలిప్రాంప్టర్. క్రింద ఐచ్ఛిక ఆడియో, జెన్ మోడ్‌లో అది మెల్లగా వెనుకకు జారిపోతుంది.',
+  'about.noDo.heading': 'మేము చేయనివి',
+  'about.noDo.1': 'ఎప్పుడూ ప్రకటనలు లేవు.',
+  'about.noDo.2': 'మీ పఠనంపై ఏ మూడవ పక్ష ట్రాకింగ్ లేదా అనలిటిక్స్ లేవు.',
+  'about.noDo.3': 'ఖాతా, సైన్-అప్ లేదా ఇమెయిల్ అవసరం లేదు.',
+  'about.noDo.4': 'పుష్ నోటిఫికేషన్లు లేదా ఇబ్బంది పెట్టే రిమైండర్లు లేవు.',
+  'about.sankalp.heading': 'సంకల్పం మీది',
+  'about.sankalp.body':
+    'స్ట్రీక్ ట్రాకర్ పూర్తిగా మీ బ్రౌజర్ లోకల్ స్టోరేజ్‌లోనే ఉంటుంది. అది మీ పరికరాన్ని ఎప్పుడూ విడిచి వెళ్లదు. మీరు బ్రౌజర్ డేటా క్లియర్ చేస్తే అది రీసెట్ అవుతుంది — గోప్యతకు ఇది చెల్లించాల్సిన ధర, మరియు మాకు అది సమంజసం అనిపిస్తుంది.',
+  'about.text.heading': 'పాఠ్యం గురించి',
+  'about.text.body':
+    'దేవనాగరి శ్లోకాలు మరియు రోమనైజ్డ్ లిప్యంతరీకరణలు దీర్ఘకాల భక్తి సంప్రదాయాలనుంచి తీసుకుని పలు ప్రచురిత సంచికలతో సరిపోల్చబడ్డాయి. తప్పు కనపడితే దయచేసి మాకు చెప్పండి — శాస్త్ర శుద్ధి జాగ్రత్తకు సంబంధించినది.',
+  'about.blessing': '॥ శుభం అస్తు ॥',
 
   'footer.blurb':
     'ఆన్‌లైన్ చాలీసా ఒక భక్తి రీడర్ — ప్రకటనలు లేవు, ట్రాకింగ్ లేదు, ఖాతా లేదు. ప్రశాంతంగా చదవండి, మీ సాధన స్థిరంగా సాగాలి.',
@@ -720,6 +910,27 @@ const ta: Partial<Record<UIStringKey, string>> = {
   'card.readPrefix': 'படி',
   'card.verses': 'பாடல்கள்',
   'card.min': 'நிமி',
+  'card.tagline.hanuman': 'காற்றின் புதல்வனுக்கு அர்ப்பணிக்கும் நாற்பது பக்திப் பாடல்கள்',
+  'card.tradition.hanuman': 'அவதி · துலசிதாஸ் · கி.பி. 16ஆம் நூற்றாண்டு',
+  'card.tagline.shiv': 'மகாதேவருக்கான நாற்பது பக்திப் பாடல்கள்',
+  'card.tradition.shiv': 'இந்தி பக்தி · 19ஆம் நூற்றாண்டு',
+  'card.tagline.durga': 'அஜெய அன்னைக்கு அர்ப்பணிக்கும் நாற்பது பாடல்கள்',
+  'card.tradition.durga': 'இந்தி பக்தி · தேவி கவச மரபு',
+  'card.tagline.ganesh': 'விக்னங்களை அகற்றும் கணபதிக்கான நாற்பது பாடல்கள்',
+  'card.tradition.ganesh': 'இந்தி பக்தி',
+  'card.tagline.shani': 'கர்மா மற்றும் நீதியின் அதிபதிக்கான நாற்பது பாடல்கள்',
+  'card.tradition.shani': 'இந்தி பக்தி',
+  'card.tagline.laxmi': 'அருள் மற்றும் செல்வத்தை வேண்டி பாடும் நாற்பது வரிகள்',
+  'card.tradition.laxmi': 'பக்தி · பாரம்பரியம்',
+  'card.tagline.saraswati': 'ஞானம், கலை, வாக்கின் தேவிக்கான நாற்பது பாடல்கள்',
+  'card.tradition.saraswati': 'பக்தி · பாரம்பரியம்',
+  'chalisa.title.hanuman': 'அனுமன் சாலீசா',
+  'chalisa.title.shiv': 'சிவ சாலீசா',
+  'chalisa.title.durga': 'துர்கா சாலீசா',
+  'chalisa.title.ganesh': 'கணேஷ சாலீசா',
+  'chalisa.title.shani': 'சனி சாலீசா',
+  'chalisa.title.laxmi': 'லஷ்மி சாலீசா',
+  'chalisa.title.saraswati': 'சரஸ்வதி சாலீசா',
 
   'features.zen.title': 'ஜென் ரீடர்',
   'features.zen.body': 'ஒரே தொடுதலில் முழு இடைமுகமும் மடங்குகிறது. வெறும் சொற்கள், பக்கத்தில் மூச்சு விடுகின்றன.',
@@ -757,6 +968,43 @@ const ta: Partial<Record<UIStringKey, string>> = {
   'home.about.kicker': 'அறிமுகம்',
   'home.about.heading': 'ஹனுமான் சாலீசா, அமைதியாக ஆன்லைனில்.',
   'article.cta': 'இப்போதே ஹனுமான் சாலீசா படியுங்கள்',
+
+  'sankalp.metaTitle': 'சங்கல்பம் · ஆன்லைன் சாலீசா',
+  'sankalp.metaDescription':
+    '11, 21 அல்லது 40 நாள் சாலீசா வாசிப்பு உறுதி எடுக்கவும். உங்கள் தொடரை கண்காணிக்கவும் — தனிப்பட்ட முறையில், இந்த சாதனத்திலேயே.',
+  'sankalp.kicker': 'சங்கல்பம் · संकल्प',
+  'sankalp.heading': 'உங்களுக்கே நீங்கள் கொடுக்கும் வாக்குறுதி.',
+  'sankalp.subtitle':
+    'சங்கல்பம் என்பது அமைதியான உறுதியின் பண்டைய சாதனை — வழிபாட்டை நீங்கள் தேர்வுசெய்கிறீர்கள், காலத்தை நீங்கள் தீர்மானிக்கிறீர்கள், தினமும் நீங்கள் வருகிறீர்கள். அதுவே போதும்.',
+  'sankalp.plan11': 'சிறியதானாலும் அர்த்தமுள்ள ஒரு விரதம் — மாற்றத்தை உணரத் தகுந்தது.',
+  'sankalp.plan21': 'பாரம்பரிய ஏகாதசம் இரட்டிப்பு — உண்மையான ஓசை உருவாகும்.',
+  'sankalp.plan40': 'மண்டலம் — முழு ஒரு சுழற்சி. ஆழமானது, அமைதியானது, மாற்றமளிப்பது.',
+  'sankalp.noteKicker': 'ஒரு மென்மையான குறிப்பு',
+  'sankalp.noteBody':
+    'உங்கள் தொடர் இந்த உலாவியிலேயே சேமிக்கப்படுகிறது. எதுவும் பதிவேற்றப்படாது, எதுவும் பகிரப்படாது, தளத் தரவை அழித்தால் இது மீட்டமைக்கப்படும். இது திட்டமிட்டதே — சங்கல்பம் என்பது நீங்கள் மற்றும் தெய்வம் இடையேயானது; நீங்கள் மற்றும் சேவையகம் இடையேயானது அல்ல.',
+
+  'about.metaTitle': 'எங்களைப் பற்றி · ஆன்லைன் சாலீசா',
+  'about.metaDescription':
+    'ஆன்லைன் சாலீசா ஏன் உள்ளது — புனித இந்து ஸ்தோத்திரங்களுக்கு விளம்பரமற்ற, கவனம் சிதறாத, தனியுரிமையை மதிக்கும் இடம்.',
+  'about.kicker': 'எங்களைப் பற்றி',
+  'about.heading': 'இது ஒரு தஞ்சம், வெறும் வலைத்தளம் அல்ல.',
+  'about.p1':
+    'ஆன்லைன் சாலீசா ஒரு காரணத்திற்காக உருவாக்கப்பட்டது: மக்கள் மிகவும் நேசிக்கும் புனிதப் பாடல்கள் — ஹனுமான் சாலீசா, சிவ சாலீசா, கணேஷ், துர்கா, சனி — இன்றைய இணையத்தில் பேனர் விளம்பரங்கள், தானாக ஒலிக்கும் வீடியோக்கள், பாப்அப் சந்தாக்கள், கிரிக்கெட் மதிப்பெண் மெனுக்கள் பின்னால் சிக்கிக் கிடக்கின்றன.',
+  'about.p2': 'அத்தகையவை எந்த ஸ்தோத்திரத்தின் அருகிலும் இருக்கக் கூடாது.',
+  'about.p3':
+    'அதற்கே எதிர்மாறாக நாங்கள் இதை கட்டினோம். அமைதியான ஒரு பக்கம். சூடான எழுத்தியல். காலைப் பாராயணத்துக்கு செப்பியா முறை, இரவுக்கான தூய இருண்ட முறை. முழு இடைமுகத்தையும் மறைக்கும் ஒரு பொத்தான். கைகளை கூப்பி அமர்ந்து வாசிக்க விரும்பும் மூத்த பக்தர்களுக்கான கை-இல்லா டெலிபிராம்ப்டர். கீழே விருப்ப ஆடியோ, ஜென் முறையில் அது மெதுவாக மறைந்து விடும்.',
+  'about.noDo.heading': 'நாங்கள் செய்யாதவை',
+  'about.noDo.1': 'விளம்பரங்கள் ஒருபோதும் இல்லை.',
+  'about.noDo.2': 'உங்கள் வாசிப்புக்கு எந்த மூன்றாம் தரப்பு கண்காணிப்பும் பகுப்பாய்வும் இல்லை.',
+  'about.noDo.3': 'கணக்கு, பதிவு அல்லது மின்னஞ்சல் தேவையில்லை.',
+  'about.noDo.4': 'புஷ் அறிவிப்புகள் அல்லது தொந்தரவான நினைவூட்டல்கள் இல்லை.',
+  'about.sankalp.heading': 'சங்கல்பம் உங்களுடையது',
+  'about.sankalp.body':
+    'ஸ்ட்ரீக் டிராக்கர் முழுவதும் உங்கள் உலாவியின் உள்ளக சேமிப்பகத்திலேயே இருக்கும். அது உங்கள் சாதனத்தை ஒருபோதும் விட்டு செல்லாது. உலாவி தரவை அழித்தால் அது மீட்டமைக்கும் — அது தனியுரிமைக்கான விலை; நாங்கள் அதை நியாயமானதாக கருதுகிறோம்.',
+  'about.text.heading': 'உரை குறித்து',
+  'about.text.body':
+    'தேவநாகரி வரிகளும் ரோமன் ஒலிபெயர்ப்புகளும் நீண்டகால பக்தி மரபுகளில் இருந்து எடுக்கப்பட்டவை; பல வெளியிடப்பட்ட பதிப்புகளுடன் ஒப்பிட்டு சரிபார்க்கப்பட்டவை. பிழை கண்டால் தயவுசெய்து எங்களுக்குத் தெரிவிக்கவும் — சாஸ்திர துல்லியம் அக்கறையின் விஷயம்.',
+  'about.blessing': '॥ சுபம் அஸ்து ॥',
 
   'footer.blurb':
     'ஆன்லைன் சாலீசா ஒரு பக்தி ரீடர் — விளம்பரங்கள் இல்லை, கண்காணிப்பு இல்லை, கணக்கு இல்லை. அமைதியாகப் படியுங்கள், உங்கள் பயிற்சி நிலையாக இருக்கட்டும்.',
@@ -850,6 +1098,27 @@ const kn: Partial<Record<UIStringKey, string>> = {
   'card.readPrefix': 'ಓದಿ',
   'card.verses': 'ಶ್ಲೋಕಗಳು',
   'card.min': 'ನಿಮಿ',
+  'card.tagline.hanuman': 'ಪವನಪುತ್ರನಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಭಕ್ತಿಶ್ಲೋಕಗಳು',
+  'card.tradition.hanuman': 'ಅವಧಿ · ತುಳಸಿದಾಸ್ · ಅಂದಾಜು 16ನೇ ಶತಮಾನ',
+  'card.tagline.shiv': 'ಮಹಾದೇವನಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಶ್ಲೋಕಗಳು',
+  'card.tradition.shiv': 'ಹಿಂದಿ ಭಕ್ತಿ · 19ನೇ ಶತಮಾನ',
+  'card.tagline.durga': 'ಅಜೇಯ ತಾಯಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಶ್ಲೋಕಗಳು',
+  'card.tradition.durga': 'ಹಿಂದಿ ಭಕ್ತಿ · ದೇವಿ ಕವಚ ಪರಂಪರೆ',
+  'card.tagline.ganesh': 'ವಿಘ್ನಹರ್ತನಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಶ್ಲೋಕಗಳು',
+  'card.tradition.ganesh': 'ಹಿಂದಿ ಭಕ್ತಿ',
+  'card.tagline.shani': 'ಕರ್ಮ ಮತ್ತು ನ್ಯಾಯದ ಸ್ವಾಮಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಶ್ಲೋಕಗಳು',
+  'card.tradition.shani': 'ಹಿಂದಿ ಭಕ್ತಿ',
+  'card.tagline.laxmi': 'ಸಿರಿ ಮತ್ತು ಕೃಪೆಯನ್ನು ಆಹ್ವಾನಿಸುವ ನಲವತ್ತು ಪ್ರಾರ್ಥನಾ ಶ್ಲೋಕಗಳು',
+  'card.tradition.laxmi': 'ಭಕ್ತಿ · ಪಾರಂಪರಿಕ',
+  'card.tagline.saraswati': 'ಜ್ಞಾನ, ಕಲೆ, ವಾಣಿಯ ದೇವಿಗೆ ಸಮರ್ಪಿಸಿದ ನಲವತ್ತು ಶ್ಲೋಕಗಳು',
+  'card.tradition.saraswati': 'ಭಕ್ತಿ · ಪಾರಂಪರಿಕ',
+  'chalisa.title.hanuman': 'ಹನುಮಾನ್ ಚಾಲೀಸಾ',
+  'chalisa.title.shiv': 'ಶಿವ ಚಾಲೀಸಾ',
+  'chalisa.title.durga': 'ದುರ್ಗಾ ಚಾಲೀಸಾ',
+  'chalisa.title.ganesh': 'ಗಣೇಶ ಚಾಲೀಸಾ',
+  'chalisa.title.shani': 'ಶನಿ ಚಾಲೀಸಾ',
+  'chalisa.title.laxmi': 'ಲಕ್ಷ್ಮೀ ಚಾಲೀಸಾ',
+  'chalisa.title.saraswati': 'ಸರಸ್ವತಿ ಚಾಲೀಸಾ',
 
   'features.zen.title': 'ಝೆನ್ ರೀಡರ್',
   'features.zen.body': 'ಒಂದೇ ಸ್ಪರ್ಶದಲ್ಲಿ ಇಡೀ ಇಂಟರ್‌ಫೇಸ್ ಮುದುಡುತ್ತದೆ. ಕೇವಲ ಪದಗಳು, ಪುಟದಲ್ಲಿ ಉಸಿರಾಡುತ್ತಿವೆ.',
@@ -887,6 +1156,43 @@ const kn: Partial<Record<UIStringKey, string>> = {
   'home.about.kicker': 'ಪರಿಚಯ',
   'home.about.heading': 'ಹನುಮಾನ್ ಚಾಲೀಸಾ, ಶಾಂತವಾಗಿ ಆನ್‌ಲೈನ್‌ನಲ್ಲಿ.',
   'article.cta': 'ಈಗಲೇ ಹನುಮಾನ್ ಚಾಲೀಸಾ ಓದಿ',
+
+  'sankalp.metaTitle': 'ಸಂಕಲ್ಪ · ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ',
+  'sankalp.metaDescription':
+    '11, 21 ಅಥವಾ 40 ದಿನಗಳ ಚಾಲೀಸಾ ಪಠಣ ಸಂಕಲ್ಪ ಕೈಗೊಳ್ಳಿ. ನಿಮ್ಮ ಸರಣಿಯನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ — ಖಾಸಗಿಯಾಗಿ, ಇದೇ ಸಾಧನದಲ್ಲಿ.',
+  'sankalp.kicker': 'ಸಂಕಲ್ಪ · संकल्प',
+  'sankalp.heading': 'ನಿಮ್ಮೊಂದಿಗೆ ನೀವು ಮಾಡುವ ಒಂದು ವಾಗ್ದಾನ.',
+  'sankalp.subtitle':
+    'ಸಂಕಲ್ಪವು ನಿಶ್ಶಬ್ದ ದಿಟ್ಟ ನಿರ್ಧಾರದ ಪ್ರಾಚೀನ ಸಾಧನೆ — ಅಭ್ಯಾಸವನ್ನು ನೀವು ಆಯ್ಕೆಮಾಡುತ್ತೀರಿ, ಅವಧಿಯನ್ನು ನೀವು ನಿಗದಿಪಡಿಸುತ್ತೀರಿ, ಪ್ರತಿದಿನ ನೀವು ಹಾಜರಾಗುತ್ತೀರಿ. ಇಷ್ಟೇ.',
+  'sankalp.plan11': 'ಚಿಕ್ಕದಾದರೂ ಅರ್ಥಪೂರ್ಣ ವ್ರತ — ಬದಲಾವಣೆ ಗಮನಿಸಲು ಸಾಕಷ್ಟು.',
+  'sankalp.plan21': 'ಪಾರಂಪರಿಕ ಏಕಾದಶದ ದ್ವಿಗುಣ — ನಿಜವಾದ ಲಯ ರೂಪುಗೊಳ್ಳುತ್ತದೆ.',
+  'sankalp.plan40': 'ಮಂಡಲ — ಸಂಪೂರ್ಣ ಒಂದು ಚಕ್ರ. ಆಳವಾದ, ಶಾಂತ, ರೂಪಾಂತರಕಾರಿ.',
+  'sankalp.noteKicker': 'ಒಂದು ಮೃದು ಸೂಚನೆ',
+  'sankalp.noteBody':
+    'ನಿಮ್ಮ ಸರಣಿ ಈ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಉಳಿಯುತ್ತದೆ. ಯಾವುದೂ ಅಪ್‌ಲೋಡ್ ಆಗುವುದಿಲ್ಲ, ಯಾವುದೂ ಹಂಚಲಾಗುವುದಿಲ್ಲ, ಮತ್ತು ಸೈಟ್ ಡೇಟಾ ಅಳಿಸಿದರೆ ಇದು ಮರುಹೊಂದಿಸಲಾಗುತ್ತದೆ. ಇದು ಉದ್ದೇಶಪೂರ್ವಕ — ಸಂಕಲ್ಪವು ನಿಮ್ಮ ಮತ್ತು ದೈವದ ನಡುವೆ, ನಿಮ್ಮ ಮತ್ತು ಸರ್ವರ್ ನಡುವೆ ಅಲ್ಲ.',
+
+  'about.metaTitle': 'ನಮ್ಮ ಬಗ್ಗೆ · ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ',
+  'about.metaDescription':
+    'ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ ಏಕೆ ಅಸ್ತಿತ್ವದಲ್ಲಿದೆ — ಪವಿತ್ರ ಹಿಂದೂ ಸ್ತೋತ್ರಗಳಿಗೆ ಜಾಹೀರಾತು-ರಹಿತ, ವ್ಯತ್ಯಯವಿಲ್ಲದ, ಗೌಪ್ಯತೆಯನ್ನು ಗೌರವಿಸುವ ಸ್ಥಳ.',
+  'about.kicker': 'ನಮ್ಮ ಬಗ್ಗೆ',
+  'about.heading': 'ಇದು ವೆಬ್‌ಸೈಟ್ ಮಾತ್ರವಲ್ಲ, ಒಂದು ಆಶ್ರಯ.',
+  'about.p1':
+    'ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾವನ್ನು ಒಂದು ಕಾರಣಕ್ಕಾಗಿ ನಿರ್ಮಿಸಲಾಗಿದೆ: ಜನರು ಅತ್ಯಂತ ಪ್ರೀತಿಸುವ ಪವಿತ್ರ ಪಠ್ಯಗಳು — ಹನುಮಾನ್ ಚಾಲೀಸಾ, ಶಿವ ಚಾಲೀಸಾ, ಗಣೇಶ, ದುರ್ಗಾ, ಶನಿ — ಇವು ಆಧುನಿಕ ವೆಬ್‌ನಲ್ಲಿ ಬ್ಯಾನರ್ ಜಾಹೀರಾತುಗಳು, ಆಟೋಪ್ಲೇ ವೀಡಿಯೊಗಳು, ಪಾಪ್‌ಅಪ್ ಚಂದಾದಾರಿಕೆಗಳು ಮತ್ತು ಕ್ರಿಕೆಟ್ ಸ್ಕೋರ್ ಮೆನುಗಳ ಹಿಂದೆ ಸಿಲುಕಿಕೊಂಡಿವೆ.',
+  'about.p2': 'ಸ್ತೋತ್ರದ ಹತ್ತಿರ ಇದಾವುದೂ ಇರಬಾರದು.',
+  'about.p3':
+    'ಆದ್ದರಿಂದ ನಾವು ಅದರ ವಿರುದ್ಧವನ್ನು ನಿರ್ಮಿಸಿದ್ದೇವೆ. ಶಾಂತ ಪುಟ. ಉಷ್ಣ ಟೈಪೋಗ್ರಫಿ. ಬೆಳಗಿನ ಪಠಣಕ್ಕೆ ಸೆಪಿಯಾ ಮೋಡ್ ಮತ್ತು ರಾತ್ರಿ ಓದಿಗೆ ನಿಜವಾದ ಡಾರ್ಕ್ ಮೋಡ್. ಇಂಟರ್ಫೇಸ್‌ನ ಎಲ್ಲವನ್ನೂ ಅಡಗಿಸುವ ಒಂದೇ ಬಟನ್. ಕೈಮುಗಿದು ಕುಳಿತು ಓದಲು ಇಷ್ಟಪಡುವ ಹಿರಿಯ ಭಕ್ತರಿಗೆ ಹ್ಯಾಂಡ್ಸ್-ಫ್ರೀ ಟೆಲಿಪ್ರಾಂಪ್ಟರ್. ಕೆಳಭಾಗದಲ್ಲಿ ಆಯ್ಕೆ ಆಡಿಯೋ, ಝೆನ್ ಮೋಡ್‌ಗೆ ಹೋದಾಗ ಅದು ಸ್ವತಃ ಮೃದುವಾಗಿ ಮಾಯವಾಗುತ್ತದೆ.',
+  'about.noDo.heading': 'ನಾವು ಮಾಡದವು',
+  'about.noDo.1': 'ಯಾವತ್ತೂ ಜಾಹೀರಾತು ಇಲ್ಲ.',
+  'about.noDo.2': 'ನಿಮ್ಮ ಓದಿನ ಮೇಲೆ ಯಾವುದೇ ತೃತೀಯ-ಪಕ್ಷ ಟ್ರ್ಯಾಕಿಂಗ್ ಅಥವಾ ಅನಾಲಿಟಿಕ್ಸ್ ಇಲ್ಲ.',
+  'about.noDo.3': 'ಖಾತೆ, ಸೈನ್-ಅಪ್ ಅಥವಾ ಇಮೇಲ್ ಅಗತ್ಯವಿಲ್ಲ.',
+  'about.noDo.4': 'ಪುಶ್ ಸೂಚನೆಗಳು ಅಥವಾ ಕಿರಿಕಿರಿ ಮೂಡಿಸುವ ರಿಮೈಂಡರ್‌ಗಳು ಇಲ್ಲ.',
+  'about.sankalp.heading': 'ಸಂಕಲ್ಪ ನಿಮ್ಮದು',
+  'about.sankalp.body':
+    'ಸ್ಟ್ರೀಕ್ ಟ್ರ್ಯಾಕರ್ ಸಂಪೂರ್ಣವಾಗಿ ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನ ಸ್ಥಳೀಯ ಸಂಗ್ರಹಣೆಯಲ್ಲಿ ಇರುತ್ತದೆ. ಅದು ನಿಮ್ಮ ಸಾಧನವನ್ನು ಎಂದಿಗೂ ಬಿಡುವುದಿಲ್ಲ. ನೀವು ಬ್ರೌಸರ್ ಡೇಟಾ ಅಳಿಸಿದರೆ ಅದು ಮರುಹೊಂದಲಿದೆ — ಇದು ಗೌಪ್ಯತೆಯ ಬೆಲೆ, ಮತ್ತು ಅದು ನ್ಯಾಯಸಮ್ಮತವೆಂದು ನಾವು ಭಾವಿಸುತ್ತೇವೆ.',
+  'about.text.heading': 'ಪಠ್ಯದ ಬಗ್ಗೆ',
+  'about.text.body':
+    'ದೇವನಾಗರಿ ಶ್ಲೋಕಗಳು ಮತ್ತು ರೋಮನ ಲಿಪ್ಯಂತರಗಳು ದೀರ್ಘಕಾಲದ ಭಕ್ತಿಪರ ಪರಂಪರೆಯಿಂದ ತೆಗೆದುಕೊಳ್ಳಲ್ಪಟ್ಟಿವೆ ಮತ್ತು ಅನೇಕ ಪ್ರಕಟಿತ ಆವೃತ್ತಿಗಳೊಂದಿಗೆ ಹೋಲಿಕೆ ಮಾಡಲಾಗಿದೆ. ತಪ್ಪು ಕಂಡರೆ ದಯವಿಟ್ಟು ನಮಗೆ ತಿಳಿಸಿ — ಶಾಸ್ತ್ರದ ಶುದ್ಧತೆ ಕಾಳಜಿಯ ವಿಷಯವಾಗಿದೆ.',
+  'about.blessing': '॥ ಶುಭಂ ಅಸ್ತು ॥',
 
   'footer.blurb':
     'ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ ಒಂದು ಭಕ್ತಿ ರೀಡರ್ — ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಖಾತೆ ಇಲ್ಲ. ಶಾಂತವಾಗಿ ಓದಿ, ನಿಮ್ಮ ಸಾಧನೆ ಸ್ಥಿರವಾಗಿರಲಿ.',
