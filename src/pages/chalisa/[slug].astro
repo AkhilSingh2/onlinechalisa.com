@@ -8,18 +8,15 @@ import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
 
-export async function getStaticPaths() {
-  const entries = await getCollection('chalisas');
-  return entries.map((entry) => ({
-    params: { slug: entry.data.slug },
-    props: { entry },
-  }));
+const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
+const entry = all.find((item) => item.data.slug === Astro.params.slug);
+
+if (!entry) {
+  return Astro.redirect('/404', 302);
 }
 
-const { entry } = Astro.props;
 const { data } = entry;
 
-const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
 const idx = all.findIndex((e) => e.data.slug === data.slug);
 const prev = idx > 0 ? all[idx - 1] : null;
 const next = idx < all.length - 1 ? all[idx + 1] : null;

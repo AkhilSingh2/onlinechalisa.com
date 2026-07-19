@@ -300,7 +300,11 @@ const scripts = [
       const whole = Math.floor(pending);
       if (whole >= 1) {
         pending -= whole;
-        window.scrollBy(0, whole);
+        // `behavior: 'auto'` overrides the CSS `scroll-behavior: smooth`
+        // on <html>. Without it, iOS Safari queues a fresh smooth-scroll
+        // animation every frame; the animations cancel each other out and
+        // the page never actually moves (desktop tolerates it, iOS does not).
+        window.scrollBy({ top: whole, left: 0, behavior: 'auto' });
       }
       const atBottom =
         window.innerHeight + window.scrollY >= document.body.offsetHeight - 4;
