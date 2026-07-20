@@ -287,13 +287,13 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'lang.choose': 'भाषा चुनें',
 
   'hero.title1': 'एक शांत स्थान',
-  'hero.title2': 'आपके दैनिक',
-  'hero.titleWord': 'चालीसा',
+  'hero.title2': 'आपकी रोज़ की',
+  'hero.titleWord': 'चालीसा के लिए',
   'hero.subtitle':
     'हनुमान चालीसा और छह अन्य सबसे प्रिय चालीसाओं को हिन्दी, तेलुगु, तमिल, कन्नड़, बंगाली या अंग्रेज़ी में पढ़ें — एक शांत, ध्यान-भंग रहित रीडर में, जो रोज़ के पाठ के लिए बना है, क्लिक के लिए नहीं।',
   'hero.ctaPrimary': 'हनुमान चालीसा से शुरू करें',
   'hero.ctaSecondary': 'पुस्तकालय देखें',
-  'hero.availableIn': 'उपलब्ध है',
+  'hero.availableIn': 'उपलब्ध भाषाएँ',
 
   'library.kicker': 'पुस्तकालय',
   'library.heading': 'सात चालीसाएँ।',
@@ -306,7 +306,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'card.min': 'मिनट',
   'card.tagline.hanuman': 'पवनपुत्र के प्रति भक्ति के चालीस श्लोक',
   'card.tradition.hanuman': 'अवधी · तुलसीदास · c. 16वीं सदी',
-  'card.tagline.shiv': 'महादेव, शुभंकर को समर्पित चालीस श्लोक',
+  'card.tagline.shiv': 'महादेव शिवशंकर को समर्पित चालीस श्लोक',
   'card.tradition.shiv': 'हिन्दी भक्ति · 19वीं सदी',
   'card.tagline.durga': 'अजेय माँ दुर्गा को समर्पित चालीस श्लोक',
   'card.tradition.durga': 'हिन्दी भक्ति · देवी कवच परंपरा',
@@ -520,12 +520,12 @@ const bn: Partial<Record<UIStringKey, string>> = {
 
   'hero.title1': 'একটি শান্ত স্থান',
   'hero.title2': 'আপনার দৈনিক',
-  'hero.titleWord': 'চালিসা',
+  'hero.titleWord': 'চালিসার জন্য',
   'hero.subtitle':
     'হনুমান চালিসা এবং আরও ছয়টি প্রিয় চালিসা হিন্দি, তেলুগু, তামিল, কন্নড়, বাংলা বা ইংরেজিতে পড়ুন — একটি বিঘ্নহীন রিডারে, যা প্রতিদিনের পাঠের জন্য তৈরি, ক্লিকের জন্য নয়।',
   'hero.ctaPrimary': 'হনুমান চালিসা দিয়ে শুরু করুন',
   'hero.ctaSecondary': 'গ্রন্থাগার দেখুন',
-  'hero.availableIn': 'উপলব্ধ',
+  'hero.availableIn': 'উপলব্ধ ভাষাসমূহ',
 
   'library.kicker': 'গ্রন্থাগার',
   'library.heading': 'সাতটি চালিসা।',
@@ -725,12 +725,12 @@ const te: Partial<Record<UIStringKey, string>> = {
 
   'hero.title1': 'ఒక ప్రశాంత స్థలం',
   'hero.title2': 'మీ దైనందిన',
-  'hero.titleWord': 'చాలీసా',
+  'hero.titleWord': 'చాలీసా కోసం',
   'hero.subtitle':
     'హనుమాన్ చాలీసా మరియు మరో ఆరు అత్యంత ప్రియమైన చాలీసాలను హిందీ, తెలుగు, తమిళం, కన్నడ, బెంగాలీ లేదా ఇంగ్లీష్‌లో చదవండి — క్లిక్‌ల కోసం కాదు, రోజువారీ పారాయణం కోసం రూపొందించిన ప్రశాంత రీడర్‌లో.',
   'hero.ctaPrimary': 'హనుమాన్ చాలీసాతో ప్రారంభించండి',
   'hero.ctaSecondary': 'గ్రంథాలయం చూడండి',
-  'hero.availableIn': 'లభ్యం',
+  'hero.availableIn': 'అందుబాటులో ఉన్న భాషలు',
 
   'library.kicker': 'గ్రంథాలయం',
   'library.heading': 'ఏడు చాలీసాలు.',
@@ -930,12 +930,12 @@ const ta: Partial<Record<UIStringKey, string>> = {
 
   'hero.title1': 'ஒரு அமைதியான இடம்',
   'hero.title2': 'உங்கள் தினசரி',
-  'hero.titleWord': 'சாலீசா',
+  'hero.titleWord': 'சாலீசாவிற்கு',
   'hero.subtitle':
     'ஹனுமான் சாலீசா மற்றும் மிகவும் விரும்பப்படும் மேலும் ஆறு சாலீசாக்களை இந்தி, தெலுங்கு, தமிழ், கன்னடம், வங்காளம் அல்லது ஆங்கிலத்தில் படியுங்கள் — கிளிக்குகளுக்கல்ல, தினசரி பாராயணத்திற்காக வடிவமைக்கப்பட்ட அமைதியான ரீடரில்.',
   'hero.ctaPrimary': 'ஹனுமான் சாலீசாவுடன் தொடங்குங்கள்',
   'hero.ctaSecondary': 'நூலகத்தைக் காண்க',
-  'hero.availableIn': 'கிடைக்கிறது',
+  'hero.availableIn': 'கிடைக்கும் மொழிகள்',
 
   'library.kicker': 'நூலகம்',
   'library.heading': 'ஏழு சாலீசாக்கள்.',
@@ -1135,12 +1135,12 @@ const kn: Partial<Record<UIStringKey, string>> = {
 
   'hero.title1': 'ಒಂದು ಶಾಂತ ಸ್ಥಳ',
   'hero.title2': 'ನಿಮ್ಮ ದೈನಂದಿನ',
-  'hero.titleWord': 'ಚಾಲೀಸಾ',
+  'hero.titleWord': 'ಚಾಲೀಸಾಕಾಗಿ',
   'hero.subtitle':
     'ಹನುಮಾನ್ ಚಾಲೀಸಾ ಮತ್ತು ಇನ್ನೂ ಆರು ಅತ್ಯಂತ ಪ್ರಿಯ ಚಾಲೀಸಾಗಳನ್ನು ಹಿಂದಿ, ತೆಲುಗು, ತಮಿಳು, ಕನ್ನಡ, ಬಂಗಾಳಿ ಅಥವಾ ಇಂಗ್ಲಿಷ್‌ನಲ್ಲಿ ಓದಿ — ಕ್ಲಿಕ್‌ಗಳಿಗಲ್ಲ, ದೈನಂದಿನ ಪಾಠಕ್ಕಾಗಿ ವಿನ್ಯಾಸಗೊಳಿಸಿದ ಶಾಂತ ರೀಡರ್‌ನಲ್ಲಿ.',
   'hero.ctaPrimary': 'ಹನುಮಾನ್ ಚಾಲೀಸಾದಿಂದ ಪ್ರಾರಂಭಿಸಿ',
   'hero.ctaSecondary': 'ಗ್ರಂಥಾಲಯ ನೋಡಿ',
-  'hero.availableIn': 'ಲಭ್ಯ',
+  'hero.availableIn': 'ಲಭ್ಯ ಭಾಷೆಗಳು',
 
   'library.kicker': 'ಗ್ರಂಥಾಲಯ',
   'library.heading': 'ಏಳು ಚಾಲೀಸಾಗಳು.',
