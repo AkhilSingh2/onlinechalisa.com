@@ -31,6 +31,19 @@ function isDocumentPath(pathname: string): boolean {
 
 export const onRequest = defineMiddleware(async (context, next) => {
   const { url, request } = context;
+
+  // ── Canonical host: 301 www → apex ──────────────────────────
+  // Both www.onlinechalisa.com and onlinechalisa.com are mapped to this
+  // Worker. Serving identical content on both hosts splits SEO signals and
+  // makes Search Console reject indexing of the www URL (its canonical
+  // points to the apex). Redirect once, permanently, to the apex so there
+  // is a single indexable host. Query string and path are preserved.
+  if (url.hostname === 'www.onlinechalisa.com') {
+    const apex = new URL(url.toString());
+    apex.hostname = 'onlinechalisa.com';
+    return context.redirect(apex.toString(), 301);
+  }
+
   const pathname = url.pathname;
   const firstSeg = pathname.split('/')[1];
   const urlLocale = isLocale(firstSeg) ? firstSeg : DEFAULT_LOCALE;
@@ -59,7 +72,7 @@ export const onRequest = defineMiddleware(async (context, next) => {
     }
   }
 
-  const response = await next();
+  let response = await next();
 
   if (consider) {
     const cookieLang = context.cookies.get(COOKIE)?.value;
@@ -77,6 +90,21 @@ export const onRequest = defineMiddleware(async (context, next) => {
     const vary = response.headers.get('Vary');
     if (!vary || !/accept-language/i.test(vary)) {
       response.headers.append('Vary', 'Accept-Language, Cookie');
+    }
+
+    // Some locale-rewritten routes can surface as 302 without a Location
+    // header (full HTML body, but redirect status). Search engines treat
+    // that as a redirect error and refuse indexing. Serve these pages as
+    // normal documents (200) when the URL is already locale-prefixed.
+    if (urlLocale !== DEFAULT_LOCALE) {
+      const statusLooksLikeRedirect = [301, 302, 307, 308].includes(response.status);
+      const hasLocation = !!response.headers.get('Location');
+      if (statusLooksLikeRedirect && !hasLocation) {
+        response = new Response(response.body, {
+          status: 200,
+          headers: response.headers,
+        });
+      }
     }
   }
 

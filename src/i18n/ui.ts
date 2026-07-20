@@ -76,6 +76,7 @@ const en = {
   'chalisa.title.saraswati': 'Saraswati Chalisa',
 
   // Feature strip
+  'features.heading': 'Built for daily paath',
   'features.zen.title': 'Zen Reader',
   'features.zen.body': 'One tap collapses the entire interface. Just the words, breathing on the page.',
   'features.tele.title': 'Teleprompter mode',
@@ -325,6 +326,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.laxmi': 'लक्ष्मी चालीसा',
   'chalisa.title.saraswati': 'सरस्वती चालीसा',
 
+  'features.heading': 'दैनिक पाठ के लिए रचा गया',
   'features.zen.title': 'ज़ेन रीडर',
   'features.zen.body': 'एक टैप में पूरा इंटरफ़ेस सिमट जाता है। बस शब्द, पृष्ठ पर साँस लेते हुए।',
   'features.tele.title': 'टेलीप्रॉम्प्टर मोड',
@@ -556,6 +558,7 @@ const bn: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.laxmi': 'লক্ষ্মী চালিসা',
   'chalisa.title.saraswati': 'সরস্বতী চালিসা',
 
+  'features.heading': 'দৈনিক পাঠের জন্য নির্মিত',
   'features.zen.title': 'জেন রিডার',
   'features.zen.body': 'একটি স্পর্শে পুরো ইন্টারফেস গুটিয়ে যায়। শুধু শব্দ, পৃষ্ঠায় নিঃশ্বাস নিচ্ছে।',
   'features.tele.title': 'টেলিপ্রম্পটার মোড',
@@ -760,6 +763,7 @@ const te: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.laxmi': 'లక్ష్మీ చాలీసా',
   'chalisa.title.saraswati': 'సరస్వతీ చాలీసా',
 
+  'features.heading': 'నిత్య పఠనం కోసం రూపొందించబడింది',
   'features.zen.title': 'జెన్ రీడర్',
   'features.zen.body': 'ఒక్క తాకిడితో మొత్తం ఇంటర్‌ఫేస్ మడతపడుతుంది. కేవలం పదాలు, పేజీపై శ్వాసిస్తూ.',
   'features.tele.title': 'టెలిప్రాంప్టర్ మోడ్',
@@ -964,6 +968,7 @@ const ta: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.laxmi': 'லஷ்மி சாலீசா',
   'chalisa.title.saraswati': 'சரஸ்வதி சாலீசா',
 
+  'features.heading': 'தினசரி பாராயணத்திற்காக வடிவமைக்கப்பட்டது',
   'features.zen.title': 'ஜென் ரீடர்',
   'features.zen.body': 'ஒரே தொடுதலில் முழு இடைமுகமும் மடங்குகிறது. வெறும் சொற்கள், பக்கத்தில் மூச்சு விடுகின்றன.',
   'features.tele.title': 'டெலிபிராம்ப்டர் பயன்முறை',
@@ -1168,6 +1173,7 @@ const kn: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.laxmi': 'ಲಕ್ಷ್ಮೀ ಚಾಲೀಸಾ',
   'chalisa.title.saraswati': 'ಸರಸ್ವತಿ ಚಾಲೀಸಾ',
 
+  'features.heading': 'ದೈನಂದಿನ ಪಾಠಕ್ಕಾಗಿ ರೂಪಿಸಲಾಗಿದೆ',
   'features.zen.title': 'ಝೆನ್ ರೀಡರ್',
   'features.zen.body': 'ಒಂದೇ ಸ್ಪರ್ಶದಲ್ಲಿ ಇಡೀ ಇಂಟರ್‌ಫೇಸ್ ಮುದುಡುತ್ತದೆ. ಕೇವಲ ಪದಗಳು, ಪುಟದಲ್ಲಿ ಉಸಿರಾಡುತ್ತಿವೆ.',
   'features.tele.title': 'ಟೆಲಿಪ್ರಾಂಪ್ಟರ್ ಮೋಡ್',
