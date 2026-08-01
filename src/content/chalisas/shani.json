@@ -8,47 +8,263 @@
   "color": "#4a4a5a",
   "tradition": "Hindi devotional",
   "verses": [
-    { "n": 0, "type": "doha", "hi": "जय गणेश गिरिजा सुवन, मंगल करण कृपाल।\nदीनन के दुख दूर करि, कीजै नाथ निहाल॥", "en": "Jai Ganesh Girijaa suvan, mangal karan kripaal.\nDeenan ke dukh door kari, keejai naath nihaal." },
-    { "n": 1, "type": "chaupai", "hi": "जय जय श्री शनिदेव भवानी।\nकृपा करहु अब देव सुजानी॥", "en": "Jai jai Shri Shanidev Bhavaanee.\nKripaa karahu ab dev sujaanee." },
-    { "n": 2, "type": "chaupai", "hi": "जय जय जय शनि सूर्य किशोरा।\nकृपा करहु सन्तन पर तोरा॥", "en": "Jai jai jai Shani Surya kishoraa.\nKripaa karahu santan par toraa." },
-    { "n": 3, "type": "chaupai", "hi": "श्याम अंग वक्र-दृग विशाला।\nकृष्ण द्वादश लोचन विशाला॥", "en": "Shyaam ang vakra-drig vishaalaa.\nKrishn dwaadash lochan vishaalaa." },
-    { "n": 4, "type": "chaupai", "hi": "नील वस्त्र कण्ठ माल राजा।\nमुद्रा पद कर विजय समाजा॥", "en": "Neel vastra kanth maal raajaa.\nMudraa pad kar vijay samaajaa." },
-    { "n": 5, "type": "chaupai", "hi": "छाया माता तन जन्मे तनया।\nभ्रात दक्षिणी लोक भ्रमैया॥", "en": "Chhaayaa maataa tan janme tanayaa.\nBhraat dakshinee lok bhramaiyaa." },
-    { "n": 6, "type": "chaupai", "hi": "कोटिक तेज तनयें तुम्हारे।\nगिरिजापति देवन के प्यारे॥", "en": "Kotik tej tanaye tumhaare.\nGirijaapati devan ke pyaare." },
-    { "n": 7, "type": "chaupai", "hi": "यम कोणस्थ रौद्र यम रूपा।\nधर्मराज सम तेज अनूपा॥", "en": "Yam konasth raudra yam roopaa.\nDharmaraaj sam tej anoopaa." },
-    { "n": 8, "type": "chaupai", "hi": "मृगर ऊर्ध्व लीक भव भूषण।\nदीन बन्धु दानव कुल दूषण॥", "en": "Mrigar oordhwa leek bhav bhooshan.\nDeen bandhu daanav kul dooshan." },
-    { "n": 9, "type": "chaupai", "hi": "सत्य विवेक धरम गुरु प्यारे।\nप्रजापाल सब जग हितकारे॥", "en": "Satya vivek dharam guru pyaare.\nPrajaapaal sab jag hitakaare." },
-    { "n": 10, "type": "chaupai", "hi": "तुम पर ध्यान धरत जो कोई।\nताको तुरत सिद्धि सब होई॥", "en": "Tum par dhyaan dharat jo koee.\nTaako turat siddhi sab hoee." },
-    { "n": 11, "type": "chaupai", "hi": "पीड़ा से जो आत्म पुकारे।\nतिन के कष्ट दूर तुम टारे॥", "en": "Peedaa se jo aatm pukaare.\nTin ke kasht door tum taare." },
-    { "n": 12, "type": "chaupai", "hi": "कर्म प्रधान विश्व करि राखा।\nजो जस करइ सो तस फल चाखा॥", "en": "Karm pradhaan vishwa kari raakhaa.\nJo jas karai so tas phal chaakhaa." },
-    { "n": 13, "type": "chaupai", "hi": "पीड़ा तुमसों वृथा न जाई।\nरक्षक तुम्हिं सकल जन भाई॥", "en": "Peedaa tumso vrithaa na jaaee.\nRakshak tumhi sakal jan bhaaee." },
-    { "n": 14, "type": "chaupai", "hi": "जो जन विनय करत नित तेरी।\nहोवत रक्षा तत्क्षण केरी॥", "en": "Jo jan vinay karat nit teree.\nHovat rakshaa tatkshan keree." },
-    { "n": 15, "type": "chaupai", "hi": "रवि सुत मन्द बुद्धि निधाना।\nकवि कोविद ज्ञानी विज्ञाना॥", "en": "Ravi sut Mand buddhi nidhaanaa.\nKavi kovid gyaanee vigyaanaa." },
-    { "n": 16, "type": "chaupai", "hi": "जो जन सुनहिं शनि पुकारा।\nसंकट टरै सुधारै धारा॥", "en": "Jo jan sunahi Shani pukaaraa.\nSankat tarai sudhaarai dhaaraa." },
-    { "n": 17, "type": "chaupai", "hi": "मन क्रम वचन ध्यान जो लावै।\nसो नर तिनके कष्ट मिटावै॥", "en": "Man kram vachan dhyaan jo laavai.\nSo nar tinke kasht mitaavai." },
-    { "n": 18, "type": "chaupai", "hi": "जो जन ध्यान लगावें तेरा।\nसो नर कबहुं न होय अनेरा॥", "en": "Jo jan dhyaan lagaave teraa.\nSo nar kabahu na hoy aneraa." },
-    { "n": 19, "type": "chaupai", "hi": "पीपल के नीचे बैठ ध्यावै।\nराहु केतु बाधा नहिं आवै॥", "en": "Peepal ke neeche baith dhyaavai.\nRaahu Ketu baadhaa nahi aavai." },
-    { "n": 20, "type": "chaupai", "hi": "तेल मध्य निज मूर्ति निहारै।\nमन्द मन्द तिन ग्रह गति टारै॥", "en": "Tel madhya nij moorti nihaarai.\nMand mand tin grah gati taarai." },
-    { "n": 21, "type": "chaupai", "hi": "ग्रह गति चारि विषम की काटै।\nजिन पर तेरो हाथ न भाँटै॥", "en": "Grah gati chaari visham kee kaatai.\nJin par tero haath na bhaantai." },
-    { "n": 22, "type": "chaupai", "hi": "रावण की गति मति बौराई।\nरामचन्द्र सों बैर बढ़ाई॥", "en": "Raavan kee gati mati bauraaee.\nRaamachandra so bair badhaaee." },
-    { "n": 23, "type": "chaupai", "hi": "दियो कष्ट सब कुल संहारा।\nराम बाण से मारो मारा॥", "en": "Diyo kasht sab kul sanhaaraa.\nRaam baan se maaro maaraa." },
-    { "n": 24, "type": "chaupai", "hi": "पाण्डव पर भी पड़ी दशा तुम्हरी।\nविराटहिं दास बने द्रौपदी॥", "en": "Paandav par bhee padee dashaa tumharee.\nViraatahi daas bane Draupadee." },
-    { "n": 25, "type": "chaupai", "hi": "कौरव के भी गति मति मारयो।\nयुद्ध महाभारत करि डारयो॥", "en": "Kaurav ke bhee gati mati maarayo.\nYuddh Mahaabhaarat kari daarayo." },
-    { "n": 26, "type": "chaupai", "hi": "रवि कहँ मुख महं धरि तत्काला।\nलेकर कूदि परो पाताला॥", "en": "Ravi kaha mukh maha dhari tatkaalaa.\nLekar koodi paro paataalaa." },
-    { "n": 27, "type": "chaupai", "hi": "शेष देव लखि विनती लाई।\nरवि कहँ मुख से दियो छुड़ाई॥", "en": "Shesh Dev lakhi vinatee laaee.\nRavi kaha mukh se diyo chhudaaee." },
-    { "n": 28, "type": "chaupai", "hi": "वाहन प्रभु के सात सुजाना।\nजग दिग्गज गर्दभ मृग स्वाना॥", "en": "Vaahan Prabhu ke saat sujaanaa.\nJag diggaj gardabh mrig swaanaa." },
-    { "n": 29, "type": "chaupai", "hi": "जम्बुक सिंह आदि नख धारी।\nसो फल ज्योतिष कहत पुकारी॥", "en": "Jambuk sinh aadi nakh dhaaree.\nSo phal jyotish kahat pukaaree." },
-    { "n": 30, "type": "chaupai", "hi": "गर्दभ हानि करै बहु काजा।\nसिंह सिद्धकर राज समाजा॥", "en": "Gardabh haani karai bahu kaajaa.\nSinh siddhakar raaj samaajaa." },
-    { "n": 31, "type": "chaupai", "hi": "जम्बुक बुद्धि नष्ट कर डारै।\nमृग दे कष्ट प्राण संहारै॥", "en": "Jambuk buddhi nasht kar daarai.\nMrig de kasht praan sanhaarai." },
-    { "n": 32, "type": "chaupai", "hi": "जब आवहिं स्वान सवारी।\nचोरी आदि होय डर भारी॥", "en": "Jab aavahi swaan savaaree.\nChoree aadi hoy dar bhaaree." },
-    { "n": 33, "type": "chaupai", "hi": "तैसहिं चारि चरण यह नामा।\nस्वर्ण लौह चांदी अरु ताम्रा॥", "en": "Taisahi chaari charan yah naamaa.\nSwarn lauh chaandee aru taamraa." },
-    { "n": 34, "type": "chaupai", "hi": "लौह चरण पर जब प्रभु आवे।\nधन जन सम्पत्ति नष्ट करावे॥", "en": "Lauh charan par jab prabhu aave.\nDhan jan sampatti nasht karaave." },
-    { "n": 35, "type": "chaupai", "hi": "समता ताम्र रजत शुभकारी।\nस्वर्ण सर्व सुख मंगल भारी॥", "en": "Samataa taamra rajat shubhakaaree.\nSwarn sarv sukh mangal bhaaree." },
-    { "n": 36, "type": "chaupai", "hi": "जो यह शनि चरित्र नित गावै।\nकबहुं न दशा निकृष्ट सतावै॥", "en": "Jo yah Shani charitra nit gaavai.\nKabahu na dashaa nikrisht sataavai." },
-    { "n": 37, "type": "chaupai", "hi": "अद्भुत नाथ दिखावें लीला।\nकरैं शत्रु के नशि बल ढीला॥", "en": "Adbhut naath dikhaave leelaa.\nKarai shatru ke nashi bal dheelaa." },
-    { "n": 38, "type": "chaupai", "hi": "जो पंडित सुयोग्य बुलवाई।\nविधिवत शनि ग्रह शान्ति कराई॥", "en": "Jo pandit suyogya bulavaaee.\nVidhivat Shani grah shaanti karaaee." },
-    { "n": 39, "type": "chaupai", "hi": "पीपल जल शनि दिवस चढ़ावत।\nदीप दान दै बहु सुख पावत॥", "en": "Peepal jal Shani divas chadhaavat.\nDeep daan dai bahu sukh paavat." },
-    { "n": 40, "type": "chaupai", "hi": "कहत राम सुन्दर प्रभुदासा।\nशनि सुमिरत सुख होत प्रकाशा॥", "en": "Kahat Raam Sundar Prabhudaasaa.\nShani sumirat sukh hot prakaashaa." },
-    { "n": 41, "type": "doha", "hi": "पाठ शनिश्चर देवका, कीजै भक्त तैयार।\nकरत पाठ चालीस दिन, हो भवसागर पार॥", "en": "Paath Shanishchar Devakaa, keejai bhakt taiyaar.\nKarat paath chaalees din, ho bhavasaagar paar." }
+    {
+      "n": 0,
+      "type": "doha",
+      "hi": "जय गणेश गिरिजा सुवन, मंगल करण कृपाल।\nदीनन के दुःख दूर करि, कीजै नाथ निहाल॥",
+      "en": "Jai Ganesh Girijaa suvan, mangal karan kripaal.\nDeenan ke dukh door kari, keejai naath nihaal."
+    },
+    {
+      "n": 1,
+      "type": "doha",
+      "hi": "जय जय श्री शनिदेव प्रभु, सुनहु विनय महाराज।\nकरहु कृपा हे रवि तनय, राखहु जन की लाज॥",
+      "en": "Jai jai Shri Shanidev prabhu, sunahu vinay maharaaj.\nKarahu kripaa he ravi tanay, raakhahu jan kee laaj."
+    },
+    {
+      "n": 2,
+      "type": "chaupai",
+      "hi": "जयति जयति शनिदेव दयाला।\nकरत सदा भक्तन प्रतिपाला॥",
+      "en": "Jayati jayati Shanidev dayaalaa.\nKarat sadaa bhaktan pratipaalaa."
+    },
+    {
+      "n": 3,
+      "type": "chaupai",
+      "hi": "चारि भुजा, तनु श्याम विराजै।\nमाथे रतन मुकुट छवि छाजै॥",
+      "en": "Chaari bhujaa, tanu shyaam viraajai.\nMaathe ratan mukut chhavi chhaajai."
+    },
+    {
+      "n": 4,
+      "type": "chaupai",
+      "hi": "परम विशाल मनोहर भाला।\nटेढ़ी दृष्टि भृकुटि विकराला॥",
+      "en": "Param vishaal manohar bhaalaa.\nTedhee drishti bhrikuti vikaraalaa."
+    },
+    {
+      "n": 5,
+      "type": "chaupai",
+      "hi": "कुण्डल श्रवन चमाचम चमके।\nहिये माल मुक्तन मणि दमकै॥",
+      "en": "Kundal shravan chamaacham chamake.\nHiye maal muktan mani damakai."
+    },
+    {
+      "n": 6,
+      "type": "chaupai",
+      "hi": "कर में गदा त्रिशूल कुठारा।\nपल बिच करैं अरिहिं संहारा॥",
+      "en": "Kar mein gadaa trishool kuthaaraa.\nPal bich karain arihin sanhaaraa."
+    },
+    {
+      "n": 7,
+      "type": "chaupai",
+      "hi": "पिंगल, कृष्णो, छाया नन्दन।\nयम, कोणस्थ, रौद्र, दुःख भंजन॥",
+      "en": "Pingal, Krishno, chhaayaa nandan.\nYam, konasth, raudra, dukh bhanjan."
+    },
+    {
+      "n": 8,
+      "type": "chaupai",
+      "hi": "सौरी, मन्द, शनी दश नामा।\nभानु पुत्र पूजहिं सब कामा॥",
+      "en": "Sauri, mand, shanee dash naamaa.\nBhaanu putra poojahin sab kaamaa."
+    },
+    {
+      "n": 9,
+      "type": "chaupai",
+      "hi": "जापर प्रभु प्रसन्न ह्वैं जाहीं।\nरंकहुं राव करैं क्षण माहीं॥",
+      "en": "Jaapar prabhu prasann hwai jaaheen.\nRankahun raav karain kshan maaheen."
+    },
+    {
+      "n": 10,
+      "type": "chaupai",
+      "hi": "पर्वतहू तृण होइ निहारत।\nतृणहू को पर्वत करि डारत॥",
+      "en": "Parvatahoo trin hoi nihaarat.\nTrinahoo ko parvat kari daarat."
+    },
+    {
+      "n": 11,
+      "type": "chaupai",
+      "hi": "राज मिलत वन रामहिं दीन्हयो।\nकैकेइहुँ की मति हरि लीन्हयो॥",
+      "en": "Raaj milat van raamahin deenhayo.\nKaikeihun kee mati hari leenhayo."
+    },
+    {
+      "n": 12,
+      "type": "chaupai",
+      "hi": "वनहुं में मृग कपट दिखाई।\nमातु जानकी गई चुराई॥",
+      "en": "Vanahun mein mrig kapat dikhaaee.\nMaatu jaanakee gaee churaaee."
+    },
+    {
+      "n": 13,
+      "type": "chaupai",
+      "hi": "लषणहिं शक्ति विकल करिडारा।\nमचिगा दल में हाहाकारा॥",
+      "en": "Lashanahin shakti vikal karidaaraa.\nMachigaa dal mein haahaakaaraa."
+    },
+    {
+      "n": 14,
+      "type": "chaupai",
+      "hi": "रावण की गति-मति बौराई।\nरामचन्द्र सों बैर बढ़ाई॥",
+      "en": "Raavan kee gati-mati bauraaee.\nRaamachandra son bair badhaaee."
+    },
+    {
+      "n": 15,
+      "type": "chaupai",
+      "hi": "दियो कीट करि कंचन लंका।\nबजि बजरंग बीर की डंका॥",
+      "en": "Diyo keet kari kanchan lankaa.\nBaji bajarang beer kee dankaa."
+    },
+    {
+      "n": 16,
+      "type": "chaupai",
+      "hi": "नृप विक्रम पर तुहि पगु धारा।\nचित्र मयूर निगलि गै हारा॥",
+      "en": "Nrip vikram par tuhi pagu dhaaraa.\nChitra mayoor nigali gai haaraa."
+    },
+    {
+      "n": 17,
+      "type": "chaupai",
+      "hi": "हार नौलखा लाग्यो चोरी।\nहाथ पैर डरवायो तोरी॥",
+      "en": "Haar naulakhaa laagyo choree.\nHaath pair daravaayo toree."
+    },
+    {
+      "n": 18,
+      "type": "chaupai",
+      "hi": "भारी दशा निकृष्ट दिखायो।\nतेलहिं घर कोल्हू चलवायो॥",
+      "en": "Bhaaree dashaa nikrisht dikhaayo.\nTelahin ghar kolhoo chalavaayo."
+    },
+    {
+      "n": 19,
+      "type": "chaupai",
+      "hi": "विनय राग दीपक महँ कीन्हयों।\nतब प्रसन्न प्रभु ह्वै सुख दीन्हयों॥",
+      "en": "Vinay raag deepak mahan keenhayon.\nTab prasann prabhu hwai sukh deenhayon."
+    },
+    {
+      "n": 20,
+      "type": "chaupai",
+      "hi": "हरिश्चन्द्र नृप नारि बिकानी।\nआपहुं भरे डोम घर पानी॥",
+      "en": "Harishchandra nrip naari bikaanee.\nAapahun bhare dom ghar paanee."
+    },
+    {
+      "n": 21,
+      "type": "chaupai",
+      "hi": "तैसे नल पर दशा सिरानी।\nभूंजी-मीन कूद गई पानी॥",
+      "en": "Taise nal par dashaa siraanee.\nBhoonjee-meen kood gaee paanee."
+    },
+    {
+      "n": 22,
+      "type": "chaupai",
+      "hi": "श्री शंकरहिं गह्यो जब जाई।\nपारवती को सती कराई॥",
+      "en": "Shree shankarahin gahyo jab jaaee.\nPaaravatee ko satee karaaee."
+    },
+    {
+      "n": 23,
+      "type": "chaupai",
+      "hi": "तनिक विलोकत ही करि रीसा।\nनभ उड़ि गयो गौरिसुत सीसा॥",
+      "en": "Tanik vilokat hee kari reesaa.\nNabh udi gayo gaurisut seesaa."
+    },
+    {
+      "n": 24,
+      "type": "chaupai",
+      "hi": "पाण्डव पर भै दशा तुम्हारी।\nबची द्रोपदी होति उधारी॥",
+      "en": "Paandav par bhai dashaa tumhaaree.\nBachee dropadee hoti udhaaree."
+    },
+    {
+      "n": 25,
+      "type": "chaupai",
+      "hi": "कौरव के भी गति मति मारयो।\nयुद्ध महाभारत करि डारयो॥",
+      "en": "Kaurav ke bhee gati mati maarayo.\nYuddh mahaabhaarat kari daarayo."
+    },
+    {
+      "n": 26,
+      "type": "chaupai",
+      "hi": "रवि कहँ मुख महँ धरि तत्काला।\nलेकर कूदि परयो पाताला॥",
+      "en": "Ravi kahan mukh mahan dhari tatkaalaa.\nLekar koodi parayo paataalaa."
+    },
+    {
+      "n": 27,
+      "type": "chaupai",
+      "hi": "शेष देव लखि विनती लाई।\nरवि को मुख ते दियो छुड़ाई॥",
+      "en": "Shesh dev lakhi vinatee laaee.\nRavi ko mukh te diyo chhudaaee."
+    },
+    {
+      "n": 28,
+      "type": "chaupai",
+      "hi": "वाहन प्रभु के सात सुजाना।\nजग दिग्गज गर्दभ मृग स्वाना॥",
+      "en": "Vaahan prabhu ke saat sujaanaa.\nJag diggaj gardabh mrig swaanaa."
+    },
+    {
+      "n": 29,
+      "type": "chaupai",
+      "hi": "जम्बुक सिंह आदि नख धारी।\nसो फल ज्योतिष कहत पुकारी॥",
+      "en": "Jambuk sinh aadi nakh dhaaree.\nSo phal jyotish kahat pukaaree."
+    },
+    {
+      "n": 30,
+      "type": "chaupai",
+      "hi": "गज वाहन लक्ष्मी गृह आवैं।\nहय ते सुख सम्पत्ति उपजावै॥",
+      "en": "Gaj vaahan laksmee grih aavain.\nHay te sukh sampatti upajaavai."
+    },
+    {
+      "n": 31,
+      "type": "chaupai",
+      "hi": "गर्दभ हानि करै बहु काजा।\nसिंह सिद्धकर राज समाजा॥",
+      "en": "Gardabh haani karai bahu kaajaa.\nSinh siddhakar raaj samaajaa."
+    },
+    {
+      "n": 32,
+      "type": "chaupai",
+      "hi": "जम्बुक बुद्धि नष्ट कर डारै।\nमृग दे कष्ट प्राण संहारै॥",
+      "en": "Jambuk buddhi nasht kar daarai.\nMrig de kasht praan sanhaarai."
+    },
+    {
+      "n": 33,
+      "type": "chaupai",
+      "hi": "जब आवहिं प्रभु स्वान सवारी।\nचोरी आदि होय डर भारी॥",
+      "en": "Jab aavahin prabhu swaan savaaree.\nChoree aadi hoy dar bhaaree."
+    },
+    {
+      "n": 34,
+      "type": "chaupai",
+      "hi": "तैसहि चारि चरण यह नामा।\nस्वर्ण लौह चाँदी अरु तामा॥",
+      "en": "Taisahi chaari charan yah naamaa.\nSwarn lauh chaandee aru taamaa."
+    },
+    {
+      "n": 35,
+      "type": "chaupai",
+      "hi": "लौह चरण पर जब प्रभु आवैं।\nधन जन सम्पत्ति नष्ट करावैं॥",
+      "en": "Lauh charan par jab prabhu aavain.\nDhan jan sampatti nasht karaavain."
+    },
+    {
+      "n": 36,
+      "type": "chaupai",
+      "hi": "समता ताम्र रजत शुभकारी।\nस्वर्ण सर्वसुख मंगल भारी॥",
+      "en": "Samataa taamra rajat shubhakaaree.\nSwarn sarvasukh mangal bhaaree."
+    },
+    {
+      "n": 37,
+      "type": "chaupai",
+      "hi": "जो यह शनि चरित्र नित गावै।\nकबहुं न दशा निकृष्ट सतावै॥",
+      "en": "Jo yah shani charitra nit gaavai.\nKabahun na dashaa nikrisht sataavai."
+    },
+    {
+      "n": 38,
+      "type": "chaupai",
+      "hi": "अद्भुत नाथ दिखावैं लीला।\nकरैं शत्रु के नशि बलि ढीला॥",
+      "en": "Adbhut naath dikhaavain leelaa.\nKarain shatru ke nashi bali dheelaa."
+    },
+    {
+      "n": 39,
+      "type": "chaupai",
+      "hi": "जो पण्डित सुयोग्य बुलवाई।\nविधिवत शनि ग्रह शांति कराई॥",
+      "en": "Jo pandit suyogya bulavaaee.\nVidhivat shani grah shaanti karaaee."
+    },
+    {
+      "n": 40,
+      "type": "chaupai",
+      "hi": "पीपल जल शनि दिवस चढ़ावत।\nदीप दान दै बहु सुख पावत॥",
+      "en": "Peepal jal shani divas chadhaavat.\nDeep daan dai bahu sukh paavat."
+    },
+    {
+      "n": 41,
+      "type": "chaupai",
+      "hi": "कहत राम सुन्दर प्रभु दासा।\nशनि सुमिरत सुख होत प्रकाशा॥",
+      "en": "Kahat raam sundar prabhu daasaa.\nShani sumirat sukh hot prakaashaa."
+    },
+    {
+      "n": 42,
+      "type": "doha",
+      "hi": "पाठ शनिश्चर देव को, की हों विमल तैयार।\nकरत पाठ चालीस दिन, हो भवसागर पार॥",
+      "en": "Paath shanishchar dev ko, kee hon vimal taiyaar.\nKarat paath chaalees din, ho bhavasaagar paar."
+    }
   ]
 }
