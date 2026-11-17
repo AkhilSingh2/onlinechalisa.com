@@ -1,0 +1,44 @@
+{
+  "title": "Ganesh Aarti",
+  "deity": "Ganesh",
+  "slug": "ganesh-aarti",
+  "order": 6,
+  "tagline": "Jai Ganesh Deva — the short aarti sung before a puja begins.",
+  "description": "Ganesh Aarti is the hymn that begins “Jai Ganesh Jai Ganesh Deva”, sung with a lamp before other worship, and on Wednesdays and Ganesh Chaturthi.",
+  "color": "#c96a1a",
+  "tradition": "Hindi aarti · Ganesh",
+  "audioUrl": "/audio/ganesh-aarti.mp3",
+  "audioAttribution": "Recitation",
+  "verses": [
+    {
+      "n": 1,
+      "type": "chaupai",
+      "hi": "जय गणेश जय गणेश, जय गणेश देवा। माता जाकी पार्वती, पिता महादेवा॥"
+    },
+    {
+      "n": 2,
+      "type": "chaupai",
+      "hi": "एकदंत दयावंत, चार भुजा धारी। माथे सिंदूर सोहे, मूसे की सवारी॥"
+    },
+    {
+      "n": 3,
+      "type": "chaupai",
+      "hi": "पान चढ़े फूल चढ़े, और चढ़े मेवा। लड्डुअन का भोग लगे, संत करें सेवा॥"
+    },
+    {
+      "n": 4,
+      "type": "chaupai",
+      "hi": "अंधन को आँख देत, कोढ़िन को काया। बाँझन को पुत्र देत, निर्धन को माया॥"
+    },
+    {
+      "n": 5,
+      "type": "chaupai",
+      "hi": "सूर श्याम शरण आए, सफल कीजे सेवा। माता जाकी पार्वती, पिता महादेवा॥"
+    },
+    {
+      "n": 6,
+      "type": "chaupai",
+      "hi": "जय गणेश जय गणेश, जय गणेश देवा। माता जाकी पार्वती, पिता महादेवा॥"
+    }
+  ]
+}

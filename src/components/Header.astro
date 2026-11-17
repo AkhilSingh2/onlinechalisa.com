@@ -23,6 +23,7 @@ const linkClass =
     'zen-hide sticky top-0 z-40 backdrop-blur-md',
     'bg-[color-mix(in_oklab,var(--canvas)_82%,transparent)]',
     'border-b border-(--hairline)',
+    'relative',
   ]}
 >
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-3 sm:h-[68px] sm:px-6">
@@ -53,6 +54,24 @@ const linkClass =
     }
 
     <div class="flex items-center gap-2">
+      {
+        !minimal && (
+          <button
+            type="button"
+            id="nav-toggle"
+            class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-(--hairline) bg-(--surface) text-(--ink) md:hidden"
+            aria-expanded="false"
+            aria-controls="mobile-nav"
+            aria-label={t('header.menu')}
+            data-label-open={t('header.menu')}
+            data-label-close={t('header.closeMenu')}
+          >
+            <span data-nav-icon="open"><Icon name="menu" size={16} /></span>
+            <span data-nav-icon="close" class="hidden"><Icon name="close" size={16} /></span>
+          </button>
+        )
+      }
+
       <LanguageSwitcher />
 
       <button
@@ -80,6 +99,21 @@ const linkClass =
       }
     </div>
   </div>
+
+  {
+    !minimal && (
+      <nav
+        id="mobile-nav"
+        class="absolute inset-x-0 top-full hidden border-b border-(--hairline) bg-(--canvas) px-3 py-2 md:hidden"
+        aria-label="Primary"
+      >
+        <a href={lp('/') + '#chalisas'} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.chalisas')}</a>
+        <a href={lp('/') + '#paath'} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)" aria-current={onPaath ? 'page' : undefined}>{t('nav.paath')}</a>
+        <a href={lp('/sankalp')} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.sankalp')}</a>
+        <a href={lp('/about')} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.about')}</a>
+      </nav>
+    )
+  }
 </header>
 
 <script is:inline>
@@ -102,6 +136,28 @@ const linkClass =
       const current = document.documentElement.getAttribute('data-theme') || 'light';
       const next = order[(order.indexOf(current) + 1) % order.length];
       paint(next);
+    });
+  })();
+
+  (function () {
+    const toggle = document.getElementById('nav-toggle');
+    const panel = document.getElementById('mobile-nav');
+    if (!toggle || !panel) return;
+    const openIcon = toggle.querySelector('[data-nav-icon="open"]');
+    const closeIcon = toggle.querySelector('[data-nav-icon="close"]');
+    const openLabel = toggle.getAttribute('data-label-open') || 'Menu';
+    const closeLabel = toggle.getAttribute('data-label-close') || 'Close menu';
+    function setOpen(open) {
+      panel.classList.toggle('hidden', !open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+      openIcon?.classList.toggle('hidden', open);
+      closeIcon?.classList.toggle('hidden', !open);
+    }
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') setOpen(false);
     });
   })();
 </script>

@@ -1,0 +1,59 @@
+{
+  "title": "Satyanarayan Aarti",
+  "deity": "Satyanarayan",
+  "slug": "satyanarayan-aarti",
+  "order": 8,
+  "tagline": "Jai Lakshmi Ramana — the aarti sung at the end of the Satyanarayan katha.",
+  "description": "Satyanarayan Aarti begins “Jai Lakshmi Ramana” and is sung with a lamp after the Satyanarayan vrat katha, before the prasad is shared.",
+  "color": "#a67c52",
+  "tradition": "Hindi aarti · Satyanarayan",
+  "audioUrl": "/audio/satyanarayan-aarti.mp3",
+  "audioAttribution": "Recitation",
+  "verses": [
+    {
+      "n": 1,
+      "type": "chaupai",
+      "hi": "जय लक्ष्मी रमणा, स्वामी जय लक्ष्मी रमणा। सत्यनारायण स्वामी, जन पातक हरणा॥"
+    },
+    {
+      "n": 2,
+      "type": "chaupai",
+      "hi": "रत्न जड़ित सिंहासन, अद्भुत छवि राजे। नारद करत निराजन, घंटा ध्वनि बाजे॥"
+    },
+    {
+      "n": 3,
+      "type": "chaupai",
+      "hi": "प्रकट भये कलि कारण, द्विज को दर्श दियो। बूढ़ा ब्राह्मण बनकर, कंचन महल कियो॥"
+    },
+    {
+      "n": 4,
+      "type": "chaupai",
+      "hi": "दुर्बल भील कठारो, जिन पर कृपा करी। चंद्रचूड़ एक राजा, तिनकी विपत्ति हरी॥"
+    },
+    {
+      "n": 5,
+      "type": "chaupai",
+      "hi": "वैश्य मनोरथ पायो, श्रद्धा तज दीन्ही। सो फल भोग्यो प्रभु जी, फिर स्तुति कीन्हीं॥"
+    },
+    {
+      "n": 6,
+      "type": "chaupai",
+      "hi": "भाव भक्ति के कारण, छिन छिन रूप धर्यो। श्रद्धा धारण कीन्हीं, तिनको काज सर्यो॥"
+    },
+    {
+      "n": 7,
+      "type": "chaupai",
+      "hi": "ग्वाल बाल संग राजा, वन में भक्ति करी। मनवांछित फल दीन्हो, दीनदयाल हरी॥"
+    },
+    {
+      "n": 8,
+      "type": "chaupai",
+      "hi": "चढ़त प्रसाद सवायो, कदली फल मेवा। धूप दीप तुलसी से, राजी सत्यदेवा॥"
+    },
+    {
+      "n": 9,
+      "type": "chaupai",
+      "hi": "श्री सत्यनारायण जी की आरती, जो कोई नर गावे। तन मन सुख संपत्ति, मनवांछित फल पावे॥"
+    }
+  ]
+}

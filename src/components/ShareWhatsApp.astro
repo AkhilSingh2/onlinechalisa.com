@@ -1,0 +1,21 @@
+---
+import { getLang, useTranslations } from '../i18n/utils';
+
+interface Props {
+  title: string;
+  url: string;
+}
+
+const { title, url } = Astro.props;
+const t = useTranslations(getLang(Astro));
+const href = `https://wa.me/?text=${encodeURIComponent(`${title}\n${url}`)}`;
+---
+
+<a
+  href={href}
+  target="_blank"
+  rel="noopener noreferrer"
+  class="inline-flex cursor-pointer items-center rounded-full border border-(--hairline) bg-(--surface) px-3 py-1.5 text-[12px] font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+>
+  {t('share.whatsapp')}
+</a>

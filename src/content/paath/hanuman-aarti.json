@@ -1,0 +1,74 @@
+{
+  "title": "Hanuman Aarti",
+  "deity": "Hanuman",
+  "slug": "hanuman-aarti",
+  "order": 1,
+  "tagline": "The evening aarti sung to Hanuman, usually just after the Chalisa.",
+  "description": "Hanuman Aarti is the short hymn that begins “Aarti kije Hanuman lala ki”, sung with a lamp after the Hanuman Chalisa.",
+  "color": "#c96a1a",
+  "tradition": "Hindi aarti · Hanuman",
+  "audioUrl": "/audio/hanuman-aarti.mp3",
+  "audioAttribution": "Recitation",
+  "verses": [
+    {
+      "n": 1,
+      "type": "chaupai",
+      "hi": "आरती कीजै हनुमान लला की। दुष्ट दलन रघुनाथ कला की॥"
+    },
+    {
+      "n": 2,
+      "type": "chaupai",
+      "hi": "जाके बल से गिरिवर काँपे। रोग दोष जाके निकट न झाँके॥"
+    },
+    {
+      "n": 3,
+      "type": "chaupai",
+      "hi": "अंजनि पुत्र महा बलदाई। संतन के प्रभु सदा सहाई॥"
+    },
+    {
+      "n": 4,
+      "type": "chaupai",
+      "hi": "दे बीरा रघुनाथ पठाए। लंका जारि सिया सुधि लाए॥"
+    },
+    {
+      "n": 5,
+      "type": "chaupai",
+      "hi": "लंका सो कोट समुद्र सी खाई। जात पवनसुत बार न लाई॥"
+    },
+    {
+      "n": 6,
+      "type": "chaupai",
+      "hi": "लंका जारि असुर संहारे। सियाराम जी के काज सँवारे॥"
+    },
+    {
+      "n": 7,
+      "type": "chaupai",
+      "hi": "लक्ष्मण मूर्छित पड़े सकारे। आनि संजीवन प्राण उबारे॥"
+    },
+    {
+      "n": 8,
+      "type": "chaupai",
+      "hi": "पैठी पाताल तोरि जम कारे। अहिरावण की भुजा उखारे॥"
+    },
+    {
+      "n": 9,
+      "type": "chaupai",
+      "hi": "बाएँ भुजा असुर दल मारे। दाहिने भुजा संतजन तारे॥"
+    },
+    {
+      "n": 10,
+      "type": "chaupai",
+      "hi": "सुर नर मुनि जन आरती उतारें। जय जय जय हनुमान उचारें॥"
+    },
+    {
+      "n": 11,
+      "type": "chaupai",
+      "hi": "कंचन थार कपूर लौ छाई। आरती करत अंजना माई॥"
+    },
+    {
+      "n": 12,
+      "type": "chaupai",
+      "hi": "जो हनुमान जी की आरती गावे। बसि बैकुंठ परम पद पावे॥"
+    }
+  ]
+}

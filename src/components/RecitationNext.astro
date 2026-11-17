@@ -1,0 +1,120 @@
+---
+import { getLang, localizePath, useTranslations } from '../i18n/utils';
+
+interface Props {
+  /** Canonical path of the suggested next page, already including any locale prefix. */
+  nextHref: string;
+  nextLabel: string;
+}
+
+const { nextHref, nextLabel } = Astro.props;
+const lang = getLang(Astro);
+const t = useTranslations(lang);
+const sankalpHref = localizePath('/sankalp', lang);
+---
+
+<aside
+  id="after-recitation"
+  class="mx-auto mt-10 hidden max-w-2xl px-4 sm:px-6"
+  aria-live="polite"
+>
+  <div class="surface-card p-6 text-center sm:p-8">
+    <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('after.kicker')}</p>
+    <h2 class="mt-2 font-serif text-2xl font-medium tracking-tight text-(--ink)">{t('after.done')}</h2>
+    <p class="mt-2 text-sm text-(--body)">{t('after.marked')}</p>
+    <p class="mt-3 font-serif text-lg text-(--ink)">
+      <span id="after-done">0</span>
+      {' '}
+      {t('streak.of')}
+      {' '}
+      <span id="after-total">11</span>
+      {' '}
+      {t('streak.daysUnit')}
+    </p>
+    <p class="mt-1 text-sm text-(--body)">
+      {t('streak.currentStreak')}
+      {' · '}
+      <span id="after-streak">0</span>
+      {' '}
+      {t('streak.daysUnit')}
+    </p>
+    <div class="mt-6 flex flex-wrap items-center justify-center gap-3">
+      <a
+        href={nextHref}
+        class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
+      >
+        {nextLabel}
+      </a>
+      <a
+        href={sankalpHref}
+        class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+      >
+        {t('after.sankalp')}
+      </a>
+    </div>
+  </div>
+</aside>
+
+<script is:inline>
+  (function () {
+    const KEY = 'oc-sankalp-v1';
+    const panel = document.getElementById('after-recitation');
+    if (!panel) return;
+
+    function today() {
+      return new Date().toISOString().slice(0, 10);
+    }
+    function load() {
+      try {
+        const raw = localStorage.getItem(KEY);
+        if (raw) return JSON.parse(raw);
+      } catch (e) {}
+      return { length: 11, days: {} };
+    }
+    function currentStreak(days) {
+      let n = 0;
+      const d = new Date();
+      while (true) {
+        const key = d.toISOString().slice(0, 10);
+        if (days[key]) {
+          n++;
+          d.setDate(d.getDate() - 1);
+        } else if (n === 0 && key === today()) {
+          d.setDate(d.getDate() - 1);
+        } else {
+          break;
+        }
+      }
+      return n;
+    }
+    function show() {
+      const s = load();
+      const t = today();
+      if (!s.days[t]) {
+        s.days[t] = true;
+        try {
+          localStorage.setItem(KEY, JSON.stringify(s));
+        } catch (e) {}
+      }
+      const len = s.length || 11;
+      const doneKeys = Object.keys(s.days).filter((k) => s.days[k]).sort();
+      const start = doneKeys.length ? new Date(doneKeys[0]) : new Date();
+      let done = 0;
+      for (let i = 0; i < len; i++) {
+        const d = new Date(start);
+        d.setDate(start.getDate() + i);
+        if (s.days[d.toISOString().slice(0, 10)]) done++;
+      }
+      const doneEl = document.getElementById('after-done');
+      const totalEl = document.getElementById('after-total');
+      const streakEl = document.getElementById('after-streak');
+      if (doneEl) doneEl.textContent = String(done);
+      if (totalEl) totalEl.textContent = String(len);
+      if (streakEl) streakEl.textContent = String(currentStreak(s.days));
+      panel.classList.remove('hidden');
+      panel.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    }
+
+    document.addEventListener('oc:recitation-complete', show);
+  })();
+</script>

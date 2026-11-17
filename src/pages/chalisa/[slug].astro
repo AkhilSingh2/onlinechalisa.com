@@ -5,8 +5,11 @@ import Footer from '../../components/Footer.astro';
 import ReaderControls from '../../components/ReaderControls.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
+import ShareWhatsApp from '../../components/ShareWhatsApp.astro';
+import RecitationNext from '../../components/RecitationNext.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
+import { CONTENT_UPDATED } from '../../lib/content-updated';
 import { getLang, localizePath, useTranslations } from '../../i18n/utils';
 
 const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
@@ -331,18 +334,48 @@ const authorsBySlug: Record<
 };
 const authorInfo = authorsBySlug[data.slug];
 
-// Related paath on the deity pages people already land on.
-const relatedBySlug: Record<string, string[]> = {
-  hanuman: ['bajrang-baan', 'sankat-mochan-hanuman-ashtak'],
-  durga: ['durga-kavach'],
+// What a reader of this chalisa is likely to open next.
+const relatedBySlug: Record<string, { href: string; labelKey: string }[]> = {
+  hanuman: [
+    { href: '/paath/hanuman-aarti', labelKey: 'paath.title.hanuman-aarti' },
+    { href: '/paath/bajrang-baan', labelKey: 'paath.title.bajrang-baan' },
+    { href: '/paath/sankat-mochan-hanuman-ashtak', labelKey: 'paath.title.sankat-mochan-hanuman-ashtak' },
+  ],
+  durga: [
+    { href: '/paath/durga-aarti', labelKey: 'paath.title.durga-aarti' },
+    { href: '/paath/durga-kavach', labelKey: 'paath.title.durga-kavach' },
+  ],
+  shani: [
+    { href: '/chalisa/hanuman', labelKey: 'chalisa.title.hanuman' },
+    { href: '/paath/sankat-mochan-hanuman-ashtak', labelKey: 'paath.title.sankat-mochan-hanuman-ashtak' },
+  ],
+  shiv: [
+    { href: '/chalisa/durga', labelKey: 'chalisa.title.durga' },
+    { href: '/paath/durga-kavach', labelKey: 'paath.title.durga-kavach' },
+  ],
+  ganesh: [
+    { href: '/paath/ganesh-aarti', labelKey: 'paath.title.ganesh-aarti' },
+    { href: '/chalisa/hanuman', labelKey: 'chalisa.title.hanuman' },
+  ],
+  laxmi: [
+    { href: '/paath/satyanarayan-aarti', labelKey: 'paath.title.satyanarayan-aarti' },
+    { href: '/paath/om-jai-jagdish-hare', labelKey: 'paath.title.om-jai-jagdish-hare' },
+  ],
+  saraswati: [{ href: '/chalisa/ganesh', labelKey: 'chalisa.title.ganesh' }],
 };
-const related = (relatedBySlug[data.slug] ?? []).map((slug) => {
-  const key = `paath.title.${slug}`;
-  return { href: `/paath/${slug}`, label: t(key) === key ? slug : t(key) };
-});
+const labelOf = (key: string) => (t(key) === key ? key : t(key));
+const related = (relatedBySlug[data.slug] ?? []).map((item) => ({
+  href: item.href,
+  label: labelOf(item.labelKey),
+}));
+const continueTo = related[0] ?? (next
+  ? { href: `/chalisa/${next.data.slug}`, label: labelOf(`chalisa.title.${next.data.slug}`) }
+  : { href: '/sankalp', label: t('after.sankalp') });
 
-// Freshness signal — reflects the latest build/content update.
-const lastModified = new Date().toISOString();
+const originPath = (Astro.originPathname || Astro.url.pathname).replace(/\/$/, '') || '/';
+const shareUrl = `${siteUrl}${originPath}`;
+
+const lastModified = `${CONTENT_UPDATED}T00:00:00.000Z`;
 
 const jsonLd = [
   {
@@ -452,6 +485,9 @@ if (isHanuman) {
         <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
           {localTagline}
         </p>
+        <div class="mt-4 flex justify-center">
+          <ShareWhatsApp title={localTitle} url={shareUrl} />
+        </div>
         {
           leadsWithEnglishLyrics && (
             <p class="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-(--mute)">
@@ -605,6 +641,8 @@ if (isHanuman) {
         </section>
       )
     }
+
+    <RecitationNext nextHref={lp(continueTo.href)} nextLabel={continueTo.label} />
   </main>
 
   <AudioPlayer

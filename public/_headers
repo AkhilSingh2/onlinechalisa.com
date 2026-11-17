@@ -1,2 +1,7 @@
 https://read.onlinechalisa.workers.dev/*
   X-Robots-Tag: noindex
+
+# Recitation files do not change URL when the page is rebuilt.
+# A return visit should reuse the copy it already downloaded.
+/audio/*
+  Cache-Control: public, max-age=2592000

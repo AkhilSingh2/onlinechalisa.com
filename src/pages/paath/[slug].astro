@@ -5,13 +5,16 @@ import Footer from '../../components/Footer.astro';
 import ReaderControls from '../../components/ReaderControls.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
+import ShareWhatsApp from '../../components/ShareWhatsApp.astro';
+import RecitationNext from '../../components/RecitationNext.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
+import { romanize } from '../../lib/romanize';
+import { getPaathCopy } from '../../lib/paath-copy';
+import { CONTENT_UPDATED } from '../../lib/content-updated';
 import { getLang, localizePath, useTranslations } from '../../i18n/utils';
 
 // Paath = bhajans, kavach, ashtak and other texts that are not chalisas.
-// Same reader, player and SEO as /chalisa/[slug], without English lines,
-// FAQ blocks or author attribution (these texts are traditional).
 const all = (await getCollection('paath')).sort((a, b) => a.data.order - b.data.order);
 const entry = all.find((item) => item.data.slug === Astro.params.slug);
 
@@ -24,20 +27,22 @@ const { data } = entry;
 const lang = getLang(Astro);
 const t = useTranslations(lang);
 const lp = (p: string) => localizePath(p, lang);
+const copy = getPaathCopy(data.slug, lang);
 
 const titleKey = `paath.title.${data.slug}`;
 const localTitle = t(titleKey) === titleKey ? data.title : t(titleKey);
+const localTagline = copy?.tagline ?? data.tagline;
 const localTradition = data.tradition ?? data.deity;
 const titleOf = (e: (typeof all)[number]) => {
   const key = `paath.title.${e.data.slug}`;
   return t(key) === key ? e.data.title : t(key);
 };
+const labelOf = (key: string) => (t(key) === key ? key : t(key));
 
 const idx = all.findIndex((e) => e.data.slug === data.slug);
 const prev = idx > 0 ? all[idx - 1] : null;
 const next = idx < all.length - 1 ? all[idx + 1] : null;
 
-// Devanagari is the source; the other scripts are pre-rendered at build time.
 const scripts = [
   { code: 'hi', klass: 'script-hi', text: (hi: string) => hi },
   { code: 'te', klass: 'script-te', text: (hi: string) => transliterate(hi, 'telugu') },
@@ -46,13 +51,62 @@ const scripts = [
   { code: 'bn', klass: 'script-bn', text: (hi: string) => transliterate(hi, 'bengali') },
 ] as const;
 
-// ────────── SEO ──────────
+const opening = data.verses[0];
+
+// The chalisa this paath belongs with, plus the sibling hymn.
+const parentBySlug: Record<string, { href: string; labelKey: string }> = {
+  'bajrang-baan': { href: '/chalisa/hanuman', labelKey: 'chalisa.title.hanuman' },
+  'sankat-mochan-hanuman-ashtak': { href: '/chalisa/hanuman', labelKey: 'chalisa.title.hanuman' },
+  'hanuman-aarti': { href: '/chalisa/hanuman', labelKey: 'chalisa.title.hanuman' },
+  'durga-kavach': { href: '/chalisa/durga', labelKey: 'chalisa.title.durga' },
+  'durga-aarti': { href: '/chalisa/durga', labelKey: 'chalisa.title.durga' },
+  'ganesh-aarti': { href: '/chalisa/ganesh', labelKey: 'chalisa.title.ganesh' },
+  'satyanarayan-aarti': { href: '/chalisa/laxmi', labelKey: 'chalisa.title.laxmi' },
+};
+const siblingBySlug: Record<string, { href: string; labelKey: string }[]> = {
+  'bajrang-baan': [
+    { href: '/paath/hanuman-aarti', labelKey: 'paath.title.hanuman-aarti' },
+    { href: '/paath/sankat-mochan-hanuman-ashtak', labelKey: 'paath.title.sankat-mochan-hanuman-ashtak' },
+  ],
+  'sankat-mochan-hanuman-ashtak': [
+    { href: '/paath/hanuman-aarti', labelKey: 'paath.title.hanuman-aarti' },
+    { href: '/paath/bajrang-baan', labelKey: 'paath.title.bajrang-baan' },
+  ],
+  'hanuman-aarti': [
+    { href: '/paath/bajrang-baan', labelKey: 'paath.title.bajrang-baan' },
+  ],
+  'durga-kavach': [
+    { href: '/paath/durga-aarti', labelKey: 'paath.title.durga-aarti' },
+  ],
+  'durga-aarti': [
+    { href: '/paath/durga-kavach', labelKey: 'paath.title.durga-kavach' },
+  ],
+  'om-jai-jagdish-hare': [
+    { href: '/paath/satyanarayan-aarti', labelKey: 'paath.title.satyanarayan-aarti' },
+  ],
+  'satyanarayan-aarti': [
+    { href: '/paath/om-jai-jagdish-hare', labelKey: 'paath.title.om-jai-jagdish-hare' },
+  ],
+};
+const parent = parentBySlug[data.slug];
+const related = [
+  ...(parent ? [{ href: parent.href, label: labelOf(parent.labelKey) }] : []),
+  ...(siblingBySlug[data.slug] ?? []).map((item) => ({ href: item.href, label: labelOf(item.labelKey) })),
+];
+const continueTo = related[1] ?? related[0] ?? { href: '/sankalp', label: t('after.sankalp') };
+
 const siteUrl = 'https://onlinechalisa.com';
 const url = `${siteUrl}/paath/${data.slug}`;
+const originPath = (Astro.originPathname || Astro.url.pathname).replace(/\/$/, '') || '/';
+const shareUrl = `${siteUrl}${originPath}`;
 const hasAudio = Boolean(data.audioUrl);
+const faqs = copy?.faqs ?? [];
 
-const seoTitle = `${localTitle} Lyrics in Hindi | Online Chalisa`;
-const seoDescription = `${data.description} Read it in Devanagari with Telugu, Kannada, Tamil and Bengali scripts${hasAudio ? ', and listen to a spoken recitation that follows each line' : ''}. Free and ad-free.`;
+const seoTitle = lang === 'hi'
+  ? `${localTitle} — हिन्दी पाठ | Online Chalisa`
+  : `${localTitle} Lyrics in Hindi | Online Chalisa`;
+const seoDescription = copy?.description
+  ?? `${data.description} Read it in Devanagari with Telugu, Kannada, Tamil and Bengali scripts${hasAudio ? ', and listen to a spoken recitation that follows each line' : ''}. Free and ad-free.`;
 const seoKeywords = [
   data.title,
   `${data.title} lyrics`,
@@ -62,9 +116,9 @@ const seoKeywords = [
   `${data.title} audio`,
 ].join(', ');
 
-const lastModified = new Date().toISOString();
+const lastModified = `${CONTENT_UPDATED}T00:00:00.000Z`;
 
-const jsonLd = [
+const jsonLd: Record<string, unknown>[] = [
   {
     '@context': 'https://schema.org',
     '@type': 'BreadcrumbList',
@@ -86,7 +140,7 @@ const jsonLd = [
     keywords: seoKeywords,
     speakable: {
       '@type': 'SpeakableSpecification',
-      cssSelector: ['.reader h1', '.verse-line'],
+      cssSelector: ['.paath-answer', '.reader h1', '.verse-line'],
     },
     about: {
       '@type': 'Thing',
@@ -108,6 +162,18 @@ const jsonLd = [
       : {}),
   },
 ];
+
+if (faqs.length > 0) {
+  jsonLd.push({
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.a },
+    })),
+  });
+}
 ---
 
 <Layout
@@ -121,10 +187,10 @@ const jsonLd = [
   <Header />
 
   <main id="main" class="pb-40">
-    <ReaderControls slug={data.slug} audioUrl={data.audioUrl} showEnglish={false} />
+    <ReaderControls slug={data.slug} audioUrl={data.audioUrl} />
 
     <article class="reader mx-auto max-w-2xl px-4 pt-8 sm:px-6 sm:pt-14">
-      <header class="mb-10 text-center">
+      <header class="mb-8 text-center">
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
           {localTradition}
         </p>
@@ -134,10 +200,29 @@ const jsonLd = [
           {localTitle}
         </h1>
         <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
-          {data.tagline}
+          {localTagline}
         </p>
+        <div class="mt-4 flex justify-center">
+          <ShareWhatsApp title={localTitle} url={shareUrl} />
+        </div>
         <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
       </header>
+
+      {
+        copy && opening && (
+          <section class="paath-answer mb-12 text-center" aria-label={t('paath.introLabel')}>
+            <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+              {t('paath.introLabel')}
+            </p>
+            <p class="mx-auto mt-3 max-w-lg text-left text-[15px] leading-relaxed text-(--body) sm:text-center">
+              {copy.intro}
+            </p>
+            <p class="mt-5 font-serif text-lg leading-relaxed text-(--ink)" lang="hi">{opening.hi}</p>
+            <p class="mt-1 text-sm italic leading-relaxed text-(--body)" lang="en">{romanize(opening.hi)}</p>
+            <p class="mx-auto mt-3 max-w-md text-[12px] leading-relaxed text-(--mute)">{t('paath.romanNote')}</p>
+          </section>
+        )
+      }
 
       <ol class="space-y-6 text-center" role="list">
         {
@@ -154,6 +239,9 @@ const jsonLd = [
                     {s.text(v.hi)}
                   </p>
                 ))}
+                <p class="verse-line script-en" data-script="en" lang="en">
+                  {romanize(v.hi)}
+                </p>
               </div>
               {v.n > 0 && (
                 <span
@@ -170,6 +258,27 @@ const jsonLd = [
 
       <footer class="mt-16 border-t border-(--hairline) pt-8 text-center">
         <p class="mt-2 text-sm text-(--body)">{t('chalisa.blessing')}</p>
+
+        {
+          related.length > 0 && (
+            <div class="mt-8">
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+                {t('chalisa.alsoRead')}
+              </p>
+              <div class="mt-3 flex flex-wrap items-center justify-center gap-3">
+                {related.map((item) => (
+                  <a
+                    href={lp(item.href)}
+                    class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+                  >
+                    {item.label}
+                    <Icon name="arrow" size={14} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           {
@@ -205,6 +314,49 @@ const jsonLd = [
         </div>
       </footer>
     </article>
+
+    {
+      faqs.length > 0 && (
+        <section class="mx-auto mt-16 max-w-2xl px-4 sm:px-6" aria-labelledby="faq-heading">
+          <div class="border-t border-(--hairline) pt-12">
+            <p class="text-center font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+              {t('chalisa.faqHeading')}
+            </p>
+            <h2
+              id="faq-heading"
+              class="mt-3 text-center font-serif text-2xl font-medium leading-tight tracking-tight text-(--ink) sm:text-3xl"
+            >
+              {localTitle}
+            </h2>
+            <p class="mx-auto mt-3 max-w-md text-center text-[15px] leading-relaxed text-(--body)">
+              {t('paath.faqSubtitle')}
+            </p>
+            <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true" />
+            <div class="mt-10 space-y-3">
+              {faqs.map((f, i) => (
+                <details
+                  class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)"
+                  open={i === 0}
+                >
+                  <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+                    <span>{f.q}</span>
+                    <span
+                      class="faq-toggle mt-1 grid h-6 w-6 shrink-0 place-items-center rounded-full border border-(--hairline) text-(--mute) transition"
+                      aria-hidden="true"
+                    />
+                  </summary>
+                  <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+                    <p>{f.a}</p>
+                  </div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </section>
+      )
+    }
+
+    <RecitationNext nextHref={lp(continueTo.href)} nextLabel={continueTo.label} />
   </main>
 
   <AudioPlayer title={localTitle} slug={data.slug} audioUrl={data.audioUrl} />
@@ -213,7 +365,6 @@ const jsonLd = [
 </Layout>
 
 <script is:inline>
-  // Auto-mark today's Sankalp when a reader finishes 80% of a paath page.
   (function () {
     const KEY = 'oc-sankalp-v1';
     let notified = false;
@@ -221,8 +372,7 @@ const jsonLd = [
       if (notified) return;
       const total = document.body.scrollHeight - window.innerHeight;
       if (total <= 0) return;
-      const pct = window.scrollY / total;
-      if (pct >= 0.8) {
+      if (window.scrollY / total >= 0.8) {
         notified = true;
         try {
           const raw = localStorage.getItem(KEY);

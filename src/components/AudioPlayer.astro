@@ -193,6 +193,7 @@ const t = useTranslations(lang);
       track_('recitation_complete');
       document.getElementById('v-' + activeIdx)?.classList.remove('is-reciting');
       activeIdx = -1;
+      document.dispatchEvent(new CustomEvent('oc:recitation-complete'));
     });
     audio.addEventListener('loadedmetadata', () => {
       tot.textContent = fmt(audio.duration);

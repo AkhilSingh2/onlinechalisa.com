@@ -2,6 +2,7 @@ import type { APIRoute } from 'astro';
 import { getCollection } from 'astro:content';
 import { LOCALES, DEFAULT_LOCALE } from '../i18n/config';
 import { localizePath } from '../i18n/utils';
+import { CONTENT_UPDATED } from '../lib/content-updated';
 
 const SITE = 'https://onlinechalisa.com';
 
@@ -30,7 +31,6 @@ export const GET: APIRoute = async () => {
     })),
   ];
 
-  const today = new Date().toISOString().slice(0, 10);
   const allPaths = [...staticPaths, ...dynamicPaths];
 
   // For each canonical path, emit one <url> per locale. Every entry
@@ -55,7 +55,7 @@ export const GET: APIRoute = async () => {
       return LOCALES.map(
         (loc) => `  <url>
     <loc>${SITE}${localizePath(p.loc, loc)}</loc>
-    <lastmod>${today}</lastmod>
+    <lastmod>${CONTENT_UPDATED}</lastmod>
     <changefreq>${p.changefreq}</changefreq>
     <priority>${p.priority}</priority>
 ${alternates}

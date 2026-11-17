@@ -1,0 +1,54 @@
+{
+  "title": "Om Jai Jagdish Hare",
+  "deity": "Vishnu",
+  "slug": "om-jai-jagdish-hare",
+  "order": 7,
+  "tagline": "The aarti sung in almost every home puja, addressed to Vishnu as Jagadish.",
+  "description": "Om Jai Jagdish Hare is the aarti written in 1870 by Pandit Shardha Ram Phillauri. It is sung at the end of a puja, to Vishnu, the lord of the world.",
+  "color": "#8a5a2b",
+  "tradition": "Hindi aarti · Vishnu",
+  "audioUrl": "/audio/om-jai-jagdish-hare.mp3",
+  "audioAttribution": "Recitation",
+  "verses": [
+    {
+      "n": 1,
+      "type": "chaupai",
+      "hi": "ॐ जय जगदीश हरे, स्वामी जय जगदीश हरे। भक्त जनों के संकट, क्षण में दूर करे॥"
+    },
+    {
+      "n": 2,
+      "type": "chaupai",
+      "hi": "जो ध्यावे फल पावे, दुख बिनसे मन का। सुख सम्पति घर आवे, कष्ट मिटे तन का॥"
+    },
+    {
+      "n": 3,
+      "type": "chaupai",
+      "hi": "मात पिता तुम मेरे, शरण गहूँ मैं किसकी। तुम बिन और न दूजा, आस करूँ मैं जिसकी॥"
+    },
+    {
+      "n": 4,
+      "type": "chaupai",
+      "hi": "तुम पूरण परमात्मा, तुम अंतर्यामी। पारब्रह्म परमेश्वर, तुम सब के स्वामी॥"
+    },
+    {
+      "n": 5,
+      "type": "chaupai",
+      "hi": "तुम करुणा के सागर, तुम पालनकर्ता। मैं मूरख खलकामी, कृपा करो भर्ता॥"
+    },
+    {
+      "n": 6,
+      "type": "chaupai",
+      "hi": "तुम हो एक अगोचर, सबके प्राणपति। किस विधि मिलूँ दयामय, तुमको मैं कुमति॥"
+    },
+    {
+      "n": 7,
+      "type": "chaupai",
+      "hi": "दीनबंधु दुखहर्ता, ठाकुर तुम मेरे। अपने हाथ उठाओ, द्वार पड़ा तेरे॥"
+    },
+    {
+      "n": 8,
+      "type": "chaupai",
+      "hi": "विषय विकार मिटाओ, पाप हरो देवा। श्रद्धा भक्ति बढ़ाओ, संतन की सेवा॥"
+    }
+  ]
+}

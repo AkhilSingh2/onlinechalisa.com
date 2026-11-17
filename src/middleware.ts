@@ -74,6 +74,10 @@ export const onRequest = defineMiddleware(async (context, next) => {
 
   let response = await next();
 
+  if (pathname.startsWith('/audio/')) {
+    response.headers.set('Cache-Control', 'public, max-age=2592000');
+  }
+
   if (consider) {
     const cookieLang = context.cookies.get(COOKIE)?.value;
     if (cookieLang !== urlLocale) {
