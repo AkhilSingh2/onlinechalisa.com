@@ -6,15 +6,33 @@ import ChalisaCard from '../components/ChalisaCard.astro';
 import StreakTracker from '../components/StreakTracker.astro';
 import Icon from '../components/Icon.astro';
 import { getCollection } from 'astro:content';
-import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
+import {
+  DEFAULT_LOCALE,
+  getLang,
+  hasTranslation,
+  localizePath,
+  useTranslations,
+} from '../i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 const lp = (p: string) => localizePath(p, lang);
+// Locales opt in to the "read online" hero and Awadhi FAQ by translating
+// these keys; until then they keep their existing hero rather than
+// falling back to English copy.
+const hasOwn = (key: string) => lang === DEFAULT_LOCALE || hasTranslation(lang, key);
+const showReadOnlineHero = hasOwn('hero.readOnline');
+const showLanguageFaq = hasOwn('faq.qLanguage');
 
 const entries = (await getCollection('chalisas')).sort(
   (a, b) => a.data.order - b.data.order,
 );
+const paathEntries = (await getCollection('paath')).sort(
+  (a, b) => a.data.order - b.data.order,
+);
+const openingDohas = (entries.find((e) => e.data.slug === 'hanuman')?.data.verses ?? [])
+  .filter((v) => v.type === 'doha')
+  .slice(0, 2);
 
 const siteUrl = 'https://onlinechalisa.com';
 
@@ -72,6 +90,14 @@ const jsonLd = [
     mainEntity: [
       {
         '@type': 'Question',
+        name: 'In which language is the Hanuman Chalisa written?',
+        acceptedAnswer: {
+          '@type': 'Answer',
+          text: 'The Hanuman Chalisa is written in Awadhi, a language of the Awadh region of northern India closely related to Hindi. Goswami Tulsidas composed it in the 16th century in the Devanagari script, which is why it is often called the Hanuman Chalisa in Hindi.',
+        },
+      },
+      {
+        '@type': 'Question',
         name: 'What is a Chalisa?',
         acceptedAnswer: {
           '@type': 'Answer',
@@ -107,7 +133,7 @@ const jsonLd = [
         name: 'Is Online Chalisa free? Are there ads?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes, completely free. No ads, no account, no newsletter, no tracking. Your Sankalp streak lives in your browser and is never sent to any server. The site works offline once loaded.',
+          text: 'Yes, completely free. No ads, no account, no newsletter, no ad tracking. Your Sankalp streak lives in your browser and is never sent to any server. The site works offline once loaded.',
         },
       },
       {
@@ -155,13 +181,46 @@ const jsonLd = [
           {t('hero.invocation')}
         </p>
 
-        <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-tight text-(--ink) sm:text-6xl md:text-7xl">
-          {t('hero.title1')}<br class="hidden sm:inline" /> {t('hero.title2')} <em class="text-(--accent) not-italic">{t('hero.titleWord')}</em>.
-        </h1>
+        {
+          showReadOnlineHero ? (
+            <>
+              <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-tight text-(--ink) sm:text-6xl md:text-7xl">
+                {t('hero.readOnline')}
+              </h1>
+              <p class="mt-4 font-serif text-xl text-(--accent) sm:text-2xl">{t('hero.readOnlineSub')}</p>
+            </>
+          ) : (
+            <h1 class="font-serif text-[2.5rem] font-medium leading-[1.05] tracking-tight text-(--ink) sm:text-6xl md:text-7xl">
+              {t('hero.title1')}<br class="hidden sm:inline" /> {t('hero.title2')} <em class="text-(--accent) not-italic">{t('hero.titleWord')}</em>.
+            </h1>
+          )
+        }
 
         <p class="mx-auto mt-6 max-w-xl text-[16px] leading-relaxed text-(--body) sm:text-[17px]">
           {t('hero.subtitle')}
         </p>
+
+        {
+          showReadOnlineHero && openingDohas.length > 0 && (
+            <figure class="surface-card mx-auto mt-9 max-w-xl px-5 py-6 text-center sm:px-8">
+              <figcaption class="font-mono text-[10px] uppercase tracking-[0.2em] text-(--mute)">
+                {t('hero.openingKicker')}
+              </figcaption>
+              <div class="mt-4 space-y-5">
+                {openingDohas.map((v) => (
+                  <div>
+                    <p class="font-[var(--font-deva)] text-lg leading-relaxed whitespace-pre-line text-(--ink)" lang="hi">
+                      {v.hi}
+                    </p>
+                    <p class="mt-1.5 text-sm leading-relaxed whitespace-pre-line text-(--body)" lang="en">
+                      {v.en}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </figure>
+          )
+        }
 
         <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:flex-wrap">
           <a
@@ -223,6 +282,41 @@ const jsonLd = [
         }
       </div>
     </section>
+
+    {/* ───────── Paath (bhajans and other texts) ───────── */}
+    {
+      paathEntries.length > 0 && (
+        <section id="paath" class="mx-auto max-w-6xl px-4 pt-16 sm:px-6 sm:pt-24">
+          <div class="mb-10 flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('paath.kicker')}</p>
+              <h2 class="mt-2 font-serif text-3xl font-medium tracking-tight text-(--ink) sm:text-4xl">
+                {t('paath.heading')}
+              </h2>
+            </div>
+            <p class="max-w-sm text-sm leading-relaxed text-(--body)">{t('paath.blurb')}</p>
+          </div>
+
+          <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            {
+              paathEntries.map((e) => (
+                <ChalisaCard
+                  basePath="paath"
+                  slug={e.data.slug}
+                  title={e.data.title}
+                  deity={e.data.deity}
+                  tagline={e.data.tagline}
+                  tradition={e.data.tradition}
+                  color={e.data.color}
+                  order={e.data.order}
+                  verseCount={e.data.verses.length}
+                />
+              ))
+            }
+          </div>
+        </section>
+      )
+    }
 
     {/* ───────── Feature strip ───────── */}
     <section class="mx-auto max-w-6xl px-4 pt-24 sm:px-6">
@@ -298,7 +392,21 @@ const jsonLd = [
       </div>
 
       <div class="mt-10 space-y-3 text-left">
-        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)" open>
+        {
+          showLanguageFaq && (
+            <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)" open>
+              <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
+                <span>{t('faq.qLanguage')}</span>
+                <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
+              </summary>
+              <div class="mt-3 text-[15px] leading-relaxed text-(--body)">
+                <p>{t('faq.aLanguage')}</p>
+              </div>
+            </details>
+          )
+        }
+
+        <details class="faq-item group rounded-xl border border-(--hairline) bg-(--surface) px-5 py-4 transition hover:border-(--hairline-strong) open:bg-(--surface-soft)" open={!showLanguageFaq}>
           <summary class="flex cursor-pointer list-none items-start justify-between gap-4 font-serif text-lg leading-snug text-(--ink) [&::-webkit-details-marker]:hidden">
             <span>{t('faq.q1')}</span>
             <span class="faq-toggle mt-1 grid shrink-0 h-6 w-6 place-items-center rounded-full border border-(--hairline) text-(--mute) transition" aria-hidden="true" />
@@ -389,6 +497,26 @@ const jsonLd = [
 
         <h3 class="font-serif text-xl font-medium text-(--ink)">{t('article.h3')}</h3>
         <p>{t('article.p5')}</p>
+        <ul class="flex flex-wrap gap-2 !pl-0" role="list">
+          {
+            entries
+              .filter((e) => ['ganesh', 'durga', 'laxmi', 'shani'].includes(e.data.slug))
+              .map((e) => {
+                const k = `chalisa.title.${e.data.slug}`;
+                const name = t(k) === k ? e.data.title : t(k);
+                return (
+                  <li class="list-none">
+                    <a
+                      href={lp(`/chalisa/${e.data.slug}`)}
+                      class="inline-flex items-center rounded-full border border-(--hairline) bg-(--surface) px-3 py-1 text-sm text-(--ink) transition hover:border-(--hairline-strong)"
+                    >
+                      {lang === DEFAULT_LOCALE ? `${name} lyrics in English` : name}
+                    </a>
+                  </li>
+                );
+              })
+          }
+        </ul>
 
         <h3 class="font-serif text-xl font-medium text-(--ink)">{t('article.h4')}</h3>
         <p>{t('article.p6')}</p>

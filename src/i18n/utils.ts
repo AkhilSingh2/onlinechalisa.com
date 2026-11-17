@@ -14,6 +14,18 @@ export function getLangFromUrl(url: URL): Locale {
 }
 
 /**
+ * Locale of the page the visitor opened.
+ *
+ * With `fallbackType: 'rewrite'`, Astro serves `/hi/...` by rewriting it
+ * onto the English page, and `Astro.url` then has no locale prefix. The
+ * address the visitor typed is `originPathname`.
+ */
+export function getLang(astro: { url: URL; originPathname: string }): Locale {
+  const path = astro.originPathname || astro.url.pathname;
+  return getLangFromUrl(new URL(path, astro.url.origin));
+}
+
+/**
  * Strip a leading locale prefix from a pathname, returning the
  * canonical (default-locale) path. `/hi/about` → `/about`, `/` → `/`.
  */

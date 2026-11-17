@@ -7,6 +7,8 @@
   "description": "The Saraswati Chalisa invokes Ma Saraswati — the giver of learning, music and eloquence. Traditionally recited on Basant Panchami and before examinations.",
   "color": "#e6c86b",
   "tradition": "Devotional · Traditional",
+  "audioUrl": "/audio/saraswati.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 0, "type": "doha", "hi": "जनक जननि पद्मरज, निज मस्तक पर धरि।\nबन्दौं मातु सरस्वती, बुद्धि बल दे दातारि॥", "en": "Janak janani padmaraj, nij mastak par dhari.\nBandau maatu Saraswati, buddhi bal de daataari." },
     { "n": 0, "type": "doha", "hi": "पूर्ण जगत में व्याप्त तव, महिमा अमित अनंतु।\nदुष्जनों के पाप को, मातु तु ही अब हन्तु॥", "en": "Poorn jagat mein vyaapt tav, mahimaa amit anantu.\nDushjanon ke paap ko, maatu tu hee ab hantu." },

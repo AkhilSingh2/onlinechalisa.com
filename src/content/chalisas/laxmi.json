@@ -7,6 +7,8 @@
   "description": "The Laxmi Chalisa praises Mahalakshmi — the consort of Vishnu — as the giver of prosperity, wisdom and inner abundance. Traditionally recited on Fridays and during Diwali.",
   "color": "#d4a017",
   "tradition": "Devotional · Traditional",
+  "audioUrl": "/audio/laxmi.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 0, "type": "doha", "hi": "मातु लक्ष्मी करि कृपा, करो हृदय में वास।\nमनोकामना सिद्ध करि, पुरवहु मेरी आस॥", "en": "Maatu Lakshmi kari kripaa, karo hriday mein vaas.\nManokaamnaa siddha kari, purvahu meri aas." },
     { "n": 0, "type": "doha", "hi": "सिन्धु सुता मैं सुमिरहूँ, तुम्हरो सुयश उदार।\nदास दीन के दुख हरहु, करहु कृपा अपार॥", "en": "Sindhu sutaa main sumirahu, tumharo suyash udaar.\nDaas deen ke dukh harahu, karahu kripaa apaar." },

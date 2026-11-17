@@ -1,7 +1,7 @@
 ---
-import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
+import { getLang, localizePath, useTranslations } from '../i18n/utils';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 const lp = (p: string) => localizePath(p, lang);
 const year = new Date().getFullYear();
@@ -19,6 +19,7 @@ const year = new Date().getFullYear();
       <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">{t('footer.site')}</p>
       <a class="w-fit hover:text-(--ink)" href={lp('/')}>{t('footer.home')}</a>
       <a class="w-fit hover:text-(--ink)" href={lp('/') + '#chalisas'}>{t('footer.chalisas')}</a>
+      <a class="w-fit hover:text-(--ink)" href={lp('/') + '#paath'}>{t('footer.paath')}</a>
       <a class="w-fit hover:text-(--ink)" href={lp('/sankalp')}>{t('footer.sankalp')}</a>
       <a class="w-fit hover:text-(--ink)" href={lp('/about')}>{t('footer.aboutUs')}</a>
     </nav>

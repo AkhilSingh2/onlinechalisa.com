@@ -7,6 +7,8 @@
   "description": "Composed by Goswami Tulsidas in Awadhi, the Hanuman Chalisa is forty quatrains praising the courage, wisdom, and boundless devotion of Lord Hanuman.",
   "color": "#c96a1a",
   "tradition": "Awadhi · Tulsidas · c. 16th century",
+  "audioUrl": "/audio/hanuman.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 0, "type": "doha", "hi": "श्रीगुरु चरन सरोज रज, निज मन मुकुर सुधारि।\nबरनउँ रघुबर बिमल जसु, जो दायकु फल चारि॥", "en": "Shri Guru charan saroj raj, nij man mukur sudhaari.\nBaranau Raghubar bimal jasu, jo daayaku phal chaari." },
     { "n": 0, "type": "doha", "hi": "बुद्धिहीन तनु जानिके, सुमिरौं पवन कुमार।\nबल बुधि बिद्या देहु मोहिं, हरहु कलेस बिकार॥", "en": "Buddhiheen tanu jaanike, sumirau Pavan Kumaar.\nBal buddhi vidya dehu mohi, harahu kales bikaar." },

@@ -1,17 +1,19 @@
 ---
 import Icon from './Icon.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLang, useTranslations } from '../i18n/utils';
 
 interface Props {
   slug: string;
   audioUrl?: string;
+  /** False for texts with no English lines (paath); hides the English option. */
+  showEnglish?: boolean;
 }
-const { slug, audioUrl } = Astro.props;
+const { slug, audioUrl, showEnglish = true } = Astro.props;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 
-const scripts = [
+const allScripts = [
   { code: 'hi', label: 'हिन्दी', title: t('reader.script.hi') },
   { code: 'te', label: 'తెలుగు', title: t('reader.script.te') },
   { code: 'ta', label: 'தமிழ்', title: t('reader.script.ta') },
@@ -19,6 +21,7 @@ const scripts = [
   { code: 'bn', label: 'বাংলা', title: t('reader.script.bn') },
   { code: 'en', label: 'English', title: t('reader.script.en') },
 ] as const;
+const scripts = allScripts.filter((s) => showEnglish || s.code !== 'en');
 ---
 
 <div
@@ -51,21 +54,23 @@ const scripts = [
       {/* ── Right-hand controls ─────────────────────────────── */}
       <div class="oc-cluster">
         {/* Show-English transliteration checkbox */}
-        <label
-          id="chk-translit-label"
-          class="oc-pill cursor-pointer"
-          title={t('reader.showEnglishTitle')}
-        >
-          <input
-            type="checkbox"
-            id="chk-translit"
-            class="peer h-3.5 w-3.5 shrink-0 cursor-pointer accent-(--accent)"
-          />
-          <span class="peer-checked:text-(--ink)">
-            <span class="hidden sm:inline">{t('reader.showEnglish')}</span>
-            <span class="sm:hidden">{t('reader.en')}</span>
-          </span>
-        </label>
+        {showEnglish && (
+          <label
+            id="chk-translit-label"
+            class="oc-pill cursor-pointer"
+            title={t('reader.showEnglishTitle')}
+          >
+            <input
+              type="checkbox"
+              id="chk-translit"
+              class="peer h-3.5 w-3.5 shrink-0 cursor-pointer accent-(--accent)"
+            />
+            <span class="peer-checked:text-(--ink)">
+              <span class="hidden sm:inline">{t('reader.showEnglish')}</span>
+              <span class="sm:hidden">{t('reader.en')}</span>
+            </span>
+          </label>
+        )}
 
         <span aria-hidden="true" class="mx-0.5 hidden h-5 w-px bg-(--hairline) sm:inline-block"></span>
 
@@ -131,12 +136,12 @@ const scripts = [
       type="range"
       min="1"
       max="10"
-      value="3"
+      value="1"
       step="1"
       class="h-1 flex-1 max-w-[240px] accent-(--accent)"
       aria-label="Scroll speed"
     />
-    <span id="scroll-speed-label" class="font-mono text-[11px] text-(--mute)">3 · slow</span>
+    <span id="scroll-speed-label" class="font-mono text-[11px] text-(--mute)">1 · very slow</span>
     <button
       type="button"
       id="btn-scroll-stop"
@@ -227,7 +232,11 @@ const scripts = [
 
     // Initialise from storage
     const initState = () => {
-      applyScript(localStorage.getItem('oc-script') || 'hi');
+      // A saved script the page does not offer (e.g. English on a paath
+      // page with no English lines) falls back to Hindi.
+      const saved = localStorage.getItem('oc-script') || 'hi';
+      const offered = document.querySelector('[data-script-btn="' + saved + '"]');
+      applyScript(offered ? saved : 'hi');
       applyTranslit(localStorage.getItem('oc-translit') === '1');
     };
     if (document.readyState === 'loading') {
@@ -283,16 +292,16 @@ const scripts = [
     let startedAt = 0;
 
     function speedWord(v) {
-      if (v <= 2) return 'gentle';
+      if (v <= 2) return 'very slow';
       if (v <= 4) return 'slow';
       if (v <= 6) return 'steady';
       if (v <= 8) return 'brisk';
-      return 'swift';
+      return 'fast';
     }
     function pxPerSec(v) {
-      // v = 1..10 → 20..200 px/s. Sub-pixel accumulation keeps
-      // low speeds (v=1 → 0.33 px/frame) advancing smoothly.
-      return 20 + v * 18;
+      // v = 1..10 → 12..120 px/s. The old 38–200 range outran a verse.
+      // 12 px/s is a slow paath pace; sub-pixel accumulation keeps it smooth.
+      return 12 + (v - 1) * 12;
     }
     function updateLabel() {
       const v = Number(speedInput.value);
@@ -370,6 +379,7 @@ const scripts = [
     // guard stops the initiating tap's own stray touchmove from cancelling
     // the run before it visibly starts.
     window.addEventListener('wheel', () => running && stopScroll(), { passive: true });
+    document.addEventListener('oc:recitation-play', () => running && stopScroll());
     window.addEventListener(
       'touchmove',
       () => {

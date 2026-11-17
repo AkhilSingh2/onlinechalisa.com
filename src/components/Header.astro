@@ -1,18 +1,19 @@
 ---
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
-import { getLangFromUrl, localizePath, stripLocale, useTranslations } from '../i18n/utils';
+import { getLang, localizePath, stripLocale, useTranslations } from '../i18n/utils';
 
 interface Props {
   minimal?: boolean;
 }
 
 const { minimal = false } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 const canonicalPath = stripLocale(Astro.url.pathname);
 const lp = (p: string) => localizePath(p, lang);
 const onSankalp = canonicalPath.startsWith('/sankalp');
+const onPaath = canonicalPath.startsWith('/paath');
 const linkClass =
   'text-sm text-(--body) hover:text-(--ink) transition-colors duration-200 rounded-full px-3 py-1.5';
 ---
@@ -44,6 +45,7 @@ const linkClass =
       !minimal && (
         <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
           <a href={lp('/') + '#chalisas'} class={linkClass}>{t('nav.chalisas')}</a>
+          <a href={lp('/') + '#paath'} class={linkClass} aria-current={onPaath ? 'page' : undefined}>{t('nav.paath')}</a>
           <a href={lp('/sankalp')} class={linkClass}>{t('nav.sankalp')}</a>
           <a href={lp('/about')} class={linkClass}>{t('nav.about')}</a>
         </nav>

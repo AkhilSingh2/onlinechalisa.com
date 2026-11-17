@@ -19,6 +19,7 @@ const en = {
   // Navigation / header
   'nav.chalisas': 'Chalisas',
   'nav.sankalp': 'Sankalp',
+  'nav.paath': 'Paath',
   'nav.about': 'About',
   'nav.home': 'Home',
   'nav.aboutUs': 'About us',
@@ -35,6 +36,9 @@ const en = {
   'hero.title1': 'A quiet place',
   'hero.title2': 'for your daily',
   'hero.titleWord': 'Chalisa',
+  'hero.readOnline': 'Read the Hanuman Chalisa online',
+  'hero.readOnlineSub': 'A quiet place for your daily Chalisa.',
+  'hero.openingKicker': 'Opening dohas · in Hindi with English',
   'hero.subtitle':
     'Read the Hanuman Chalisa and six more of the most-loved Chalisas in Hindi, Telugu, Tamil, Kannada, Bengali or English — in a distraction-free reader designed for daily paath, not for clicks.',
   'hero.ctaPrimary': 'Begin with Hanuman Chalisa',
@@ -74,6 +78,13 @@ const en = {
   'chalisa.title.shani': 'Shani Chalisa',
   'chalisa.title.laxmi': 'Laxmi Chalisa',
   'chalisa.title.saraswati': 'Saraswati Chalisa',
+  'paath.title.bajrang-baan': 'Bajrang Baan',
+  'paath.title.sankat-mochan-hanuman-ashtak': 'Sankat Mochan Hanuman Ashtak',
+  'paath.title.durga-kavach': 'Durga Kavach',
+  'paath.kicker': 'Paath',
+  'paath.heading': 'More paath and bhajans.',
+  'paath.blurb':
+    'Texts beyond the seven Chalisas — hymns for protection, courage and the removal of obstacles. Each opens in the same reader, with the same spoken recitation.',
 
   // Feature strip
   'features.heading': 'Built for daily paath',
@@ -104,13 +115,16 @@ const en = {
     'Every verse of every Chalisa is rendered in six scripts: Hindi (Devanagari), Telugu, Tamil, Kannada, Bengali and English (Latin transliteration). The regional scripts are transliterated character-by-character from the canonical Devanagari, so the pronunciation stays identical across all readings.',
   'faq.q4': 'Is this reader free? Are there ads?',
   'faq.a4':
-    'Completely free. No ads, no account, no newsletter, no tracking. Your Sankalp streak lives in your browser and is never sent to any server. The site works offline once loaded.',
+    'Completely free. No ads, no account, no newsletter, no ad tracking. Your Sankalp streak lives in your browser and is never sent to any server. The site works offline once loaded.',
   'faq.q5': 'What is Sankalp, and how does the streak tracker work?',
   'faq.a5':
     'A Sankalp is a spiritual resolve — traditionally a commitment to recite a Chalisa for 11, 21 or 40 consecutive days. The tracker automatically marks a day complete when you read 80% of any Chalisa page. It lives entirely in your browser; clearing your site data clears the record.',
   'faq.q6': 'Who writes and verifies these texts?',
   'faq.a6':
     'The Devanagari verses follow widely-accepted traditional editions of each Chalisa. Regional script versions are generated deterministically at build time from the Devanagari source, so any correction to the master text propagates to every script. Found a typo? Let us know via the About page.',
+  'faq.qLanguage': 'In which language is the Hanuman Chalisa written?',
+  'faq.aLanguage':
+    'The Hanuman Chalisa is written in Awadhi, a language of the Awadh region of northern India closely related to Hindi. Goswami Tulsidas composed it in the 16th century in the Devanagari script, which is why it is often called the Hanuman Chalisa in Hindi. On this site you can read it in the original Devanagari with English lyrics beneath, or in Telugu, Tamil, Kannada and Bengali script.',
 
   // Home long-form article
   'home.about.kicker': 'About',
@@ -122,7 +136,7 @@ const en = {
     'Whether you were raised in Varanasi, Vijayawada, Bengaluru, Chennai or a Silicon Valley suburb, the words should read as easily as your first name. That is why every hymn on this site — the Hanuman Chalisa first among them — is offered in five simultaneous readings. You can read the Hanuman Chalisa in Hindi (the original Devanagari of Tulsidas), in Telugu, in Kannada, in Tamil, or in English transliteration. A single tap in the reader switches scripts; a second tap layers the Roman Hanuman Chalisa lyrics in English beneath your primary script so newcomers can follow along syllable by syllable.',
   'article.h2': 'A reader designed for daily paath',
   'article.p3':
-    'The reader was designed with practice, not scroll-depth, in mind. A "Zen" mode collapses every button, header and footer so nothing stands between you and the verse. A teleprompter-style auto-scroll advances the page at your pace — useful when your palms are folded during the morning Hanuman Chalisa paath. Font size, theme (light, sepia, or true black), and script preference are remembered on your device between sessions. Nothing is sent to a server; there is no login, no newsletter, no cookie banner, no cricket scores, no donation modal.',
+    'The reader was designed with practice, not scroll-depth, in mind. A "Zen" mode collapses every button, header and footer so nothing stands between you and the verse. A teleprompter-style auto-scroll advances the page at your pace — useful when your palms are folded during the morning Hanuman Chalisa paath. Font size, theme (light, sepia, or true black), and script preference are remembered on your device between sessions. Your preferences never leave your device; there is no login, no newsletter, no cookie banner, no cricket scores, no donation modal.',
   'article.p4':
     'For those beginning a formal vow, the Sankalp Streak Tracker lets you commit to an 11-, 21-, or 40-day recitation and marks each day automatically when you complete 80% of the reading. The counter lives in your browser and travels nowhere. If you clear the site data, you clear the record; if you return, it is still there.',
   'article.h3': 'Seven Chalisas, one calm reader',
@@ -130,7 +144,7 @@ const en = {
     'The library extends beyond the Shri Hanuman Chalisa. Alongside it you will find the Shiv Chalisa, Ganesh Chalisa, Durga Chalisa, Shani Chalisa, Laxmi Chalisa and Saraswati Chalisa — seven of the most-loved hymns in the Hindu tradition, each verified against widely accepted Devanagari sources and hand-transliterated into Telugu, Tamil, Kannada and English. The Hanuman Chalisa on this site follows the canonical text with the traditional two opening dohas, forty chaupais and closing doha intact.',
   'article.h4': 'Sing along, or read in silence',
   'article.p6':
-    'Many listeners come to the hymn through the voice of a beloved singer — the Hariharan Shree Hanuman Chalisa rendition, the Amitabh Bachchan chorus, or the M. S. Rama Rao Sundara Kanda tradition. The synced audio player here is optional; enable it to hear the verses recited while you read, or leave it silent and let the words carry themselves. Either way, the Hanuman Chalisa lyrics in Hindi and their English transliteration stay perfectly aligned on the page.',
+    'Many listeners come to the hymn through the voice of a beloved singer — the Hariharan Shree Hanuman Chalisa rendition, the Amitabh Bachchan chorus, or the M. S. Rama Rao Sundara Kanda tradition. Where a spoken recitation is available, it plays from the player at the bottom and highlights each verse as it is recited; or leave it silent and let the words carry themselves. Either way, the Hanuman Chalisa lyrics in Hindi and their English transliteration stay perfectly aligned on the page.',
   'article.p7':
     'If you are searching for the Hanuman Chalisa in English, the Hanuman Chalisa Telugu text, the Hanuman Chalisa Kannada script, or simply the cleanest way to read the Shri Hanuman Chalisa every morning, you are in the right place. Bookmark this page, add it to your home screen, and let the son of the wind visit you at the same hour every day. जय श्री राम।',
   'article.cta': 'Read the Hanuman Chalisa now',
@@ -161,7 +175,7 @@ const en = {
     'So we built the opposite. A quiet page. Warm typography. A sepia mode for warm morning reading and a true dark mode for night. A single button to hide every scrap of interface. A hands-free teleprompter for older devotees who prefer to read seated with folded hands. Optional audio at the bottom, ready to fade away when you enter Zen mode.',
   'about.noDo.heading': "What we don't do",
   'about.noDo.1': 'No advertisements, ever.',
-  'about.noDo.2': 'No third-party trackers or analytics of your reading.',
+  'about.noDo.2': 'No ad trackers, and no personal profile of your reading.',
   'about.noDo.3': 'No account, sign-up, or email required.',
   'about.noDo.4': 'No push notifications or nagging reminders.',
   'about.sankalp.heading': 'Sankalp is yours',
@@ -174,11 +188,12 @@ const en = {
 
   // Footer
   'footer.blurb':
-    'Online Chalisa is a devotional reader — no ads, no tracking, no account. Read in peace, and may your practice be steady.',
+    'Online Chalisa is a devotional reader — no ads, no ad tracking, no account. Read in peace, and may your practice be steady.',
   'footer.site': 'Site',
   'footer.legal': 'Legal',
   'footer.home': 'Home',
   'footer.chalisas': 'Chalisas',
+  'footer.paath': 'Paath',
   'footer.sankalp': 'Sankalp',
   'footer.aboutUs': 'About us',
   'footer.privacy': 'Privacy policy',
@@ -214,6 +229,7 @@ const en = {
   'audio.playPause': 'Play or pause',
   'audio.seek': 'Seek',
   'audio.comingSoon': 'Audio recitation coming soon — read along in silence for now.',
+  'audio.recitation': 'Recitation',
 
   // Sankalp streak tracker
   'streak.kicker': 'Sankalp · संकल्प',
@@ -245,6 +261,7 @@ const en = {
   'chalisa.moreChalisas': 'More Chalisas',
   'chalisa.readAria': 'Read',
   'chalisa.blessing': 'May your reading bring you peace.',
+  'chalisa.alsoRead': 'Also read',
   'chalisa.aboutPrefix': 'About the',
   'chalisa.faqSubtitle':
     'Answers to the most common questions about this Chalisa — its origin, meaning and daily practice.',
@@ -262,9 +279,9 @@ const en = {
   'meta.langName': 'English',
 
   // SEO meta
-  'meta.home.title': 'Hanuman Chalisa Lyrics in Hindi, English, Telugu, Kannada & Tamil · Online Chalisa',
+  'meta.home.title': 'Read Hanuman Chalisa Online — Hindi & English · Online Chalisa',
   'meta.home.description':
-    'Read the Shri Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil in a free, ad-free reader. Sync audio, auto-scroll paath and track your 11 / 21 / 40-day sankalp — plus Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisa.',
+    'Read the Hanuman Chalisa online — written in Awadhi by Goswami Tulsidas — in Hindi with English lyrics beneath, plus Telugu, Kannada and Tamil. Free, ad-free reader with auto-scroll and an 11 / 21 / 40-day sankalp tracker.',
 } as const;
 
 export type UIStringKey = keyof typeof en;
@@ -275,6 +292,7 @@ export type UIStringKey = keyof typeof en;
 const hi: Partial<Record<UIStringKey, string>> = {
   'nav.chalisas': 'चालीसा',
   'nav.sankalp': 'संकल्प',
+  'nav.paath': 'पाठ',
   'nav.about': 'हमारे बारे में',
   'nav.home': 'मुख्य पृष्ठ',
   'nav.aboutUs': 'हमारे बारे में',
@@ -325,6 +343,13 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'chalisa.title.shani': 'शनि चालीसा',
   'chalisa.title.laxmi': 'लक्ष्मी चालीसा',
   'chalisa.title.saraswati': 'सरस्वती चालीसा',
+  'paath.title.bajrang-baan': 'बजरंग बाण',
+  'paath.title.sankat-mochan-hanuman-ashtak': 'संकटमोचन हनुमान अष्टक',
+  'paath.title.durga-kavach': 'दुर्गा कवच',
+  'paath.kicker': 'पाठ',
+  'paath.heading': 'और पाठ और भजन।',
+  'paath.blurb':
+    'सात चालीसाओं से आगे के पाठ — रक्षा, साहस और बाधाएँ दूर करने के लिए। हर पाठ उसी पाठक में और उसी आवाज़ के साथ खुलता है।',
 
   'features.heading': 'दैनिक पाठ के लिए रचा गया',
   'features.zen.title': 'ज़ेन रीडर',
@@ -352,7 +377,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
     'हर चालीसा का हर श्लोक छह लिपियों में प्रस्तुत है: हिन्दी (देवनागरी), तेलुगु, तमिल, कन्नड़, बंगाली और अंग्रेज़ी (रोमन लिप्यंतरण)। क्षेत्रीय लिपियाँ मूल देवनागरी से अक्षर-दर-अक्षर लिप्यंतरित हैं, इसलिए उच्चारण सभी पाठों में समान रहता है।',
   'faq.q4': 'क्या यह रीडर मुफ़्त है? क्या विज्ञापन हैं?',
   'faq.a4':
-    'पूरी तरह मुफ़्त। कोई विज्ञापन नहीं, कोई खाता नहीं, कोई न्यूज़लेटर नहीं, कोई ट्रैकिंग नहीं। आपकी संकल्प श्रृंखला आपके ब्राउज़र में रहती है और कभी किसी सर्वर पर नहीं भेजी जाती। एक बार लोड होने के बाद साइट ऑफ़लाइन भी काम करती है।',
+    'पूरी तरह मुफ़्त। कोई विज्ञापन नहीं, कोई खाता नहीं, कोई न्यूज़लेटर नहीं, कोई विज्ञापन-ट्रैकिंग नहीं। आपकी संकल्प श्रृंखला आपके ब्राउज़र में रहती है और कभी किसी सर्वर पर नहीं भेजी जाती। एक बार लोड होने के बाद साइट ऑफ़लाइन भी काम करती है।',
   'faq.q5': 'संकल्प क्या है, और श्रृंखला ट्रैकर कैसे काम करता है?',
   'faq.a5':
     'संकल्प एक आध्यात्मिक प्रण है — परंपरागत रूप से किसी चालीसा को 11, 21 या 40 लगातार दिनों तक पढ़ने का वचन। जब आप किसी चालीसा पृष्ठ का 80% पढ़ लेते हैं, तो ट्रैकर उस दिन को स्वतः पूर्ण चिह्नित कर देता है। यह पूरी तरह आपके ब्राउज़र में रहता है; साइट डेटा साफ़ करने पर रिकॉर्ड मिट जाता है।',
@@ -377,7 +402,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
     'पुस्तकालय श्री हनुमान चालीसा से आगे भी फैला है। इसके साथ आपको शिव चालीसा, गणेश चालीसा, दुर्गा चालीसा, शनि चालीसा, लक्ष्मी चालीसा और सरस्वती चालीसा मिलेंगी — हिन्दू परंपरा के सात सबसे प्रिय भजन, प्रत्येक व्यापक रूप से स्वीकृत देवनागरी स्रोतों से सत्यापित और तेलुगु, तमिल, कन्नड़ व अंग्रेज़ी में हाथ से लिप्यंतरित। इस साइट पर हनुमान चालीसा पारंपरिक दो आरंभिक दोहों, चालीस चौपाइयों और अंतिम दोहे के साथ मूल पाठ का पालन करती है।',
   'article.h4': 'साथ गाएँ, या मौन में पढ़ें',
   'article.p6':
-    'कई श्रोता इस भजन तक किसी प्रिय गायक के स्वर से पहुँचते हैं — हरिहरन श्री हनुमान चालीसा, अमिताभ बच्चन का समवेत स्वर, या एम. एस. राम राव की सुंदर कांड परंपरा। यहाँ का सिंक किया गया ऑडियो प्लेयर वैकल्पिक है; इसे चालू करें और पढ़ते समय श्लोक सुनें, या मौन रहने दें और शब्दों को स्वयं बहने दें। किसी भी तरह, हनुमान चालीसा के हिन्दी बोल और उनका अंग्रेज़ी लिप्यंतरण पृष्ठ पर पूर्णतः संरेखित रहते हैं।',
+    'कई श्रोता इस भजन तक किसी प्रिय गायक के स्वर से पहुँचते हैं — हरिहरन श्री हनुमान चालीसा, अमिताभ बच्चन का समवेत स्वर, या एम. एस. राम राव की सुंदर कांड परंपरा। जहाँ पाठ का ऑडियो उपलब्ध है, वह नीचे के प्लेयर में चलता है और हर श्लोक को पढ़े जाते समय हाइलाइट करता है; या उसे मौन रहने दें और शब्दों को स्वयं बहने दें। किसी भी तरह, हनुमान चालीसा के हिन्दी बोल और उनका अंग्रेज़ी लिप्यंतरण पृष्ठ पर पूर्णतः संरेखित रहते हैं।',
   'article.p7':
     'यदि आप हनुमान चालीसा अंग्रेज़ी में, हनुमान चालीसा तेलुगु पाठ, हनुमान चालीसा कन्नड़ लिपि, या केवल हर सुबह श्री हनुमान चालीसा पढ़ने का सबसे स्वच्छ तरीका खोज रहे हैं, तो आप सही जगह पर हैं। इस पृष्ठ को बुकमार्क करें, अपने होम स्क्रीन पर जोड़ें, और पवनपुत्र को हर दिन उसी समय अपने पास आने दें। जय श्री राम।',
   'article.cta': 'हनुमान चालीसा अभी पढ़ें',
@@ -408,7 +433,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
     'इसलिए हमने इसका उल्टा बनाया। एक शांत पृष्ठ। सौम्य टाइपोग्राफी। सुबह के पाठ के लिए सेपिया मोड और रात्रि के लिए सच्चा डार्क मोड। इंटरफ़ेस को एक बटन में छिपाने की सुविधा। हाथ जोड़े बैठकर पढ़ने वाले वरिष्ठ भक्तों के लिए हैंड्स-फ्री टेलीप्रॉम्प्टर। नीचे वैकल्पिक ऑडियो, जो ज़ेन मोड में स्वयं ओझल हो जाता है।',
   'about.noDo.heading': 'हम क्या नहीं करते',
   'about.noDo.1': 'कभी भी विज्ञापन नहीं।',
-  'about.noDo.2': 'आपके पाठ का कोई थर्ड-पार्टी ट्रैकिंग या एनालिटिक्स नहीं।',
+  'about.noDo.2': 'कोई विज्ञापन-ट्रैकर नहीं, और आपके पाठ की कोई व्यक्तिगत प्रोफ़ाइल नहीं।',
   'about.noDo.3': 'कोई खाता, साइन-अप या ईमेल आवश्यक नहीं।',
   'about.noDo.4': 'कोई पुश नोटिफिकेशन या परेशान करने वाले रिमाइंडर नहीं।',
   'about.sankalp.heading': 'संकल्प आपका है',
@@ -420,11 +445,12 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'about.blessing': '॥ शुभम् अस्तु ॥',
 
   'footer.blurb':
-    'ऑनलाइन चालीसा एक भक्ति रीडर है — कोई विज्ञापन नहीं, कोई ट्रैकिंग नहीं, कोई खाता नहीं। शांति से पढ़ें, और आपकी साधना अटल रहे।',
+    'ऑनलाइन चालीसा एक भक्ति रीडर है — कोई विज्ञापन नहीं, कोई विज्ञापन-ट्रैकिंग नहीं, कोई खाता नहीं। शांति से पढ़ें, और आपकी साधना अटल रहे।',
   'footer.site': 'साइट',
   'footer.legal': 'कानूनी',
   'footer.home': 'मुख्य पृष्ठ',
   'footer.chalisas': 'चालीसा',
+  'footer.paath': 'पाठ',
   'footer.sankalp': 'संकल्प',
   'footer.aboutUs': 'हमारे बारे में',
   'footer.privacy': 'गोपनीयता नीति',
@@ -457,6 +483,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'audio.playPause': 'चलाएँ या रोकें',
   'audio.seek': 'आगे/पीछे जाएँ',
   'audio.comingSoon': 'ऑडियो पाठ जल्द आ रहा है — अभी शांति से साथ में पढ़ें।',
+  'audio.recitation': 'पाठ',
   'streak.kicker': 'संकल्प',
   'streak.heading': 'एक शांत संकल्प',
   'streak.blurb':
@@ -485,6 +512,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'chalisa.moreChalisas': 'और चालीसाएँ',
   'chalisa.readAria': 'पढ़ें',
   'chalisa.blessing': 'आपका पाठ आपको शांति प्रदान करे।',
+  'chalisa.alsoRead': 'यह भी पढ़ें',
   'chalisa.aboutPrefix': 'इस बारे में:',
   'chalisa.faqSubtitle':
     'इस चालीसा के बारे में सबसे आम प्रश्नों के उत्तर — इसकी उत्पत्ति, अर्थ और दैनिक अभ्यास।',
@@ -498,7 +526,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
   'meta.langName': 'हिन्दी',
   'meta.home.title': 'हनुमान चालीसा के बोल — हिन्दी, अंग्रेज़ी, तेलुगु, कन्नड़ व तमिल में · ऑनलाइन चालीसा',
   'meta.home.description':
-    'हनुमान चालीसा को हिन्दी, अंग्रेज़ी, तेलुगु, कन्नड़ और तमिल में एक मुफ़्त, विज्ञापन-रहित रीडर में पढ़ें। ऑडियो के साथ सुनें, ऑटो-स्क्रॉल पाठ करें और अपना 11 / 21 / 40-दिन का संकल्प ट्रैक करें — साथ ही शिव, गणेश, दुर्गा, शनि, लक्ष्मी व सरस्वती चालीसा।',
+    'हनुमान चालीसा को हिन्दी, अंग्रेज़ी, तेलुगु, कन्नड़ और तमिल में एक मुफ़्त, विज्ञापन-रहित रीडर में पढ़ें। ऑटो-स्क्रॉल पाठ करें और अपना 11 / 21 / 40-दिन का संकल्प ट्रैक करें — साथ ही शिव, गणेश, दुर्गा, शनि, लक्ष्मी व सरस्वती चालीसा।',
 };
 
 // ─────────────────────────────────────────────────────────────────
@@ -507,6 +535,7 @@ const hi: Partial<Record<UIStringKey, string>> = {
 const bn: Partial<Record<UIStringKey, string>> = {
   'nav.chalisas': 'চালিসা',
   'nav.sankalp': 'সংকল্প',
+  'nav.paath': 'পাঠ',
   'nav.about': 'আমাদের সম্পর্কে',
   'nav.home': 'হোম',
   'nav.aboutUs': 'আমাদের সম্পর্কে',
@@ -584,7 +613,7 @@ const bn: Partial<Record<UIStringKey, string>> = {
     'প্রতিটি চালিসার প্রতিটি শ্লোক ছয়টি লিপিতে উপস্থাপিত: হিন্দি (দেবনাগরী), তেলুগু, তামিল, কন্নড়, বাংলা ও ইংরেজি (রোমান প্রতিবর্ণীকরণ)। আঞ্চলিক লিপিগুলি মূল দেবনাগরী থেকে অক্ষরে-অক্ষরে প্রতিবর্ণীকৃত, তাই সব পাঠে উচ্চারণ অভিন্ন থাকে।',
   'faq.q4': 'এই রিডার কি বিনামূল্যে? বিজ্ঞাপন আছে কি?',
   'faq.a4':
-    'সম্পূর্ণ বিনামূল্যে। কোনো বিজ্ঞাপন নেই, অ্যাকাউন্ট নেই, নিউজলেটার নেই, ট্র্যাকিং নেই। আপনার সংকল্প ধারা আপনার ব্রাউজারেই থাকে এবং কখনও কোনো সার্ভারে পাঠানো হয় না। একবার লোড হলে সাইটটি অফলাইনেও কাজ করে।',
+    'সম্পূর্ণ বিনামূল্যে। কোনো বিজ্ঞাপন নেই, অ্যাকাউন্ট নেই, নিউজলেটার নেই, বিজ্ঞাপন-ট্র্যাকিং নেই। আপনার সংকল্প ধারা আপনার ব্রাউজারেই থাকে এবং কখনও কোনো সার্ভারে পাঠানো হয় না। একবার লোড হলে সাইটটি অফলাইনেও কাজ করে।',
   'faq.q5': 'সংকল্প কী, এবং ধারা ট্র্যাকার কীভাবে কাজ করে?',
   'faq.a5':
     'সংকল্প হল একটি আধ্যাত্মিক প্রতিজ্ঞা — ঐতিহ্যগতভাবে টানা ১১, ২১ বা ৪০ দিন কোনো চালিসা পাঠের অঙ্গীকার। আপনি যখন কোনো চালিসা পৃষ্ঠার ৮০% পড়েন, ট্র্যাকার সেই দিনটি স্বয়ংক্রিয়ভাবে সম্পূর্ণ চিহ্নিত করে। এটি সম্পূর্ণভাবে আপনার ব্রাউজারে থাকে; সাইট ডেটা মুছলে রেকর্ড মুছে যায়।',
@@ -622,7 +651,7 @@ const bn: Partial<Record<UIStringKey, string>> = {
     'তাই আমরা তার উল্টোটা বানিয়েছি। একটি শান্ত পাতা। উষ্ণ টাইপোগ্রাফি। সকালের পাঠের জন্য সেপিয়া মোড এবং রাতের জন্য খাঁটি ডার্ক মোড। ইন্টারফেসের সবকিছু লুকিয়ে দেওয়ার একটি মাত্র বোতাম। বয়স্ক ভক্তদের জন্য হ্যান্ডস-ফ্রি টেলিপ্রম্পটার, যারা হাত জোড় করে বসে পড়তে পছন্দ করেন। নিচে ঐচ্ছিক অডিও, যা জেন মোডে নিজে থেকেই মৃদু হয়ে যায়।',
   'about.noDo.heading': 'আমরা যা করি না',
   'about.noDo.1': 'কখনও বিজ্ঞাপন নয়।',
-  'about.noDo.2': 'আপনার পাঠের কোনো তৃতীয়-পক্ষ ট্র্যাকিং বা অ্যানালিটিক্স নয়।',
+  'about.noDo.2': 'কোনো বিজ্ঞাপন-ট্র্যাকার নেই, আপনার পাঠের কোনো ব্যক্তিগত প্রোফাইলও নেই।',
   'about.noDo.3': 'কোনো অ্যাকাউন্ট, সাইন-আপ বা ইমেইল প্রয়োজন নেই।',
   'about.noDo.4': 'কোনো পুশ নোটিফিকেশন বা বিরক্তিকর রিমাইন্ডার নয়।',
   'about.sankalp.heading': 'সংকল্প আপনার',
@@ -634,11 +663,12 @@ const bn: Partial<Record<UIStringKey, string>> = {
   'about.blessing': '॥ শুভম্ অস্তু ॥',
 
   'footer.blurb':
-    'অনলাইন চালিসা একটি ভক্তিমূলক রিডার — কোনো বিজ্ঞাপন নেই, ট্র্যাকিং নেই, অ্যাকাউন্ট নেই। শান্তিতে পড়ুন, আপনার সাধনা অবিচল থাকুক।',
+    'অনলাইন চালিসা একটি ভক্তিমূলক রিডার — কোনো বিজ্ঞাপন নেই, বিজ্ঞাপন-ট্র্যাকিং নেই, অ্যাকাউন্ট নেই। শান্তিতে পড়ুন, আপনার সাধনা অবিচল থাকুক।',
   'footer.site': 'সাইট',
   'footer.legal': 'আইনি',
   'footer.home': 'হোম',
   'footer.chalisas': 'চালিসা',
+  'footer.paath': 'পাঠ',
   'footer.sankalp': 'সংকল্প',
   'footer.aboutUs': 'আমাদের সম্পর্কে',
   'footer.privacy': 'গোপনীয়তা নীতি',
@@ -703,7 +733,7 @@ const bn: Partial<Record<UIStringKey, string>> = {
   'meta.langName': 'বাংলা',
   'meta.home.title': 'হনুমান চালিসা — হিন্দি, ইংরেজি, তেলুগু, কন্নড় ও তামিলে · অনলাইন চালিসা',
   'meta.home.description':
-    'হনুমান চালিসা হিন্দি, ইংরেজি, তেলুগু, কন্নড় ও তামিলে একটি বিনামূল্যের, বিজ্ঞাপনহীন রিডারে পড়ুন। অডিও সহ শুনুন, অটো-স্ক্রল পাঠ করুন এবং আপনার ১১ / ২১ / ৪০-দিনের সংকল্প ট্র্যাক করুন — সঙ্গে শিব, গণেশ, দুর্গা, শনি, লক্ষ্মী ও সরস্বতী চালিসা।',
+    'হনুমান চালিসা হিন্দি, ইংরেজি, তেলুগু, কন্নড় ও তামিলে একটি বিনামূল্যের, বিজ্ঞাপনহীন রিডারে পড়ুন। অটো-স্ক্রল পাঠ করুন এবং আপনার ১১ / ২১ / ৪০-দিনের সংকল্প ট্র্যাক করুন — সঙ্গে শিব, গণেশ, দুর্গা, শনি, লক্ষ্মী ও সরস্বতী চালিসা।',
 };
 
 // ─────────────────────────────────────────────────────────────────
@@ -712,6 +742,7 @@ const bn: Partial<Record<UIStringKey, string>> = {
 const te: Partial<Record<UIStringKey, string>> = {
   'nav.chalisas': 'చాలీసా',
   'nav.sankalp': 'సంకల్పం',
+  'nav.paath': 'పాఠం',
   'nav.about': 'మా గురించి',
   'nav.home': 'హోమ్',
   'nav.aboutUs': 'మా గురించి',
@@ -789,7 +820,7 @@ const te: Partial<Record<UIStringKey, string>> = {
     'ప్రతి చాలీసా ప్రతి శ్లోకం ఆరు లిపులలో అందించబడుతుంది: హిందీ (దేవనాగరి), తెలుగు, తమిళం, కన్నడ, బెంగాలీ, ఇంగ్లీష్ (రోమన్ లిప్యంతరీకరణ). ప్రాంతీయ లిపులు మూల దేవనాగరి నుండి అక్షరం-అక్షరం లిప్యంతరీకరించబడతాయి, కాబట్టి అన్ని పాఠాలలో ఉచ్చారణ ఒకేలా ఉంటుంది.',
   'faq.q4': 'ఈ రీడర్ ఉచితమా? ప్రకటనలు ఉన్నాయా?',
   'faq.a4':
-    'పూర్తిగా ఉచితం. ప్రకటనలు లేవు, ఖాతా లేదు, వార్తాలేఖ లేదు, ట్రాకింగ్ లేదు. మీ సంకల్ప క్రమం మీ బ్రౌజర్‌లోనే ఉంటుంది, ఏ సర్వర్‌కూ పంపబడదు. ఒకసారి లోడ్ అయిన తర్వాత సైట్ ఆఫ్‌లైన్‌లో కూడా పనిచేస్తుంది.',
+    'పూర్తిగా ఉచితం. ప్రకటనలు లేవు, ఖాతా లేదు, వార్తాలేఖ లేదు, ప్రకటన ట్రాకింగ్ లేదు. మీ సంకల్ప క్రమం మీ బ్రౌజర్‌లోనే ఉంటుంది, ఏ సర్వర్‌కూ పంపబడదు. ఒకసారి లోడ్ అయిన తర్వాత సైట్ ఆఫ్‌లైన్‌లో కూడా పనిచేస్తుంది.',
   'faq.q5': 'సంకల్పం అంటే ఏమిటి, క్రమ ట్రాకర్ ఎలా పనిచేస్తుంది?',
   'faq.a5':
     'సంకల్పం అనేది ఒక ఆధ్యాత్మిక నిర్ణయం — సంప్రదాయంగా 11, 21 లేదా 40 వరుస రోజులు ఒక చాలీసా పఠించే ప్రతిజ్ఞ. మీరు ఏదైనా చాలీసా పేజీలో 80% చదివినప్పుడు ట్రాకర్ ఆ రోజును స్వయంచాలకంగా పూర్తిగా గుర్తిస్తుంది. ఇది పూర్తిగా మీ బ్రౌజర్‌లో ఉంటుంది; సైట్ డేటా తొలగిస్తే రికార్డు తొలగిపోతుంది.',
@@ -827,7 +858,7 @@ const te: Partial<Record<UIStringKey, string>> = {
     'అందుకే మేము దానికి విరుద్ధాన్ని నిర్మించాము. ప్రశాంతమైన పేజీ. సౌమ్య టైపోగ్రఫీ. ఉదయపు పఠనానికి సేపియా మోడ్, రాత్రికి నిజమైన డార్క్ మోడ్. మొత్తం ఇంటర్‌ఫేస్‌ను దాచే ఒక్క బటన్. చేతులు ముడుచుకుని కూర్చొని చదవదలచిన వృద్ధ భక్తుల కోసం హ్యాండ్స్-ఫ్రీ టెలిప్రాంప్టర్. క్రింద ఐచ్ఛిక ఆడియో, జెన్ మోడ్‌లో అది మెల్లగా వెనుకకు జారిపోతుంది.',
   'about.noDo.heading': 'మేము చేయనివి',
   'about.noDo.1': 'ఎప్పుడూ ప్రకటనలు లేవు.',
-  'about.noDo.2': 'మీ పఠనంపై ఏ మూడవ పక్ష ట్రాకింగ్ లేదా అనలిటిక్స్ లేవు.',
+  'about.noDo.2': 'ప్రకటన ట్రాకర్లు లేవు, మీ పఠనంపై వ్యక్తిగత ప్రొఫైల్ లేదు.',
   'about.noDo.3': 'ఖాతా, సైన్-అప్ లేదా ఇమెయిల్ అవసరం లేదు.',
   'about.noDo.4': 'పుష్ నోటిఫికేషన్లు లేదా ఇబ్బంది పెట్టే రిమైండర్లు లేవు.',
   'about.sankalp.heading': 'సంకల్పం మీది',
@@ -839,11 +870,12 @@ const te: Partial<Record<UIStringKey, string>> = {
   'about.blessing': '॥ శుభం అస్తు ॥',
 
   'footer.blurb':
-    'ఆన్‌లైన్ చాలీసా ఒక భక్తి రీడర్ — ప్రకటనలు లేవు, ట్రాకింగ్ లేదు, ఖాతా లేదు. ప్రశాంతంగా చదవండి, మీ సాధన స్థిరంగా సాగాలి.',
+    'ఆన్‌లైన్ చాలీసా ఒక భక్తి రీడర్ — ప్రకటనలు లేవు, ప్రకటన ట్రాకింగ్ లేదు, ఖాతా లేదు. ప్రశాంతంగా చదవండి, మీ సాధన స్థిరంగా సాగాలి.',
   'footer.site': 'సైట్',
   'footer.legal': 'చట్టపరమైన',
   'footer.home': 'హోమ్',
   'footer.chalisas': 'చాలీసా',
+  'footer.paath': 'పాఠం',
   'footer.sankalp': 'సంకల్పం',
   'footer.aboutUs': 'మా గురించి',
   'footer.privacy': 'గోప్యతా విధానం',
@@ -908,7 +940,7 @@ const te: Partial<Record<UIStringKey, string>> = {
   'meta.langName': 'తెలుగు',
   'meta.home.title': 'హనుమాన్ చాలీసా — హిందీ, ఇంగ్లీష్, తెలుగు, కన్నడ & తమిళంలో · ఆన్‌లైన్ చాలీసా',
   'meta.home.description':
-    'హనుమాన్ చాలీసాను హిందీ, ఇంగ్లీష్, తెలుగు, కన్నడ, తమిళంలో ఉచిత, ప్రకటన-రహిత రీడర్‌లో చదవండి. ఆడియోతో వినండి, ఆటో-స్క్రోల్ పారాయణం చేయండి, మీ 11 / 21 / 40-రోజుల సంకల్పాన్ని ట్రాక్ చేయండి — అలాగే శివ, గణేశ, దుర్గా, శని, లక్ష్మీ, సరస్వతీ చాలీసా.',
+    'హనుమాన్ చాలీసాను హిందీ, ఇంగ్లీష్, తెలుగు, కన్నడ, తమిళంలో ఉచిత, ప్రకటన-రహిత రీడర్‌లో చదవండి. ఆటో-స్క్రోల్ పారాయణం చేయండి, మీ 11 / 21 / 40-రోజుల సంకల్పాన్ని ట్రాక్ చేయండి — అలాగే శివ, గణేశ, దుర్గా, శని, లక్ష్మీ, సరస్వతీ చాలీసా.',
 };
 
 // ─────────────────────────────────────────────────────────────────
@@ -917,6 +949,7 @@ const te: Partial<Record<UIStringKey, string>> = {
 const ta: Partial<Record<UIStringKey, string>> = {
   'nav.chalisas': 'சாலீசா',
   'nav.sankalp': 'சங்கல்பம்',
+  'nav.paath': 'பாராயணம்',
   'nav.about': 'எங்களைப் பற்றி',
   'nav.home': 'முகப்பு',
   'nav.aboutUs': 'எங்களைப் பற்றி',
@@ -994,7 +1027,7 @@ const ta: Partial<Record<UIStringKey, string>> = {
     'ஒவ்வொரு சாலீசாவின் ஒவ்வொரு பாடலும் ஆறு எழுத்துக்களில் வழங்கப்படுகிறது: இந்தி (தேவநாகரி), தெலுங்கு, தமிழ், கன்னடம், வங்காளம், ஆங்கிலம் (ரோமன் ஒலிபெயர்ப்பு). பிராந்திய எழுத்துக்கள் மூல தேவநாகரியிலிருந்து எழுத்துக்கு எழுத்து ஒலிபெயர்க்கப்படுகின்றன, எனவே அனைத்து வாசிப்புகளிலும் உச்சரிப்பு ஒரே மாதிரியாக இருக்கும்.',
   'faq.q4': 'இந்த ரீடர் இலவசமா? விளம்பரங்கள் உள்ளதா?',
   'faq.a4':
-    'முற்றிலும் இலவசம். விளம்பரங்கள் இல்லை, கணக்கு இல்லை, செய்திமடல் இல்லை, கண்காணிப்பு இல்லை. உங்கள் சங்கல்ப தொடர் உங்கள் உலாவியிலேயே இருக்கும், எந்த சேவையகத்திற்கும் அனுப்பப்படாது. ஒருமுறை ஏற்றப்பட்டால் தளம் இணையம் இல்லாமலும் இயங்கும்.',
+    'முற்றிலும் இலவசம். விளம்பரங்கள் இல்லை, கணக்கு இல்லை, செய்திமடல் இல்லை, விளம்பரக் கண்காணிப்பு இல்லை. உங்கள் சங்கல்ப தொடர் உங்கள் உலாவியிலேயே இருக்கும், எந்த சேவையகத்திற்கும் அனுப்பப்படாது. ஒருமுறை ஏற்றப்பட்டால் தளம் இணையம் இல்லாமலும் இயங்கும்.',
   'faq.q5': 'சங்கல்பம் என்றால் என்ன, தொடர் கண்காணிப்பான் எப்படி வேலை செய்கிறது?',
   'faq.a5':
     'சங்கல்பம் என்பது ஒரு ஆன்மீக உறுதிமொழி — பாரம்பரியமாக தொடர்ந்து 11, 21 அல்லது 40 நாட்கள் ஒரு சாலீசாவைப் படிக்கும் சபதம். நீங்கள் எந்த சாலீசா பக்கத்திலும் 80% படிக்கும்போது கண்காணிப்பான் அந்த நாளை தானாக முடிந்ததாகக் குறிக்கும். இது முழுவதும் உங்கள் உலாவியில் இருக்கும்; தள தரவை அழித்தால் பதிவு அழிந்துவிடும்.',
@@ -1032,7 +1065,7 @@ const ta: Partial<Record<UIStringKey, string>> = {
     'அதற்கே எதிர்மாறாக நாங்கள் இதை கட்டினோம். அமைதியான ஒரு பக்கம். சூடான எழுத்தியல். காலைப் பாராயணத்துக்கு செப்பியா முறை, இரவுக்கான தூய இருண்ட முறை. முழு இடைமுகத்தையும் மறைக்கும் ஒரு பொத்தான். கைகளை கூப்பி அமர்ந்து வாசிக்க விரும்பும் மூத்த பக்தர்களுக்கான கை-இல்லா டெலிபிராம்ப்டர். கீழே விருப்ப ஆடியோ, ஜென் முறையில் அது மெதுவாக மறைந்து விடும்.',
   'about.noDo.heading': 'நாங்கள் செய்யாதவை',
   'about.noDo.1': 'விளம்பரங்கள் ஒருபோதும் இல்லை.',
-  'about.noDo.2': 'உங்கள் வாசிப்புக்கு எந்த மூன்றாம் தரப்பு கண்காணிப்பும் பகுப்பாய்வும் இல்லை.',
+  'about.noDo.2': 'விளம்பரக் கண்காணிப்பான்கள் இல்லை, உங்கள் வாசிப்பின் தனிப்பட்ட சுயவிவரமும் இல்லை.',
   'about.noDo.3': 'கணக்கு, பதிவு அல்லது மின்னஞ்சல் தேவையில்லை.',
   'about.noDo.4': 'புஷ் அறிவிப்புகள் அல்லது தொந்தரவான நினைவூட்டல்கள் இல்லை.',
   'about.sankalp.heading': 'சங்கல்பம் உங்களுடையது',
@@ -1044,11 +1077,12 @@ const ta: Partial<Record<UIStringKey, string>> = {
   'about.blessing': '॥ சுபம் அஸ்து ॥',
 
   'footer.blurb':
-    'ஆன்லைன் சாலீசா ஒரு பக்தி ரீடர் — விளம்பரங்கள் இல்லை, கண்காணிப்பு இல்லை, கணக்கு இல்லை. அமைதியாகப் படியுங்கள், உங்கள் பயிற்சி நிலையாக இருக்கட்டும்.',
+    'ஆன்லைன் சாலீசா ஒரு பக்தி ரீடர் — விளம்பரங்கள் இல்லை, விளம்பரக் கண்காணிப்பு இல்லை, கணக்கு இல்லை. அமைதியாகப் படியுங்கள், உங்கள் பயிற்சி நிலையாக இருக்கட்டும்.',
   'footer.site': 'தளம்',
   'footer.legal': 'சட்டப்பூர்வம்',
   'footer.home': 'முகப்பு',
   'footer.chalisas': 'சாலீசா',
+  'footer.paath': 'பாராயணம்',
   'footer.sankalp': 'சங்கல்பம்',
   'footer.aboutUs': 'எங்களைப் பற்றி',
   'footer.privacy': 'தனியுரிமைக் கொள்கை',
@@ -1113,7 +1147,7 @@ const ta: Partial<Record<UIStringKey, string>> = {
   'meta.langName': 'தமிழ்',
   'meta.home.title': 'ஹனுமான் சாலீசா — இந்தி, ஆங்கிலம், தெலுங்கு, கன்னடம் & தமிழில் · ஆன்லைன் சாலீசா',
   'meta.home.description':
-    'ஹனுமான் சாலீசாவை இந்தி, ஆங்கிலம், தெலுங்கு, கன்னடம், தமிழில் இலவச, விளம்பரமற்ற ரீடரில் படியுங்கள். ஆடியோவுடன் கேளுங்கள், ஆட்டோ-ஸ்க்ரோல் பாராயணம் செய்யுங்கள், உங்கள் 11 / 21 / 40-நாள் சங்கல்பத்தைக் கண்காணியுங்கள் — மேலும் சிவ, கணேச, துர்கா, சனி, லக்ஷ்மி & சரஸ்வதி சாலீசா.',
+    'ஹனுமான் சாலீசாவை இந்தி, ஆங்கிலம், தெலுங்கு, கன்னடம், தமிழில் இலவச, விளம்பரமற்ற ரீடரில் படியுங்கள். ஆட்டோ-ஸ்க்ரோல் பாராயணம் செய்யுங்கள், உங்கள் 11 / 21 / 40-நாள் சங்கல்பத்தைக் கண்காணியுங்கள் — மேலும் சிவ, கணேச, துர்கா, சனி, லக்ஷ்மி & சரஸ்வதி சாலீசா.',
 };
 
 // ─────────────────────────────────────────────────────────────────
@@ -1122,6 +1156,7 @@ const ta: Partial<Record<UIStringKey, string>> = {
 const kn: Partial<Record<UIStringKey, string>> = {
   'nav.chalisas': 'ಚಾಲೀಸಾ',
   'nav.sankalp': 'ಸಂಕಲ್ಪ',
+  'nav.paath': 'ಪಠ',
   'nav.about': 'ನಮ್ಮ ಬಗ್ಗೆ',
   'nav.home': 'ಮುಖಪುಟ',
   'nav.aboutUs': 'ನಮ್ಮ ಬಗ್ಗೆ',
@@ -1199,7 +1234,7 @@ const kn: Partial<Record<UIStringKey, string>> = {
     'ಪ್ರತಿ ಚಾಲೀಸಾದ ಪ್ರತಿ ಶ್ಲೋಕವನ್ನು ಆರು ಲಿಪಿಗಳಲ್ಲಿ ನೀಡಲಾಗಿದೆ: ಹಿಂದಿ (ದೇವನಾಗರಿ), ತೆಲುಗು, ತಮಿಳು, ಕನ್ನಡ, ಬಂಗಾಳಿ, ಇಂಗ್ಲಿಷ್ (ರೋಮನ್ ಲಿಪ್ಯಂತರ). ಪ್ರಾದೇಶಿಕ ಲಿಪಿಗಳು ಮೂಲ ದೇವನಾಗರಿಯಿಂದ ಅಕ್ಷರ-ಅಕ್ಷರ ಲಿಪ್ಯಂತರಗೊಳ್ಳುತ್ತವೆ, ಆದ್ದರಿಂದ ಎಲ್ಲಾ ಪಠಣಗಳಲ್ಲಿ ಉಚ್ಚಾರಣೆ ಒಂದೇ ಆಗಿರುತ್ತದೆ.',
   'faq.q4': 'ಈ ರೀಡರ್ ಉಚಿತವೇ? ಜಾಹೀರಾತುಗಳಿವೆಯೇ?',
   'faq.a4':
-    'ಸಂಪೂರ್ಣ ಉಚಿತ. ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಖಾತೆ ಇಲ್ಲ, ಸುದ್ದಿಪತ್ರವಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ. ನಿಮ್ಮ ಸಂಕಲ್ಪ ಸರಣಿ ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ ಮತ್ತು ಯಾವುದೇ ಸರ್ವರ್‌ಗೆ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ. ಒಮ್ಮೆ ಲೋಡ್ ಆದ ಮೇಲೆ ಸೈಟ್ ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ.',
+    'ಸಂಪೂರ್ಣ ಉಚಿತ. ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಖಾತೆ ಇಲ್ಲ, ಸುದ್ದಿಪತ್ರವಿಲ್ಲ, ಜಾಹೀರಾತು ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ. ನಿಮ್ಮ ಸಂಕಲ್ಪ ಸರಣಿ ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನಲ್ಲೇ ಇರುತ್ತದೆ ಮತ್ತು ಯಾವುದೇ ಸರ್ವರ್‌ಗೆ ಕಳುಹಿಸಲಾಗುವುದಿಲ್ಲ. ಒಮ್ಮೆ ಲೋಡ್ ಆದ ಮೇಲೆ ಸೈಟ್ ಆಫ್‌ಲೈನ್‌ನಲ್ಲೂ ಕೆಲಸ ಮಾಡುತ್ತದೆ.',
   'faq.q5': 'ಸಂಕಲ್ಪ ಎಂದರೇನು, ಸರಣಿ ಟ್ರ್ಯಾಕರ್ ಹೇಗೆ ಕೆಲಸ ಮಾಡುತ್ತದೆ?',
   'faq.a5':
     'ಸಂಕಲ್ಪ ಎಂಬುದು ಆಧ್ಯಾತ್ಮಿಕ ನಿರ್ಧಾರ — ಸಂಪ್ರದಾಯಿಕವಾಗಿ ಸತತ 11, 21 ಅಥವಾ 40 ದಿನಗಳು ಚಾಲೀಸಾ ಪಠಿಸುವ ಪ್ರತಿಜ್ಞೆ. ನೀವು ಯಾವುದೇ ಚಾಲೀಸಾ ಪುಟದ 80% ಓದಿದಾಗ ಟ್ರ್ಯಾಕರ್ ಆ ದಿನವನ್ನು ಸ್ವಯಂಚಾಲಿತವಾಗಿ ಪೂರ್ಣ ಎಂದು ಗುರುತಿಸುತ್ತದೆ. ಇದು ಸಂಪೂರ್ಣವಾಗಿ ನಿಮ್ಮ ಬ್ರೌಸರ್‌ನಲ್ಲಿರುತ್ತದೆ; ಸೈಟ್ ಡೇಟಾ ಅಳಿಸಿದರೆ ದಾಖಲೆ ಅಳಿಸಿಹೋಗುತ್ತದೆ.',
@@ -1237,7 +1272,7 @@ const kn: Partial<Record<UIStringKey, string>> = {
     'ಆದ್ದರಿಂದ ನಾವು ಅದರ ವಿರುದ್ಧವನ್ನು ನಿರ್ಮಿಸಿದ್ದೇವೆ. ಶಾಂತ ಪುಟ. ಉಷ್ಣ ಟೈಪೋಗ್ರಫಿ. ಬೆಳಗಿನ ಪಠಣಕ್ಕೆ ಸೆಪಿಯಾ ಮೋಡ್ ಮತ್ತು ರಾತ್ರಿ ಓದಿಗೆ ನಿಜವಾದ ಡಾರ್ಕ್ ಮೋಡ್. ಇಂಟರ್ಫೇಸ್‌ನ ಎಲ್ಲವನ್ನೂ ಅಡಗಿಸುವ ಒಂದೇ ಬಟನ್. ಕೈಮುಗಿದು ಕುಳಿತು ಓದಲು ಇಷ್ಟಪಡುವ ಹಿರಿಯ ಭಕ್ತರಿಗೆ ಹ್ಯಾಂಡ್ಸ್-ಫ್ರೀ ಟೆಲಿಪ್ರಾಂಪ್ಟರ್. ಕೆಳಭಾಗದಲ್ಲಿ ಆಯ್ಕೆ ಆಡಿಯೋ, ಝೆನ್ ಮೋಡ್‌ಗೆ ಹೋದಾಗ ಅದು ಸ್ವತಃ ಮೃದುವಾಗಿ ಮಾಯವಾಗುತ್ತದೆ.',
   'about.noDo.heading': 'ನಾವು ಮಾಡದವು',
   'about.noDo.1': 'ಯಾವತ್ತೂ ಜಾಹೀರಾತು ಇಲ್ಲ.',
-  'about.noDo.2': 'ನಿಮ್ಮ ಓದಿನ ಮೇಲೆ ಯಾವುದೇ ತೃತೀಯ-ಪಕ್ಷ ಟ್ರ್ಯಾಕಿಂಗ್ ಅಥವಾ ಅನಾಲಿಟಿಕ್ಸ್ ಇಲ್ಲ.',
+  'about.noDo.2': 'ಜಾಹೀರಾತು ಟ್ರ್ಯಾಕರ್‌ಗಳಿಲ್ಲ, ನಿಮ್ಮ ಓದಿನ ವೈಯಕ್ತಿಕ ಪ್ರೊಫೈಲ್ ಇಲ್ಲ.',
   'about.noDo.3': 'ಖಾತೆ, ಸೈನ್-ಅಪ್ ಅಥವಾ ಇಮೇಲ್ ಅಗತ್ಯವಿಲ್ಲ.',
   'about.noDo.4': 'ಪುಶ್ ಸೂಚನೆಗಳು ಅಥವಾ ಕಿರಿಕಿರಿ ಮೂಡಿಸುವ ರಿಮೈಂಡರ್‌ಗಳು ಇಲ್ಲ.',
   'about.sankalp.heading': 'ಸಂಕಲ್ಪ ನಿಮ್ಮದು',
@@ -1249,11 +1284,12 @@ const kn: Partial<Record<UIStringKey, string>> = {
   'about.blessing': '॥ ಶುಭಂ ಅಸ್ತು ॥',
 
   'footer.blurb':
-    'ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ ಒಂದು ಭಕ್ತಿ ರೀಡರ್ — ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಖಾತೆ ಇಲ್ಲ. ಶಾಂತವಾಗಿ ಓದಿ, ನಿಮ್ಮ ಸಾಧನೆ ಸ್ಥಿರವಾಗಿರಲಿ.',
+    'ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ ಒಂದು ಭಕ್ತಿ ರೀಡರ್ — ಜಾಹೀರಾತುಗಳಿಲ್ಲ, ಜಾಹೀರಾತು ಟ್ರ್ಯಾಕಿಂಗ್ ಇಲ್ಲ, ಖಾತೆ ಇಲ್ಲ. ಶಾಂತವಾಗಿ ಓದಿ, ನಿಮ್ಮ ಸಾಧನೆ ಸ್ಥಿರವಾಗಿರಲಿ.',
   'footer.site': 'ಸೈಟ್',
   'footer.legal': 'ಕಾನೂನು',
   'footer.home': 'ಮುಖಪುಟ',
   'footer.chalisas': 'ಚಾಲೀಸಾ',
+  'footer.paath': 'ಪಠ',
   'footer.sankalp': 'ಸಂಕಲ್ಪ',
   'footer.aboutUs': 'ನಮ್ಮ ಬಗ್ಗೆ',
   'footer.privacy': 'ಗೌಪ್ಯತಾ ನೀತಿ',
@@ -1318,7 +1354,7 @@ const kn: Partial<Record<UIStringKey, string>> = {
   'meta.langName': 'ಕನ್ನಡ',
   'meta.home.title': 'ಹನುಮಾನ್ ಚಾಲೀಸಾ — ಹಿಂದಿ, ಇಂಗ್ಲಿಷ್, ತೆಲುಗು, ಕನ್ನಡ & ತಮಿಳಿನಲ್ಲಿ · ಆನ್‌ಲೈನ್ ಚಾಲೀಸಾ',
   'meta.home.description':
-    'ಹನುಮಾನ್ ಚಾಲೀಸಾವನ್ನು ಹಿಂದಿ, ಇಂಗ್ಲಿಷ್, ತೆಲುಗು, ಕನ್ನಡ, ತಮಿಳಿನಲ್ಲಿ ಉಚಿತ, ಜಾಹೀರಾತು-ರಹಿತ ರೀಡರ್‌ನಲ್ಲಿ ಓದಿ. ಆಡಿಯೋದೊಂದಿಗೆ ಆಲಿಸಿ, ಆಟೋ-ಸ್ಕ್ರಾಲ್ ಪಾಠ ಮಾಡಿ, ನಿಮ್ಮ 11 / 21 / 40-ದಿನದ ಸಂಕಲ್ಪವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ — ಜೊತೆಗೆ ಶಿವ, ಗಣೇಶ, ದುರ್ಗಾ, ಶನಿ, ಲಕ್ಷ್ಮೀ & ಸರಸ್ವತೀ ಚಾಲೀಸಾ.',
+    'ಹನುಮಾನ್ ಚಾಲೀಸಾವನ್ನು ಹಿಂದಿ, ಇಂಗ್ಲಿಷ್, ತೆಲುಗು, ಕನ್ನಡ, ತಮಿಳಿನಲ್ಲಿ ಉಚಿತ, ಜಾಹೀರಾತು-ರಹಿತ ರೀಡರ್‌ನಲ್ಲಿ ಓದಿ. ಆಟೋ-ಸ್ಕ್ರಾಲ್ ಪಾಠ ಮಾಡಿ, ನಿಮ್ಮ 11 / 21 / 40-ದಿನದ ಸಂಕಲ್ಪವನ್ನು ಟ್ರ್ಯಾಕ್ ಮಾಡಿ — ಜೊತೆಗೆ ಶಿವ, ಗಣೇಶ, ದುರ್ಗಾ, ಶನಿ, ಲಕ್ಷ್ಮೀ & ಸರಸ್ವತೀ ಚಾಲೀಸಾ.',
 };
 
 export const ui: Record<Locale, Partial<Record<UIStringKey, string>>> = {

@@ -10,6 +10,7 @@
     "build": "astro build",
     "deploy": "astro build && wrangler deploy",
     "preview": "astro preview",
+    "audio": "node scripts/gen-recitation.mjs",
     "astro": "astro"
   },
   "dependencies": {

@@ -1,0 +1,240 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Header from '../../components/Header.astro';
+import Footer from '../../components/Footer.astro';
+import ReaderControls from '../../components/ReaderControls.astro';
+import AudioPlayer from '../../components/AudioPlayer.astro';
+import Icon from '../../components/Icon.astro';
+import { getCollection } from 'astro:content';
+import { transliterate } from '../../lib/transliterate';
+import { getLang, localizePath, useTranslations } from '../../i18n/utils';
+
+// Paath = bhajans, kavach, ashtak and other texts that are not chalisas.
+// Same reader, player and SEO as /chalisa/[slug], without English lines,
+// FAQ blocks or author attribution (these texts are traditional).
+const all = (await getCollection('paath')).sort((a, b) => a.data.order - b.data.order);
+const entry = all.find((item) => item.data.slug === Astro.params.slug);
+
+if (!entry) {
+  return Astro.redirect('/404', 302);
+}
+
+const { data } = entry;
+
+const lang = getLang(Astro);
+const t = useTranslations(lang);
+const lp = (p: string) => localizePath(p, lang);
+
+const titleKey = `paath.title.${data.slug}`;
+const localTitle = t(titleKey) === titleKey ? data.title : t(titleKey);
+const localTradition = data.tradition ?? data.deity;
+const titleOf = (e: (typeof all)[number]) => {
+  const key = `paath.title.${e.data.slug}`;
+  return t(key) === key ? e.data.title : t(key);
+};
+
+const idx = all.findIndex((e) => e.data.slug === data.slug);
+const prev = idx > 0 ? all[idx - 1] : null;
+const next = idx < all.length - 1 ? all[idx + 1] : null;
+
+// Devanagari is the source; the other scripts are pre-rendered at build time.
+const scripts = [
+  { code: 'hi', klass: 'script-hi', text: (hi: string) => hi },
+  { code: 'te', klass: 'script-te', text: (hi: string) => transliterate(hi, 'telugu') },
+  { code: 'ta', klass: 'script-ta', text: (hi: string) => transliterate(hi, 'tamil') },
+  { code: 'kn', klass: 'script-kn', text: (hi: string) => transliterate(hi, 'kannada') },
+  { code: 'bn', klass: 'script-bn', text: (hi: string) => transliterate(hi, 'bengali') },
+] as const;
+
+// ────────── SEO ──────────
+const siteUrl = 'https://onlinechalisa.com';
+const url = `${siteUrl}/paath/${data.slug}`;
+const hasAudio = Boolean(data.audioUrl);
+
+const seoTitle = `${localTitle} Lyrics in Hindi | Online Chalisa`;
+const seoDescription = `${data.description} Read it in Devanagari with Telugu, Kannada, Tamil and Bengali scripts${hasAudio ? ', and listen to a spoken recitation that follows each line' : ''}. Free and ad-free.`;
+const seoKeywords = [
+  data.title,
+  `${data.title} lyrics`,
+  `${data.title} in hindi`,
+  `${data.title} paath`,
+  `${data.deity} paath`,
+  `${data.title} audio`,
+].join(', ');
+
+const lastModified = new Date().toISOString();
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: siteUrl + '/' },
+      { '@type': 'ListItem', position: 2, name: 'Paath', item: siteUrl + '/#paath' },
+      { '@type': 'ListItem', position: 3, name: localTitle, item: url },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    name: localTitle,
+    headline: localTitle,
+    description: seoDescription,
+    inLanguage: 'hi',
+    url,
+    dateModified: lastModified,
+    keywords: seoKeywords,
+    speakable: {
+      '@type': 'SpeakableSpecification',
+      cssSelector: ['.reader h1', '.verse-line'],
+    },
+    about: {
+      '@type': 'Thing',
+      name: data.deity,
+    },
+    isPartOf: {
+      '@type': 'WebSite',
+      name: 'Online Chalisa',
+      url: siteUrl + '/',
+    },
+    ...(data.audioUrl
+      ? {
+          audio: {
+            '@type': 'AudioObject',
+            contentUrl: data.audioUrl,
+            name: `${localTitle} — audio recitation`,
+          },
+        }
+      : {}),
+  },
+];
+---
+
+<Layout
+  title={seoTitle}
+  description={seoDescription}
+  keywords={seoKeywords}
+  image={`/og/${data.slug}.png`}
+  ogType="article"
+  jsonLd={jsonLd}
+>
+  <Header />
+
+  <main id="main" class="pb-40">
+    <ReaderControls slug={data.slug} audioUrl={data.audioUrl} showEnglish={false} />
+
+    <article class="reader mx-auto max-w-2xl px-4 pt-8 sm:px-6 sm:pt-14">
+      <header class="mb-10 text-center">
+        <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+          {localTradition}
+        </p>
+        <h1
+          class="mt-3 font-serif text-3xl font-medium leading-tight tracking-tight text-(--ink) sm:text-5xl"
+        >
+          {localTitle}
+        </h1>
+        <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
+          {data.tagline}
+        </p>
+        <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
+      </header>
+
+      <ol class="space-y-6 text-center" role="list">
+        {
+          data.verses.map((v, i) => (
+            <li
+              class="verse group relative"
+              id={`v-${i}`}
+              data-type={v.type}
+              aria-label={`Line ${i + 1}`}
+            >
+              <div class="flex flex-col items-center gap-1.5">
+                {scripts.map((s) => (
+                  <p class:list={['verse-line', s.klass]} data-script={s.code} lang={s.code}>
+                    {s.text(v.hi)}
+                  </p>
+                ))}
+              </div>
+              {v.n > 0 && (
+                <span
+                  class="absolute -left-8 top-2 hidden font-mono text-[10px] text-(--mute) sm:block"
+                  aria-hidden="true"
+                >
+                  {String(v.n).padStart(2, '0')}
+                </span>
+              )}
+            </li>
+          ))
+        }
+      </ol>
+
+      <footer class="mt-16 border-t border-(--hairline) pt-8 text-center">
+        <p class="mt-2 text-sm text-(--body)">{t('chalisa.blessing')}</p>
+
+        <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
+          {
+            prev ? (
+              <a
+                href={lp(`/paath/${prev.data.slug}`)}
+                class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+              >
+                <Icon name="arrow" size={14} class="rotate-180" />
+                {titleOf(prev)}
+              </a>
+            ) : (
+              <a
+                href={lp('/')}
+                class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+              >
+                <Icon name="arrow" size={14} class="rotate-180" />
+                {t('chalisa.home')}
+              </a>
+            )
+          }
+          {
+            next && (
+              <a
+                href={lp(`/paath/${next.data.slug}`)}
+                class="inline-flex items-center gap-1.5 rounded-full bg-(--ink) px-4 py-2 text-sm font-medium text-(--canvas) transition hover:opacity-90"
+              >
+                {titleOf(next)}
+                <Icon name="arrow" size={14} />
+              </a>
+            )
+          }
+        </div>
+      </footer>
+    </article>
+  </main>
+
+  <AudioPlayer title={localTitle} slug={data.slug} audioUrl={data.audioUrl} />
+
+  <Footer />
+</Layout>
+
+<script is:inline>
+  // Auto-mark today's Sankalp when a reader finishes 80% of a paath page.
+  (function () {
+    const KEY = 'oc-sankalp-v1';
+    let notified = false;
+    function onScroll() {
+      if (notified) return;
+      const total = document.body.scrollHeight - window.innerHeight;
+      if (total <= 0) return;
+      const pct = window.scrollY / total;
+      if (pct >= 0.8) {
+        notified = true;
+        try {
+          const raw = localStorage.getItem(KEY);
+          const s = raw ? JSON.parse(raw) : { length: 11, days: {} };
+          const t = new Date().toISOString().slice(0, 10);
+          if (!s.days[t]) {
+            s.days[t] = true;
+            localStorage.setItem(KEY, JSON.stringify(s));
+          }
+        } catch (e) {}
+      }
+    }
+    window.addEventListener('scroll', onScroll, { passive: true });
+  })();
+</script>

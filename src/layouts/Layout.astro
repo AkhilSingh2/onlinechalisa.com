@@ -1,6 +1,6 @@
 ---
 import '../styles/global.css';
-import { getLangFromUrl, getAlternateLinks } from '../i18n/utils';
+import { getAlternateLinks, getLang } from '../i18n/utils';
 import { LOCALE_META, DEFAULT_LOCALE } from '../i18n/config';
 
 interface Props {
@@ -16,7 +16,7 @@ interface Props {
 
 const {
   title = 'Hanuman Chalisa Lyrics in Hindi, English, Telugu & Kannada · Online Chalisa',
-  description = 'Read the Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil in a distraction-free reader — plus Shri Hanuman Chalisa audio, Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisa. Free, ad-free, no login, works offline.',
+  description = 'Read the Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil in a distraction-free reader — plus Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisa. Free, ad-free, no login, works offline.',
   keywords = 'Hanuman Chalisa, hanuman chalisa lyrics, hanuman chalisa in english, hanuman chalisa in hindi, hanuman chalisa telugu, hanuman chalisa in kannada, hanuman chalisa in tamil, shri hanuman chalisa, hariharan shree hanuman chalisa, hanuman chalisa paath, hanuman chalisa lyrics in hindi, hanuman chalisa lyrics in english, chalisa online, shiv chalisa, ganesh chalisa, durga chalisa, shani chalisa, laxmi chalisa, saraswati chalisa',
   image,
   ogType = 'website',
@@ -26,10 +26,14 @@ const {
 } = Astro.props;
 
 const siteOrigin = (Astro.site ?? new URL('https://onlinechalisa.com')).toString().replace(/\/$/, '');
-const canonical = new URL(Astro.url.pathname, siteOrigin + '/').toString();
+// originPathname is the address the visitor opened. Astro.url is the
+// English page it was rewritten onto, which would make every locale
+// canonical point at the English URL.
+const requestPath = (Astro.originPathname || Astro.url.pathname).replace(/\/$/, '') || '/';
+const canonical = new URL(requestPath, siteOrigin + '/').toString();
 const ogImage = new URL(image ?? '/og/default.png', siteOrigin + '/').toString();
 
-const locale = getLangFromUrl(Astro.url);
+const locale = getLang(Astro);
 const localeMeta = LOCALE_META[locale];
 const alternates = getAlternateLinks(Astro.url.pathname, siteOrigin);
 const ogAltLocales = alternates

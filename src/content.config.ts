@@ -8,6 +8,10 @@ const verseSchema = z.object({
   en: z.string(),
 });
 
+// Paath = bhajans, kavach, ashtak and other devotional texts that are not
+// chalisas. They are Devanagari-only for now, so `en` is optional.
+const paathVerseSchema = verseSchema.partial({ en: true });
+
 const chalisas = defineCollection({
   loader: glob({ pattern: '**/*.json', base: './src/content/chalisas' }),
   schema: z.object({
@@ -25,4 +29,21 @@ const chalisas = defineCollection({
   }),
 });
 
-export const collections = { chalisas };
+const paath = defineCollection({
+  loader: glob({ pattern: '**/*.json', base: './src/content/paath' }),
+  schema: z.object({
+    title: z.string(),
+    deity: z.string(),
+    slug: z.string(),
+    order: z.number().int().default(99),
+    tagline: z.string(),
+    description: z.string(),
+    color: z.string().default('#c96a1a'),
+    audioUrl: z.string().optional(),
+    audioAttribution: z.string().optional(),
+    tradition: z.string().optional(),
+    verses: z.array(paathVerseSchema).min(1),
+  }),
+});
+
+export const collections = { chalisas, paath };

@@ -219,6 +219,21 @@ body {
 
 .reader .verse {
   scroll-margin-top: 120px;
+  border-radius: 14px;
+  transition: background-color 400ms var(--ease-zen), box-shadow 400ms var(--ease-zen);
+}
+
+/* Verse currently being recited by the audio player. The spread shadow
+   paints the halo outside the box so highlighting never shifts layout. */
+.reader .verse.is-reciting {
+  background: var(--accent-soft);
+  box-shadow: 0 0 0 14px var(--accent-soft);
+}
+.reader .verse.is-reciting .verse-line {
+  color: var(--accent);
+}
+.reader[data-recitation="ready"] .verse {
+  cursor: pointer;
 }
 
 /* Word-highlight readiness — verses are wrapped so we can highlight a

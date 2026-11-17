@@ -7,6 +7,8 @@
   "description": "A devotional hymn glorifying Lord Shiva — the ascetic, the destroyer of illusion, the compassionate lord of all beings.",
   "color": "#5a7ea3",
   "tradition": "Hindi devotional · 19th century",
+  "audioUrl": "/audio/shiv.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 0, "type": "doha", "hi": "जय गणेश गिरिजा सुवन, मंगल मूल सुजान।\nकहत अयोध्यादास तुम, देउ अभय वरदान॥", "en": "Jai Ganesh Girijaa suvan, mangal mool sujaan.\nKahat Ayodhyaadaas tum, deu abhay varadaan." },
     { "n": 1, "type": "chaupai", "hi": "जय गिरिजा पति दीन दयाला।\nसदा करत सन्तन प्रतिपाला॥", "en": "Jai Girijaa pati deen dayaalaa.\nSadaa karat santan pratipaalaa." },

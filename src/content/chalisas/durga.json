@@ -7,6 +7,8 @@
   "description": "A devotional hymn to Ma Durga — the fierce protector, the compassionate mother, and the source of all divine energy.",
   "color": "#c93a5a",
   "tradition": "Hindi devotional · Devi Kavach tradition",
+  "audioUrl": "/audio/durga.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 1, "type": "chaupai", "hi": "नमो नमो दुर्गे सुख करनी।\nनमो नमो अम्बे दुःख हरनी॥", "en": "Namo namo Durge sukh karanee.\nNamo namo Ambe dukh haranee." },
     { "n": 2, "type": "chaupai", "hi": "निरंकार है ज्योति तुम्हारी।\nतिहूँ लोक फैली उजियारी॥", "en": "Nirankaar hai jyoti tumhaaree.\nTihoo lok phailee ujiyaaree." },

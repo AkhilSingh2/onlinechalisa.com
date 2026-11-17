@@ -7,6 +7,7 @@ const SITE = 'https://onlinechalisa.com';
 
 export const GET: APIRoute = async () => {
   const chalisas = await getCollection('chalisas');
+  const paath = await getCollection('paath');
 
   const staticPaths: { loc: string; priority: string; changefreq: string }[] = [
     { loc: '/', priority: '1.0', changefreq: 'weekly' },
@@ -16,11 +17,18 @@ export const GET: APIRoute = async () => {
     { loc: '/terms', priority: '0.3', changefreq: 'yearly' },
   ];
 
-  const dynamicPaths = chalisas.map((entry) => ({
-    loc: `/chalisa/${entry.data.slug}`,
-    priority: entry.data.slug === 'hanuman' ? '0.95' : '0.8',
-    changefreq: 'monthly',
-  }));
+  const dynamicPaths = [
+    ...chalisas.map((entry) => ({
+      loc: `/chalisa/${entry.data.slug}`,
+      priority: entry.data.slug === 'hanuman' ? '0.95' : '0.8',
+      changefreq: 'monthly',
+    })),
+    ...paath.map((entry) => ({
+      loc: `/paath/${entry.data.slug}`,
+      priority: '0.8',
+      changefreq: 'monthly',
+    })),
+  ];
 
   const today = new Date().toISOString().slice(0, 10);
   const allPaths = [...staticPaths, ...dynamicPaths];

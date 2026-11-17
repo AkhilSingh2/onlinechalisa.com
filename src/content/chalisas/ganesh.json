@@ -7,6 +7,8 @@
   "description": "A devotional hymn to Lord Ganesha — the elephant-headed god of wisdom, beginnings, and the remover of every obstacle on the path.",
   "color": "#b8853a",
   "tradition": "Hindi devotional",
+  "audioUrl": "/audio/ganesh.mp3",
+  "audioAttribution": "Recitation",
   "verses": [
     { "n": 0, "type": "doha", "hi": "जय गणपति सदगुण सदन, कविवर बदन कृपाल।\nविघ्न हरण मंगल करण, जय जय गिरिजालाल॥", "en": "Jai Ganpati sadgun sadan, kavivar badan kripaal.\nVighn haran mangal karan, jai jai Girijaalaal." },
     { "n": 1, "type": "chaupai", "hi": "जय जय जय गणपति गणराजू।\nमंगल भरण करण शुभ काजू॥", "en": "Jai jai jai Ganpati Ganraajoo.\nMangal bharan karan shubh kaajoo." },

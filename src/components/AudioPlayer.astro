@@ -1,16 +1,17 @@
 ---
 import Icon from './Icon.astro';
-import { getLangFromUrl, useTranslations } from '../i18n/utils';
+import { getLang, useTranslations } from '../i18n/utils';
 
 interface Props {
   title: string;
+  slug: string;
   audioUrl?: string;
-  audioAttribution?: string;
 }
 
-const { title, audioUrl, audioAttribution } = Astro.props;
+const { title, slug, audioUrl } = Astro.props;
+const timingsUrl = audioUrl ? audioUrl.replace(/\.mp3$/, '.json') : '';
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 ---
 
@@ -23,7 +24,7 @@ const t = useTranslations(lang);
     <button
       type="button"
       id="audio-play"
-      class="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-(--ink) text-(--canvas) transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
+      class="flex h-11 w-11 shrink-0 cursor-pointer items-center justify-center rounded-full bg-(--ink) text-(--canvas) transition hover:scale-105 disabled:cursor-not-allowed disabled:opacity-50"
       aria-label={t('audio.playPause')}
     >
       <span data-audio-icon="play"><Icon name="play" size={16} /></span>
@@ -50,8 +51,8 @@ const t = useTranslations(lang);
         <div id="audio-fill" class="absolute inset-y-0 left-0 rounded-full bg-(--accent)" style="width: 0%"></div>
       </div>
       {
-        audioAttribution && (
-          <p class="mt-1 truncate text-[10px] text-(--mute)">{audioAttribution}</p>
+        audioUrl && (
+          <p class="mt-1 truncate text-[10px] text-(--mute)">{t('audio.recitation')}</p>
         )
       }
       {
@@ -74,7 +75,7 @@ const t = useTranslations(lang);
   <audio id="audio-el" preload="metadata" src={audioUrl}></audio>
 </div>
 
-<script is:inline>
+<script is:inline define:vars={{ slug, timingsUrl }}>
   (function () {
     const audio = document.getElementById('audio-el');
     const btn = document.getElementById('audio-play');
@@ -111,13 +112,88 @@ const t = useTranslations(lang);
         .querySelector('[data-audio-icon="pause"]')
         ?.classList.toggle('hidden', !playing);
     }
+    function track_(name) {
+      if (typeof window.gtag === 'function') window.gtag('event', name, { chalisa: slug });
+    }
+
+    // ─── Verse sync ──────────────────────────────────────
+    let timings = [];
+    let activeIdx = -1;
+    let playedOnce = false;
+    let lastManualScroll = 0;
+    const reader = document.querySelector('.reader');
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (timingsUrl) {
+      fetch(timingsUrl)
+        .then((r) => (r.ok ? r.json() : null))
+        .then((data) => {
+          if (!data || !Array.isArray(data.verses)) return;
+          timings = data.verses;
+          reader?.setAttribute('data-recitation', 'ready');
+        })
+        .catch(() => {});
+    }
+
+    function verseAt(t) {
+      let idx = -1;
+      for (let k = 0; k < timings.length; k++) {
+        if (timings[k].start <= t) idx = timings[k].i;
+        else break;
+      }
+      return idx;
+    }
+    function highlight(idx) {
+      if (idx === activeIdx) return;
+      document.getElementById('v-' + activeIdx)?.classList.remove('is-reciting');
+      activeIdx = idx;
+      const el = document.getElementById('v-' + idx);
+      if (!el) return;
+      el.classList.add('is-reciting');
+      // Follow the recitation, but don't yank the page while the reader is
+      // scrolling around on their own.
+      if (!audio.paused && performance.now() - lastManualScroll > 4000) {
+        el.scrollIntoView({ block: 'center', behavior: reduceMotion ? 'auto' : 'smooth' });
+      }
+    }
+    window.addEventListener('wheel', () => (lastManualScroll = performance.now()), { passive: true });
+    window.addEventListener('touchmove', () => (lastManualScroll = performance.now()), { passive: true });
+
+    // Tap a verse to jump there — only once the listener has started the
+    // recitation, so plain readers can still tap and select text freely.
+    document.querySelectorAll('.reader .verse').forEach((el) => {
+      el.addEventListener('click', () => {
+        if (!timings.length || !playedOnce) return;
+        if (String(window.getSelection?.() || '').length > 0) return;
+        const idx = Number(el.id.replace('v-', ''));
+        const entry = timings.find((x) => x.i === idx);
+        if (!entry) return;
+        audio.currentTime = entry.start;
+        lastManualScroll = 0;
+        if (audio.paused) audio.play();
+      });
+    });
+
     btn.addEventListener('click', () => {
       if (!audio.getAttribute('src')) return;
       if (audio.paused) audio.play();
       else audio.pause();
     });
-    audio.addEventListener('play', () => setIcon(true));
+    audio.addEventListener('play', () => {
+      setIcon(true);
+      // The teleprompter would fight the verse-following scroll.
+      document.dispatchEvent(new CustomEvent('oc:recitation-play'));
+      if (!playedOnce) {
+        playedOnce = true;
+        track_('recitation_play');
+      }
+    });
     audio.addEventListener('pause', () => setIcon(false));
+    audio.addEventListener('ended', () => {
+      track_('recitation_complete');
+      document.getElementById('v-' + activeIdx)?.classList.remove('is-reciting');
+      activeIdx = -1;
+    });
     audio.addEventListener('loadedmetadata', () => {
       tot.textContent = fmt(audio.duration);
     });
@@ -126,6 +202,7 @@ const t = useTranslations(lang);
       const pct = audio.duration ? (audio.currentTime / audio.duration) * 100 : 0;
       fill.style.width = pct + '%';
       track.setAttribute('aria-valuenow', String(Math.round(pct)));
+      if (timings.length && !audio.ended) highlight(verseAt(audio.currentTime));
     });
     function seekFromEvent(e) {
       const rect = track.getBoundingClientRect();

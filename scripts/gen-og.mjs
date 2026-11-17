@@ -11,6 +11,7 @@ import sharp from 'sharp';
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const root = join(__dirname, '..');
 const contentDir = join(root, 'src/content/chalisas');
+const paathDir = join(root, 'src/content/paath');
 const outDir = join(root, 'public/og');
 mkdirSync(outDir, { recursive: true });
 
@@ -70,7 +71,7 @@ function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }
   <svg x="${diyaX}" y="${diyaY}" width="${DIYA}" height="${DIYA}" viewBox="0 0 128 128">${diyaInner}</svg>
 
   <text x="${W / 2}" y="410" text-anchor="middle"
-        font-family="Georgia, 'Times New Roman', serif" font-size="80" font-weight="600"
+        font-family="Georgia, 'Times New Roman', serif" font-size="${title.length > 24 ? 52 : title.length > 18 ? 64 : 80}" font-weight="600"
         fill="${INK}">${esc(title)}</text>
 
   <line x1="${W / 2 - 160}" y1="450" x2="${W / 2 + 160}" y2="450"
@@ -91,20 +92,25 @@ function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }
 }
 
 const SUBTITLE = 'Lyrics in Hindi · English · Telugu · Kannada · Tamil';
+const PAATH_SUBTITLE = 'Lyrics in Hindi · Telugu · Kannada · Tamil · Bengali';
 
-const files = readdirSync(contentDir).filter((f) => f.endsWith('.json'));
-for (const file of files) {
-  const data = JSON.parse(readFileSync(join(contentDir, file), 'utf8'));
-  const svg = card({
-    title: data.title,
-    subtitle: SUBTITLE,
-    tradition: data.tradition || 'Devotional hymn · forty verses',
-    color: data.color || '#c96a1a',
-  });
-  const out = join(outDir, `${data.slug}.png`);
-  await sharp(Buffer.from(svg)).png().toFile(out);
-  console.log('wrote', out);
+async function writeCards(dir, subtitle) {
+  for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
+    const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
+    const svg = card({
+      title: data.title,
+      subtitle,
+      tradition: data.tradition || 'Devotional hymn',
+      color: data.color || '#c96a1a',
+    });
+    const out = join(outDir, `${data.slug}.png`);
+    await sharp(Buffer.from(svg)).png().toFile(out);
+    console.log('wrote', out);
+  }
 }
+
+await writeCards(contentDir, SUBTITLE);
+await writeCards(paathDir, PAATH_SUBTITLE);
 
 // Branded default (home / fallback)
 const def = card({

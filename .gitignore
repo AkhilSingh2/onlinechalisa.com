@@ -7,6 +7,9 @@ dist/
 # cloudflare local state
 .wrangler/
 
+# per-verse TTS clips (regenerable via `npm run audio`)
+.audio-cache/
+
 # dependencies
 node_modules/
 

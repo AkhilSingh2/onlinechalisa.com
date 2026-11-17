@@ -7,7 +7,7 @@ import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
-import { getLangFromUrl, localizePath, useTranslations } from '../../i18n/utils';
+import { getLang, localizePath, useTranslations } from '../../i18n/utils';
 
 const all = (await getCollection('chalisas')).sort((a, b) => a.data.order - b.data.order);
 const entry = all.find((item) => item.data.slug === Astro.params.slug);
@@ -18,7 +18,7 @@ if (!entry) {
 
 const { data } = entry;
 
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 const lp = (p: string) => localizePath(p, lang);
 const localTitleKey = `chalisa.title.${data.slug}`;
@@ -48,13 +48,24 @@ const siteUrl = 'https://onlinechalisa.com';
 const url = `${siteUrl}/chalisa/${data.slug}`;
 const isHanuman = data.slug === 'hanuman';
 
+// Search Console shows these pages getting impressions for "<deity> chalisa
+// lyrics in English" while ranking deep, so their English pages lead with it.
+const englishLyricsSlugs = ['ganesh', 'durga', 'laxmi', 'shani'];
+const leadsWithEnglishLyrics = lang === 'en' && englishLyricsSlugs.includes(data.slug);
+
 const seoTitle = isHanuman
   ? 'Hanuman Chalisa — Lyrics in Hindi, English, Telugu, Kannada & Tamil | Online Chalisa'
-  : `${localTitle} — Lyrics in Hindi, English, Telugu, Kannada & Tamil | Online Chalisa`;
+  : leadsWithEnglishLyrics
+    ? `${localTitle} Lyrics in English — with Hindi, Telugu, Kannada & Tamil | Online Chalisa`
+    : `${localTitle} — Lyrics in Hindi, English, Telugu, Kannada & Tamil | Online Chalisa`;
+
+const hasAudio = Boolean(data.audioUrl);
 
 const seoDescription = isHanuman
-  ? 'Read the Shri Hanuman Chalisa lyrics — 40 verses by Tulsidas — in Hindi (Devanagari), English transliteration, Telugu, Kannada and Tamil. Free ad-free reader with synced audio, auto-scroll paath and Sankalp tracker.'
-  : `${data.description} Read the ${localTitle} in Hindi, English, Telugu, Kannada and Tamil — free, ad-free, with audio and auto-scroll.`;
+  ? `Read the Shri Hanuman Chalisa lyrics — 40 verses by Tulsidas — in Hindi (Devanagari), English transliteration, Telugu, Kannada and Tamil. Free ad-free reader with ${hasAudio ? 'synced audio recitation, ' : ''}auto-scroll paath and Sankalp tracker.`
+  : leadsWithEnglishLyrics
+    ? `Full ${localTitle} lyrics in English, line by line, with the original Hindi (Devanagari) and Telugu, Kannada and Tamil scripts. ${data.description} Free, ad-free, with ${hasAudio ? 'audio recitation and ' : ''}auto-scroll.`
+    : `${data.description} Read the ${localTitle} in Hindi, English, Telugu, Kannada and Tamil — free, ad-free, with ${hasAudio ? 'audio recitation and ' : ''}auto-scroll.`;
 
 const seoKeywords = isHanuman
   ? [
@@ -320,6 +331,16 @@ const authorsBySlug: Record<
 };
 const authorInfo = authorsBySlug[data.slug];
 
+// Related paath on the deity pages people already land on.
+const relatedBySlug: Record<string, string[]> = {
+  hanuman: ['bajrang-baan', 'sankat-mochan-hanuman-ashtak'],
+  durga: ['durga-kavach'],
+};
+const related = (relatedBySlug[data.slug] ?? []).map((slug) => {
+  const key = `paath.title.${slug}`;
+  return { href: `/paath/${slug}`, label: t(key) === key ? slug : t(key) };
+});
+
 // Freshness signal — reflects the latest build/content update.
 const lastModified = new Date().toISOString();
 
@@ -431,6 +452,13 @@ if (isHanuman) {
         <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
           {localTagline}
         </p>
+        {
+          leadsWithEnglishLyrics && (
+            <p class="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-(--mute)">
+              {localTitle} lyrics in English, line by line — tap <strong class="font-medium text-(--ink)">English</strong> in the toolbar to read them alone, or turn on Show English to see them under the Hindi.
+            </p>
+          )
+        }
         <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
       </header>
 
@@ -473,6 +501,26 @@ if (isHanuman) {
       <footer class="mt-16 border-t border-(--hairline) pt-8 text-center">
         <p class="font-serif text-xl text-(--ink)">॥ इति श्री {localTitle} ॥</p>
         <p class="mt-2 text-sm text-(--body)">{t('chalisa.blessing')}</p>
+        {
+          related.length > 0 && (
+            <div class="mt-8">
+              <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
+                {t('chalisa.alsoRead')}
+              </p>
+              <div class="mt-3 flex flex-wrap items-center justify-center gap-3">
+                {related.map((item) => (
+                  <a
+                    href={lp(item.href)}
+                    class="inline-flex items-center gap-1.5 rounded-full border border-(--hairline) bg-(--surface) px-4 py-2 text-sm font-medium text-(--ink) transition hover:border-(--hairline-strong)"
+                  >
+                    {item.label}
+                    <Icon name="arrow" size={14} />
+                  </a>
+                ))}
+              </div>
+            </div>
+          )
+        }
 
         <div class="mt-8 flex flex-wrap items-center justify-center gap-3">
           {
@@ -561,8 +609,8 @@ if (isHanuman) {
 
   <AudioPlayer
     title={localTitle}
+    slug={data.slug}
     audioUrl={data.audioUrl}
-    audioAttribution={data.audioAttribution}
   />
 
   <Footer />

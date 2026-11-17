@@ -1,6 +1,6 @@
 ---
 import Icon from './Icon.astro';
-import { getLangFromUrl, localizePath, useTranslations } from '../i18n/utils';
+import { getLang, localizePath, useTranslations } from '../i18n/utils';
 
 interface Props {
   slug: string;
@@ -11,6 +11,8 @@ interface Props {
   color?: string;
   order: number;
   verseCount?: number;
+  /** URL segment the card links to: `chalisa` or `paath`. */
+  basePath?: string;
 }
 
 const {
@@ -22,8 +24,9 @@ const {
   color = '#c96a1a',
   order,
   verseCount,
+  basePath = 'chalisa',
 } = Astro.props;
-const lang = getLangFromUrl(Astro.url);
+const lang = getLang(Astro);
 const t = useTranslations(lang);
 const num = String(order).padStart(2, '0');
 
@@ -31,7 +34,7 @@ const num = String(order).padStart(2, '0');
 // locale has no override (`t()` returns the key unchanged if unknown).
 const taglineKey = `card.tagline.${slug}`;
 const traditionKey = `card.tradition.${slug}`;
-const titleKey = `chalisa.title.${slug}`;
+const titleKey = `${basePath === 'paath' ? 'paath' : 'chalisa'}.title.${slug}`;
 const localTitle = t(titleKey) === titleKey ? title : t(titleKey);
 const localTagline = t(taglineKey) === taglineKey ? tagline : t(taglineKey);
 const traditionEn = tradition ?? deity;
@@ -45,7 +48,7 @@ const meta = `${count} ${t('card.verses')} · ~${mins} ${t('card.min')}`;
 ---
 
 <a
-  href={localizePath(`/chalisa/${slug}`, lang)}
+  href={localizePath(`/${basePath}/${slug}`, lang)}
   class="surface-card group relative flex flex-col gap-5 p-6 focus:outline-none"
   aria-label={`${t('card.readPrefix')} ${localTitle}`}
 >
