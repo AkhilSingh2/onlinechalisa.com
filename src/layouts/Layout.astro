@@ -2,12 +2,17 @@
 import '../styles/global.css';
 import { getAlternateLinks, getLang } from '../i18n/utils';
 import { LOCALE_META, DEFAULT_LOCALE } from '../i18n/config';
+import { OG_REV } from '../lib/content-updated';
 
 interface Props {
   title?: string;
   description?: string;
   keywords?: string;
   image?: string;
+  /** Short name used on the WhatsApp / social card. The page title stays the SEO title. */
+  shareTitle?: string;
+  /** The one-line description already shown under the hymn title. */
+  shareDescription?: string;
   ogType?: 'website' | 'article';
   noindex?: boolean;
   jsonLd?: Record<string, unknown> | Record<string, unknown>[];
@@ -19,6 +24,8 @@ const {
   description = 'Read the Hanuman Chalisa lyrics in Hindi, English, Telugu, Kannada and Tamil in a distraction-free reader — plus Shiv, Ganesh, Durga, Shani, Laxmi and Saraswati Chalisa. Free, ad-free, no login, works offline.',
   keywords = 'Hanuman Chalisa, hanuman chalisa lyrics, hanuman chalisa in english, hanuman chalisa in hindi, hanuman chalisa telugu, hanuman chalisa in kannada, hanuman chalisa in tamil, shri hanuman chalisa, hariharan shree hanuman chalisa, hanuman chalisa paath, hanuman chalisa lyrics in hindi, hanuman chalisa lyrics in english, chalisa online, shiv chalisa, ganesh chalisa, durga chalisa, shani chalisa, laxmi chalisa, saraswati chalisa',
   image,
+  shareTitle,
+  shareDescription,
   ogType = 'website',
   noindex = false,
   jsonLd,
@@ -31,7 +38,11 @@ const siteOrigin = (Astro.site ?? new URL('https://onlinechalisa.com')).toString
 // canonical point at the English URL.
 const requestPath = (Astro.originPathname || Astro.url.pathname).replace(/\/$/, '') || '/';
 const canonical = new URL(requestPath, siteOrigin + '/').toString();
-const ogImage = new URL(image ?? '/og/default.png', siteOrigin + '/').toString();
+const socialTitle = shareTitle || title;
+const socialDescription = shareDescription || description;
+const ogImageUrl = new URL(image ?? '/og/default.png', siteOrigin + '/');
+ogImageUrl.searchParams.set('v', OG_REV);
+const ogImage = ogImageUrl.toString();
 
 const locale = getLang(Astro);
 const localeMeta = LOCALE_META[locale];
@@ -75,8 +86,8 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
     {/* Open Graph */}
     <meta property="og:type" content={ogType} />
-    <meta property="og:title" content={title} />
-    <meta property="og:description" content={description} />
+    <meta property="og:title" content={socialTitle} />
+    <meta property="og:description" content={socialDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:site_name" content="Online Chalisa" />
     <meta property="og:locale" content={localeMeta.ogLocale} />
@@ -88,15 +99,15 @@ const jsonLdBlocks = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content="Online Chalisa — Hanuman Chalisa in Hindi, English, Telugu, Kannada & Tamil" />
+    <meta property="og:image:alt" content={socialTitle} />
 
     {/* Twitter */}
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:site" content="@onlinechalisa" />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={description} />
+    <meta name="twitter:title" content={socialTitle} />
+    <meta name="twitter:description" content={socialDescription} />
     <meta name="twitter:image" content={ogImage} />
-    <meta name="twitter:image:alt" content="Online Chalisa — Hanuman Chalisa in Hindi, English, Telugu, Kannada & Tamil" />
+    <meta name="twitter:image:alt" content={socialTitle} />
 
     {/* JSON-LD structured data */}
     {jsonLdBlocks.map((block) => (

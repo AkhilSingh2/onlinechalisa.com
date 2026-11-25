@@ -1,5 +1,6 @@
 ---
 import Icon from './Icon.astro';
+import { artForDeity } from '../lib/library';
 import { getLang, localizePath, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -21,7 +22,6 @@ const {
   deity,
   tagline,
   tradition,
-  color = '#c96a1a',
   order,
   verseCount,
   basePath = 'chalisa',
@@ -56,13 +56,13 @@ const meta = `${count} ${t('card.verses')} · ~${mins} ${t('card.min')}`;
     <span class="font-mono text-[11px] uppercase tracking-[0.18em] text-(--mute)">
       {num} · {localTradition}
     </span>
-    <span
-      class="grid h-8 w-8 place-items-center rounded-full transition-transform duration-500 group-hover:rotate-6"
-      style={`background: color-mix(in oklab, ${color} 14%, transparent); color: ${color};`}
-      aria-hidden="true"
-    >
-      <Icon name="diya" size={16} />
-    </span>
+    <img
+      src={artForDeity(deity)}
+      alt=""
+      width="44"
+      height="44"
+      class="h-11 w-11 rounded-full object-cover shadow-[0_0_0_1px_var(--hairline)] transition-transform duration-500 group-hover:scale-105"
+    />
   </div>
 
   <div class="flex flex-col gap-2">

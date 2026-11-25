@@ -4,3 +4,6 @@
  * edited. Bump it when verses, copy, or audio change.
  */
 export const CONTENT_UPDATED = '2026-11-17';
+
+/** Bumped when share images change, so WhatsApp fetches the new card. */
+export const OG_REV = '3';

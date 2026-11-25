@@ -1,0 +1,19 @@
+---
+import { artForDeity } from '../lib/library';
+
+interface Props {
+  deity: string;
+  size?: number;
+}
+
+const { deity, size = 88 } = Astro.props;
+---
+
+<img
+  src={artForDeity(deity)}
+  alt=""
+  width={size}
+  height={size}
+  class="rounded-full object-cover shadow-[0_0_0_1px_var(--hairline)]"
+  style={`width:${size}px;height:${size}px`}
+/>

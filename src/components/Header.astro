@@ -1,6 +1,7 @@
 ---
 import Icon from './Icon.astro';
 import LanguageSwitcher from './LanguageSwitcher.astro';
+import { LIBRARY } from '../lib/library';
 import { getLang, localizePath, stripLocale, useTranslations } from '../i18n/utils';
 
 interface Props {
@@ -13,9 +14,9 @@ const t = useTranslations(lang);
 const canonicalPath = stripLocale(Astro.url.pathname);
 const lp = (p: string) => localizePath(p, lang);
 const onSankalp = canonicalPath.startsWith('/sankalp');
-const onPaath = canonicalPath.startsWith('/paath');
 const linkClass =
   'text-sm text-(--body) hover:text-(--ink) transition-colors duration-200 rounded-full px-3 py-1.5';
+const libraryOpen = LIBRARY.some((group) => group.items.some((item) => item.href === canonicalPath));
 ---
 
 <header
@@ -23,12 +24,11 @@ const linkClass =
     'zen-hide sticky top-0 z-40 backdrop-blur-md',
     'bg-[color-mix(in_oklab,var(--canvas)_82%,transparent)]',
     'border-b border-(--hairline)',
-    'relative',
   ]}
 >
   <div class="mx-auto flex h-16 max-w-6xl items-center justify-between gap-2 px-3 sm:h-[68px] sm:px-6">
     <a
-      href="/"
+      href={lp('/')}
       class="group flex min-w-0 items-center gap-2.5 rounded-md py-1"
       aria-label={t('header.homeAria')}
     >
@@ -45,9 +45,23 @@ const linkClass =
     {
       !minimal && (
         <nav class="hidden items-center gap-1 md:flex" aria-label="Primary">
-          <a href={lp('/') + '#chalisas'} class={linkClass}>{t('nav.chalisas')}</a>
-          <a href={lp('/') + '#paath'} class={linkClass} aria-current={onPaath ? 'page' : undefined}>{t('nav.paath')}</a>
-          <a href={lp('/sankalp')} class={linkClass}>{t('nav.sankalp')}</a>
+          <button
+            type="button"
+            id="library-toggle"
+            class:list={[
+              'inline-flex cursor-pointer items-center gap-1 rounded-full px-3 py-1.5 text-sm transition-colors duration-200',
+              libraryOpen ? 'bg-(--accent-soft) text-(--accent)' : 'text-(--body) hover:text-(--ink)',
+            ]}
+            aria-expanded="false"
+            aria-controls="site-menu"
+            aria-haspopup="true"
+          >
+            {t('menu.library')}
+            <svg data-library-chevron width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M6 9l6 6 6-6" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+          </button>
+          <a href={lp('/sankalp')} class={linkClass} aria-current={onSankalp ? 'page' : undefined}>{t('nav.sankalp')}</a>
           <a href={lp('/about')} class={linkClass}>{t('nav.about')}</a>
         </nav>
       )
@@ -61,7 +75,7 @@ const linkClass =
             id="nav-toggle"
             class="inline-flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-(--hairline) bg-(--surface) text-(--ink) md:hidden"
             aria-expanded="false"
-            aria-controls="mobile-nav"
+            aria-controls="site-menu"
             aria-label={t('header.menu')}
             data-label-open={t('header.menu')}
             data-label-close={t('header.closeMenu')}
@@ -77,7 +91,7 @@ const linkClass =
       <button
         type="button"
         id="theme-toggle"
-        class="flex h-9 w-9 items-center justify-center rounded-full border border-(--hairline) bg-(--surface) text-(--ink) transition hover:border-(--hairline-strong)"
+        class="flex h-9 w-9 cursor-pointer items-center justify-center rounded-full border border-(--hairline) bg-(--surface) text-(--ink) transition hover:border-(--hairline-strong)"
         aria-label={t('header.themeCycle')}
         title={t('header.themeCycleTitle')}
       >
@@ -102,16 +116,47 @@ const linkClass =
 
   {
     !minimal && (
-      <nav
-        id="mobile-nav"
-        class="absolute inset-x-0 top-full hidden border-b border-(--hairline) bg-(--canvas) px-3 py-2 md:hidden"
-        aria-label="Primary"
+      <div
+        id="site-menu"
+        hidden
+        class="absolute inset-x-0 top-full z-30 max-h-[min(34rem,calc(100dvh-4.25rem))] overflow-y-auto border-b border-(--hairline) bg-(--canvas) pb-24 shadow-[0_18px_40px_-24px_rgba(42,30,17,0.45)] md:pb-0"
       >
-        <a href={lp('/') + '#chalisas'} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.chalisas')}</a>
-        <a href={lp('/') + '#paath'} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)" aria-current={onPaath ? 'page' : undefined}>{t('nav.paath')}</a>
-        <a href={lp('/sankalp')} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.sankalp')}</a>
-        <a href={lp('/about')} class="block rounded-lg px-3 py-2.5 text-sm text-(--ink)">{t('nav.about')}</a>
-      </nav>
+        <div class="mx-auto grid max-w-6xl gap-x-6 gap-y-5 px-4 py-5 sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+          {LIBRARY.map((group) => (
+            <section>
+              <h2 class="flex items-center gap-2.5 font-serif text-[17px] font-medium text-(--ink)">
+                <img src={group.art} alt="" width="40" height="40" class="h-10 w-10 rounded-full object-cover shadow-[0_0_0_1px_var(--hairline)]" />
+                {t(`menu.deity.${group.id}`)}
+              </h2>
+              <ul class="mt-2 space-y-0.5 pl-[50px]">
+                {group.items.map((item) => {
+                  const current = item.href === canonicalPath;
+                  return (
+                    <li>
+                      <a
+                        href={lp(item.href)}
+                        aria-current={current ? 'page' : undefined}
+                        class:list={[
+                          'block rounded-lg px-2 py-1.5 text-sm transition-colors',
+                          current
+                            ? 'bg-(--surface) font-medium text-(--ink) ring-1 ring-(--accent)'
+                            : 'text-(--body) hover:bg-(--surface-soft) hover:text-(--ink)',
+                        ]}
+                      >
+                        {t(item.titleKey)}
+                      </a>
+                    </li>
+                  );
+                })}
+              </ul>
+            </section>
+          ))}
+        </div>
+        <div class="mx-auto flex max-w-6xl gap-2 border-t border-(--hairline) px-4 py-3 md:hidden sm:px-6">
+          <a href={lp('/sankalp')} class="rounded-full px-3 py-1.5 text-sm text-(--ink)">{t('nav.sankalp')}</a>
+          <a href={lp('/about')} class="rounded-full px-3 py-1.5 text-sm text-(--ink)">{t('nav.about')}</a>
+        </div>
+      </div>
     )
   }
 </header>
@@ -140,24 +185,44 @@ const linkClass =
   })();
 
   (function () {
-    const toggle = document.getElementById('nav-toggle');
-    const panel = document.getElementById('mobile-nav');
-    if (!toggle || !panel) return;
-    const openIcon = toggle.querySelector('[data-nav-icon="open"]');
-    const closeIcon = toggle.querySelector('[data-nav-icon="close"]');
-    const openLabel = toggle.getAttribute('data-label-open') || 'Menu';
-    const closeLabel = toggle.getAttribute('data-label-close') || 'Close menu';
+    const panel = document.getElementById('site-menu');
+    const toggles = [document.getElementById('nav-toggle'), document.getElementById('library-toggle')].filter(Boolean);
+    if (!panel || toggles.length === 0) return;
+    const navToggle = document.getElementById('nav-toggle');
+    const openIcon = navToggle?.querySelector('[data-nav-icon="open"]');
+    const closeIcon = navToggle?.querySelector('[data-nav-icon="close"]');
+    const openLabel = navToggle?.getAttribute('data-label-open') || 'Menu';
+    const closeLabel = navToggle?.getAttribute('data-label-close') || 'Close menu';
+    const chevron = document.querySelector('[data-library-chevron]');
+
     function setOpen(open) {
-      panel.classList.toggle('hidden', !open);
-      toggle.setAttribute('aria-expanded', String(open));
-      toggle.setAttribute('aria-label', open ? closeLabel : openLabel);
+      panel.hidden = !open;
+      toggles.forEach((toggle) => toggle.setAttribute('aria-expanded', String(open)));
+      if (navToggle) navToggle.setAttribute('aria-label', open ? closeLabel : openLabel);
       openIcon?.classList.toggle('hidden', open);
       closeIcon?.classList.toggle('hidden', !open);
+      chevron?.classList.toggle('rotate-180', open);
     }
-    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
-    panel.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => setOpen(false)));
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape') setOpen(false);
+
+    toggles.forEach((toggle) => {
+      toggle.addEventListener('click', (event) => {
+        event.stopPropagation();
+        setOpen(panel.hidden);
+      });
+    });
+    panel.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        // Hide after the click, so the browser can still follow the link.
+        setTimeout(() => setOpen(false), 0);
+      });
+    });
+    document.addEventListener('click', (event) => {
+      if (panel.hidden) return;
+      if (panel.contains(event.target)) return;
+      setOpen(false);
+    });
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'Escape') setOpen(false);
     });
   })();
 </script>

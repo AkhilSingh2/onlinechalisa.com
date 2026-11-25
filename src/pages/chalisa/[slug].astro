@@ -6,6 +6,7 @@ import ReaderControls from '../../components/ReaderControls.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
 import ShareWhatsApp from '../../components/ShareWhatsApp.astro';
+import DeityMark from '../../components/DeityMark.astro';
 import RecitationNext from '../../components/RecitationNext.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
@@ -464,6 +465,8 @@ if (isHanuman) {
   description={seoDescription}
   keywords={seoKeywords}
   image={`/og/${data.slug}.png`}
+  shareTitle={localTitle}
+  shareDescription={localTagline}
   ogType="article"
   jsonLd={jsonLd}
 >
@@ -474,6 +477,9 @@ if (isHanuman) {
 
     <article class="reader mx-auto max-w-2xl px-4 pt-8 sm:px-6 sm:pt-14">
       <header class="mb-10 text-center">
+        <div class="mb-5 flex justify-center">
+          <DeityMark deity={data.deity} />
+        </div>
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
           {localTradition}
         </p>
@@ -485,9 +491,6 @@ if (isHanuman) {
         <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
           {localTagline}
         </p>
-        <div class="mt-4 flex justify-center">
-          <ShareWhatsApp title={localTitle} url={shareUrl} />
-        </div>
         {
           leadsWithEnglishLyrics && (
             <p class="mx-auto mt-3 max-w-md text-[14px] leading-relaxed text-(--mute)">
@@ -645,6 +648,7 @@ if (isHanuman) {
     <RecitationNext nextHref={lp(continueTo.href)} nextLabel={continueTo.label} />
   </main>
 
+  <ShareWhatsApp title={localTitle} blurb={localTagline} url={shareUrl} />
   <AudioPlayer
     title={localTitle}
     slug={data.slug}

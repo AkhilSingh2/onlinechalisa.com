@@ -6,6 +6,7 @@ import ReaderControls from '../../components/ReaderControls.astro';
 import AudioPlayer from '../../components/AudioPlayer.astro';
 import Icon from '../../components/Icon.astro';
 import ShareWhatsApp from '../../components/ShareWhatsApp.astro';
+import DeityMark from '../../components/DeityMark.astro';
 import RecitationNext from '../../components/RecitationNext.astro';
 import { getCollection } from 'astro:content';
 import { transliterate } from '../../lib/transliterate';
@@ -31,7 +32,8 @@ const copy = getPaathCopy(data.slug, lang);
 
 const titleKey = `paath.title.${data.slug}`;
 const localTitle = t(titleKey) === titleKey ? data.title : t(titleKey);
-const localTagline = copy?.tagline ?? data.tagline;
+const taglineKey = `card.tagline.${data.slug}`;
+const localTagline = t(taglineKey) === taglineKey ? (copy?.tagline ?? data.tagline) : t(taglineKey);
 const localTradition = data.tradition ?? data.deity;
 const titleOf = (e: (typeof all)[number]) => {
   const key = `paath.title.${e.data.slug}`;
@@ -181,6 +183,8 @@ if (faqs.length > 0) {
   description={seoDescription}
   keywords={seoKeywords}
   image={`/og/${data.slug}.png`}
+  shareTitle={localTitle}
+  shareDescription={localTagline}
   ogType="article"
   jsonLd={jsonLd}
 >
@@ -191,6 +195,9 @@ if (faqs.length > 0) {
 
     <article class="reader mx-auto max-w-2xl px-4 pt-8 sm:px-6 sm:pt-14">
       <header class="mb-8 text-center">
+        <div class="mb-5 flex justify-center">
+          <DeityMark deity={data.deity} />
+        </div>
         <p class="font-mono text-[11px] uppercase tracking-[0.2em] text-(--mute)">
           {localTradition}
         </p>
@@ -202,9 +209,6 @@ if (faqs.length > 0) {
         <p class="mx-auto mt-3 max-w-md text-[15px] leading-relaxed text-(--body)">
           {localTagline}
         </p>
-        <div class="mt-4 flex justify-center">
-          <ShareWhatsApp title={localTitle} url={shareUrl} />
-        </div>
         <div class="mx-auto mt-8 h-px w-16 bg-(--hairline)" aria-hidden="true"></div>
       </header>
 
@@ -359,6 +363,7 @@ if (faqs.length > 0) {
     <RecitationNext nextHref={lp(continueTo.href)} nextLabel={continueTo.label} />
   </main>
 
+  <ShareWhatsApp title={localTitle} blurb={localTagline} url={shareUrl} />
   <AudioPlayer title={localTitle} slug={data.slug} audioUrl={data.audioUrl} />
 
   <Footer />

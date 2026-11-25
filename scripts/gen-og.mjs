@@ -42,6 +42,48 @@ function rgba(hex, a) {
   return `rgba(${r},${g},${b},${a})`;
 }
 
+function artPath(deity) {
+  const key = String(deity || '').toLowerCase();
+  const id = key.startsWith('ganesh')
+    ? 'ganesh'
+    : key.startsWith('shiv')
+      ? 'shiva'
+      : key.startsWith('satya') || key === 'vishnu'
+        ? 'vishnu'
+        : key.startsWith('lax') || key.startsWith('laksh')
+          ? 'laxmi'
+          : key;
+  return join(root, 'public/art', `${id}.jpg`);
+}
+
+async function circle(file, size) {
+  const png = await sharp(file).resize(size, size, { fit: 'cover', position: 'attention' }).png().toBuffer();
+  const mask = Buffer.from(
+    `<svg width="${size}" height="${size}"><circle cx="${size / 2}" cy="${size / 2}" r="${size / 2 - 1}" fill="#fff"/></svg>`,
+  );
+  return sharp(png).composite([{ input: mask, blend: 'dest-in' }]).png().toBuffer();
+}
+
+function portraitBackdrop(color) {
+  const W = 1200;
+  const H = 630;
+  return `<svg xmlns="http://www.w3.org/2000/svg" width="${W}" height="${H}" viewBox="0 0 ${W} ${H}">
+  <defs>
+    <radialGradient id="halo" cx="50%" cy="42%" r="48%">
+      <stop offset="0%" stop-color="${rgba(color, 0.28)}"/>
+      <stop offset="70%" stop-color="${rgba(color, 0.05)}"/>
+      <stop offset="100%" stop-color="${rgba(color, 0)}"/>
+    </radialGradient>
+  </defs>
+  <rect width="${W}" height="${H}" fill="${CANVAS}"/>
+  <rect width="${W}" height="${H}" fill="url(#halo)"/>
+  <rect x="28" y="28" width="${W - 56}" height="${H - 56}" rx="28" fill="none" stroke="${rgba(color, 0.35)}" stroke-width="2"/>
+  <text x="${W / 2}" y="588" text-anchor="middle"
+        font-family="'Helvetica Neue', Arial, sans-serif" font-size="22" font-weight="600"
+        letter-spacing="6" fill="${rgba(color, 0.95)}">ONLINE CHALISA</text>
+</svg>`;
+}
+
 function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }) {
   const W = 1200;
   const H = 630;
@@ -91,26 +133,25 @@ function card({ title, subtitle, tradition, color, wordmark = 'ONLINE CHALISA' }
 </svg>`;
 }
 
-const SUBTITLE = 'Lyrics in Hindi · English · Telugu · Kannada · Tamil';
-const PAATH_SUBTITLE = 'Lyrics in Hindi · Telugu · Kannada · Tamil · Bengali';
-
-async function writeCards(dir, subtitle) {
+async function writeCards(dir) {
   for (const file of readdirSync(dir).filter((f) => f.endsWith('.json'))) {
     const data = JSON.parse(readFileSync(join(dir, file), 'utf8'));
-    const svg = card({
-      title: data.title,
-      subtitle,
-      tradition: data.tradition || 'Devotional hymn',
-      color: data.color || '#c96a1a',
-    });
+    const color = data.color || '#c96a1a';
     const out = join(outDir, `${data.slug}.png`);
-    await sharp(Buffer.from(svg)).png().toFile(out);
+    const portrait = artPath(data.deity);
+    const size = 430;
+    const face = await circle(portrait, size);
+    const base = await sharp(Buffer.from(portraitBackdrop(color))).png().toBuffer();
+    await sharp(base)
+      .composite([{ input: face, left: Math.round((1200 - size) / 2), top: 58 }])
+      .png()
+      .toFile(out);
     console.log('wrote', out);
   }
 }
 
-await writeCards(contentDir, SUBTITLE);
-await writeCards(paathDir, PAATH_SUBTITLE);
+await writeCards(contentDir);
+await writeCards(paathDir);
 
 // Branded default (home / fallback)
 const def = card({

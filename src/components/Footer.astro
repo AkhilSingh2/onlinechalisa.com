@@ -1,4 +1,5 @@
 ---
+import SupportNote from './SupportNote.astro';
 import { getLang, localizePath, useTranslations } from '../i18n/utils';
 
 const lang = getLang(Astro);
@@ -30,6 +31,7 @@ const year = new Date().getFullYear();
       <a class="w-fit hover:text-(--ink)" href={lp('/terms')}>{t('footer.terms')}</a>
     </nav>
   </div>
+  <SupportNote />
   <div
     class="mx-auto flex max-w-6xl flex-col gap-2 border-t border-(--hairline) px-4 py-6 font-mono text-xs uppercase tracking-wider text-(--mute) sm:flex-row sm:items-center sm:justify-between sm:px-6"
   >
